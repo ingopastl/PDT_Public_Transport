@@ -1,11 +1,12 @@
 package beans;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class City {
     private String name;
-    private ArrayList<Neighborhood> neighborhoods;
+    private List<Neighborhood> neighborhoods;
 
     public City(String name) {
         this.name = name;
@@ -20,11 +21,11 @@ public class City {
         this.name = name;
     }
 
-    public ArrayList<Neighborhood> getNeighborhoods() {
+    public List<Neighborhood> getNeighborhoods() {
         return neighborhoods;
     }
 
-    public void setNeighborhoods(ArrayList<Neighborhood> neighborhoods) {
+    public void setNeighborhoods(List<Neighborhood> neighborhoods) {
         this.neighborhoods = neighborhoods;
     }
 

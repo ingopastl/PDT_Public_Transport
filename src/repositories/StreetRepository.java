@@ -4,9 +4,11 @@ import beans.Neighborhood;
 import beans.Street;
 import beans.City;
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 
 public class StreetRepository {
-    private ArrayList<Street> list;
+    private List<Street> list;
     private static StreetRepository instance; //Instância do repositório
 
     // Construtor privado por causa da utilização de singleton
@@ -42,6 +44,7 @@ public class StreetRepository {
     }
 
     public void printList() {
+        this.list.sort(Comparator.comparing(Street::getName));
         for (int i = 0; i < this.list.size(); i++) {
             System.out.print(this.list.get(i) + "\n");
         }

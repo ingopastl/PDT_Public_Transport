@@ -7,10 +7,10 @@ public class BusStop {
     private Street street;
     private Neighborhood neighborhood;
     private City city;
-    private String latitude;
-    private String longitude;
+    private double latitude;
+    private double longitude;
 
-    public BusStop(String id, Street street, Neighborhood neighborhood, City city, String latitude, String longitude) {
+    public BusStop(String id, Street street, Neighborhood neighborhood, City city, double latitude, double longitude) {
         this.id = id;
         this.street = street;
         this.neighborhood = neighborhood;
@@ -51,19 +51,19 @@ public class BusStop {
         this.city = city;
     }
 
-    public String getLatitude() {
+    public double getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(String latitude) {
+    public void setLatitude(double latitude) {
         this.latitude = latitude;
     }
 
-    public String getLongitude() {
+    public double getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(String longitude) {
+    public void setLongitude(double longitude) {
         this.longitude = longitude;
     }
 

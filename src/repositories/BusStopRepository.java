@@ -2,9 +2,10 @@ package repositories;
 
 import beans.BusStop;
 import java.util.ArrayList;
+import java.util.List;
 
 public class BusStopRepository {
-    private ArrayList<BusStop> list;
+    private List<BusStop> list;
     private static BusStopRepository instance;
 
     private BusStopRepository() {
@@ -30,6 +31,15 @@ public class BusStopRepository {
         for (int i = 0; i < this.list.size(); i++) {
             System.out.print(this.list.get(i) + "\n");
         }
+    }
+
+    public boolean has(double lat, double longe) {
+        for (int i = 0; i < this.list.size(); i++) {
+            if (this.list.get(i).getLatitude() == lat && this.list.get(i).getLongitude() == longe){
+                return true;
+            }
+        }
+        return false;
     }
 
     public int getListSize() {

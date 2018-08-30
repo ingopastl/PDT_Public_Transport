@@ -3,13 +3,14 @@ package repositories;
 import beans.City;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class CityRepository {
-    private ArrayList<City> list;
+    private List<City> list;
     private static CityRepository instance;
 
     private CityRepository() {
-        list = new ArrayList<City>();
+        this.list = new ArrayList<City>();
     }
 
     public static CityRepository getInstance() {

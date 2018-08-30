@@ -1,5 +1,5 @@
 import control.CSVReader;
-import repositories.NeighborhoodRepository;
+import repositories.*;
 
 import java.io.IOException;
 
@@ -10,13 +10,18 @@ public class Main {
 
         try{
 
-            reader.readFile("CTMGrandeRecife_RuasParadasOnibus_dado.csv");
+            reader.readBusStops("CTMGrandeRecife_RuasParadasOnibus_dado.csv");
+            reader.readBusLines("CTMGrandeRecife_LinhaParadaTrajeto_dado.csv");
 
         } catch (IOException e) {
             e.printStackTrace();
         }
 
 
-        NeighborhoodRepository n = NeighborhoodRepository.getInstance();
+        //Instâncias dos repositórios
+        CityRepository cityRep = CityRepository.getInstance();
+        NeighborhoodRepository neighRep = NeighborhoodRepository.getInstance();
+        StreetRepository streetRep = StreetRepository.getInstance();
+        BusStopRepository stopRep = BusStopRepository.getInstance();
     }
 }

@@ -2,10 +2,13 @@ package repositories;
 
 import beans.City;
 import beans.Neighborhood;
+
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 
 public class NeighborhoodRepository {
-    private ArrayList<Neighborhood> list;
+    private List<Neighborhood> list;
     private static NeighborhoodRepository instance; //Instância do repositório
 
     // Construtor privado por causa da utilização de singleton
@@ -45,6 +48,7 @@ public class NeighborhoodRepository {
     }
 
     public void printList() {
+        this.list.sort(Comparator.comparing(Neighborhood::getName));
         for (int i = 0; i < this.list.size(); i++) {
             System.out.print(this.list.get(i) + "\n");
         }

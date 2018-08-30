@@ -1,12 +1,13 @@
 package beans;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class Neighborhood {
     private String name;
     private City city;
-    private ArrayList<Street> streets;
+    private List<Street> streets;
 
     public Neighborhood(String name, City city) {
         this.name = name;
@@ -30,11 +31,11 @@ public class Neighborhood {
         this.city = city;
     }
 
-    public ArrayList<Street> getStreets() {
+    public List<Street> getStreets() {
         return streets;
     }
 
-    public void setStreets(ArrayList<Street> streets) {
+    public void setStreets(List<Street> streets) {
         this.streets = streets;
     }
 

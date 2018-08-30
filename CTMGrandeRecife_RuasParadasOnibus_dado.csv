@@ -26,7 +26,7 @@ codigo_da_parada;logradouro;bairro;cidade;latitude;longitude
 010025;Ayrton Senna da Silva;Piedade;Jaboatão dos Guararapes;-8 9 39.48;-34 54 50.57
 010026;Ayrton Senna da Silva;Piedade;Jaboatão dos Guararapes;-8 9 43.92;-34 54 52.20
 010027;Paulo Guerra;Piedade;Jaboatão dos Guararapes;-8 9 53.38;-34 54 55.93
-010028;Ayrton Senna da Silva;Piedade;Jaboatão dos Guararapes;-8 10 5.74;-34 54 59.39
+010028;Ayrton Senna da Silva;Piedade;Jaboatão dos Guararapes;-8 10 10.96;-34 54 59.62
 010029;Ayrton Senna da Silva;Piedade;Jaboatão dos Guararapes;-8 10 16.10;-34 55 2.19
 010030;Ayrton Senna da Silva;Piedade;Jaboatão dos Guararapes;-8 10 26.18;-34 55 5.22
 010031;Paulo Guerra;Candeias;Jaboatão dos Guararapes;-8 10 37.93;-34 55 6.67
@@ -158,7 +158,7 @@ codigo_da_parada;logradouro;bairro;cidade;latitude;longitude
 010169;Félix de Brito Melo;Boa Viagem;Recife;-8.1160;-34.8993
 010170;Fernando Simões Barbosa;Boa Viagem;Recife;-8.1165;-34.9010
 010171;Fernando Simões Barbosa;Boa Viagem;Recife;-8 7 9.05;-34 54 4.74
-010172;Fernando Simões Barbosa;Boa Viagem;Recife;-8 7 21.00;-34 54 5.40
+010172;Fernando Simões Barbosa;Boa Viagem;Recife;-8 7 22.10;-34 54 5.61
 010173;Fernando Simões Barbosa;Boa Viagem;Recife;-8.1240;-34.9016
 010174;Fernando Simões Barbosa;Boa Viagem;Recife;-8 7 36.12;-34 54 6.48
 010175;João Medeiros;Boa Viagem;Recife;-8 7 37.85;-34 54 5.51
@@ -211,13 +211,13 @@ codigo_da_parada;logradouro;bairro;cidade;latitude;longitude
 010222;João Cardoso Ayres;Boa Viagem;Recife;-8.1419;-34.9093
 010224;Cardoso Aires;Boa Viagem;Recife;-8.1398;-34.9141
 010225;Vinte de Janeiro;Boa Viagem;Recife;-8.1385;-34.9144
-010227;Vinte de Janeiro;Boa Viagem;Recife;-8.1368;-34.9140
+010227;Vinte de Janeiro;Boa Viagem;Recife;-8 8 12.62;-34 54 50.65
 010228;Vinte de Janeiro;Boa Viagem;Recife;-8.1388;-34.9145
 010229;João Cardoso Ayres;Boa Viagem;Recife;-8.1399;-34.9140
-010230;João Cardoso Ayres;Boa Viagem;Recife;-8.1403;-34.9125
+010230;João Cardoso Ayres;Boa Viagem;Recife;-8 8 25.95;-34 54 45.38
 010231;João Cardoso Ayres;Boa Viagem;Recife;-8.1418;-34.9097
 010232;Sá e Souza;Boa Viagem;Recife;-8.1403;-34.9077
-010233;Sá e Souza;Boa Viagem;Recife;-8.1379;-34.9067
+010233;Sá e Souza;Boa Viagem;Recife;-8 8 16.65;-34 54 23.99
 010234;Sá e Souza;Boa Viagem;Recife;-8.1358;-34.9061
 010235;Juarez Távora;Boa Viagem;Recife;-8  8 7.60;-34 54 30.17
 010236;Juarez Millet;Boa Viagem;Recife;-8 8 0.76;-34 54 36.71
@@ -326,6 +326,7 @@ codigo_da_parada;logradouro;bairro;cidade;latitude;longitude
 010346;Dirceu Toscano de Brito;Pina;Recife;-8 5  18.97;-34 53 38.96
 010347;Dirceu Toscano de Brito;Pina;Recife;-8 5  19.69;-34 53 31.89
 010348;República Árabe Unida;Pina;Recife;-8 5   9.77;-34 53 22.82
+010487;Rua Marquês de Valença;Boa Viagem;Recife;-8 7 43.65;-34 54 19.28
 020001;Dez de Julho;Boa Viagem;Recife;-8 8 2.68;-34 54 54.43
 020002;Joaquim Carneiro;Cajueiro Seco;Jaboatão dos Guararapes;-8 10 18.28;-34 55 58.92
 020003;Circular;Jordão Alto;Recife;-8 8 3.05;-34 56 37.68
@@ -342,7 +343,7 @@ codigo_da_parada;logradouro;bairro;cidade;latitude;longitude
 020014;Mascarenhas de Morais;Imbiribeira;Recife;-8 7 0.10;-34 54 48.84
 020015;Mascarenhas de Morais;Imbiribeira;Recife;-8 7 13.94;-34 54 51.51
 020016;Mascarenhas de Morais;Imbiribeira;Recife;-8 7 28.88;-34 54 54.37
-020017;Mascarenhas de Morais;Imbiribeira;Recife;-8 7 37.93;-34 54 55.94
+020017;Mascarenhas de Morais;Imbiribeira;Recife;-8 7 39.14;-34 54 56.15
 020018;Mascarenhas de Morais;Imbiribeira;Recife;-8 8 0.17;-34 54 59.79
 020019;Salgado Filho;Ibura;Recife;-8 8 2.85;-34 55 2.51
 020020;Salgado Filho;Ibura;Recife;-8 8 4.19;-34 55 2.06
@@ -561,6 +562,7 @@ codigo_da_parada;logradouro;bairro;cidade;latitude;longitude
 020237;Santa Fé;Cohab;Recife;-8 7 7.66;-34 57 16.96
 020238;Santa Fé;Cohab;Recife;-8 7 11.30;-34 57 15.93
 020239;Santa Fé;Cohab;Recife;-8 7 18.39;-34 57 13.85
+020242;Rio Brigida;Ibura;Recife;-8 6 46.30;-34 56 26.18
 020243;Santa Fé;Cohab;Recife;-8.1217;-34.9538
 020244;Santa Fé;Cohab;Recife;-8.1196;-34.9544
 020245;Santa Fé;Cohab;Recife;-8 07 07.33;-34 57 16.75
@@ -806,6 +808,7 @@ codigo_da_parada;logradouro;bairro;cidade;latitude;longitude
 020485;João Rio Branco de Lima;Cohab;Recife;-8 7  47.44;-34 57  7.80
 020486;João Rio Branco de Lima;Cohab;Recife;-8 7  26.41;-34 57 13.76
 020487;Pilões;Comporta;Jaboatão dos Guararapes;-8 11 15.76;-34 57 53.28
+020511;Doutor Gonzaga Maranhão;Prazeres;Jaboatão dos Guararapes;-8 10 2.00;-34 55 59.05
 030000;Cabo;Cohab;Cabo de Santo Agostinho;-8 17 8.20;-35 1 57.97
 030001;Reginaldo Pereira Fonseca;Cohab;Cabo de Santo Agostinho;-8 17 41.81;-35 1 49.99
 030130;Joaquim Rodrigues da Cunha;Gaibu;Cabo de Santo Agostinho;-8 20 21.67;-34 57 19.10
@@ -1578,7 +1581,7 @@ codigo_da_parada;logradouro;bairro;cidade;latitude;longitude
 060010;Abdias de Carvalho;Ilha do Retiro;Recife;-8   3 40.90;-34 54 19.79
 060011;Abdias de Carvalho;Ilha do Retiro;Recife;-8 3 41.60;-34 54 9.89
 060012;Abdias de Carvalho;Ilha do Retiro;Recife;-8 3 40.50;-34 54 11.55
-060013;Abdias de Carvalho;Ilha do Retiro;Recife;-8  3 35.11;-34 54 22.35
+060013;Abdias de Carvalho;Ilha do Retiro;Recife;-8  3 41.06;-34 54 25.05
 060014;Abdias de Carvalho;Prado;Recife;-8 3 44.82;-34 54 44.51
 060015;Abdias de Carvalho;Prado;Recife;-8  3 44.58;-34 54 52.75
 060016;Abdias de Carvalho;Prado;Recife;-8 3 44.32;-34  55 1.91
@@ -1854,6 +1857,7 @@ codigo_da_parada;logradouro;bairro;cidade;latitude;longitude
 070154;Ibiapina;Tejipio;Recife;-8   5 12.17;-34 57 23.26
 070155;Sancho;Tejipio;Recife;-8 5  24.74;-34 57 26.74
 070156;Sancho;Tejipio;Recife;-8   5 24.53;-34  57 27.16
+070158;BR-408;Curado;Ipojuca;-8  4 17.68;-34 59 29.63
 080000;Caxangá;Caxangá;Recife;-8 1 52.30;-34 57 17.84
 080001;Caxangá;Madalena;Recife;-8 03 22.73;-34 54 37.29
 080002;Caxangá;Madalena;Recife;-8 3 21.86;-34 54 39.60
@@ -2893,7 +2897,7 @@ codigo_da_parada;logradouro;bairro;cidade;latitude;longitude
 100296;Couto Magalhães;Rosarinho;Recife;-8 1  49.38;-34 53 45.94
 100297;Couto Magalhães;Rosarinho;Recife;-8 1  49.31;-34 53 49.19
 100500;Cruz Cabugá;Santo Amaro;Recife;-8 3  12.38;-34 52 52.73
-110000;Macaxeira;Dois Irmãos;Recife;-8 0 30.52;-34 56 18.28
+110000;Terminal Integrado Macaxeira;Dois Irmãos;Recife;-8 0 30.52;-34 56 18.28
 110001;Norte;Macaxeira;Recife;-8  0 37.04;-34 56 8.87
 110002;Norte;Macaxeira;Recife;-8 0 43.32;-34 56 1.69
 110003;Norte;Macaxeira;Recife;-8  0 49.28;-34 55 54.16
@@ -3263,7 +3267,7 @@ codigo_da_parada;logradouro;bairro;cidade;latitude;longitude
 120174;Córrego do Euclides;Linha do tiro;Recife;-8 0 49.89;-34 54 53.29
 120175;Córrego do Euclides;Linha do tiro;Recife;-8 0 39.63;-34 54 51.49
 120176;Córrego do Euclides;Linha do tiro;Recife;-8 0 29.86;-34 54 45.58
-120177;Córrego do Euclides;Linha do tiro;Recife;-8 0 29.90;-34 54 45.97
+120177;Córrego do Euclides;Linha do tiro;Recife;-8 0 31.09;-34 54 46.63
 120178;Córrego do Euclides;Linha do tiro;Recife;-8 0 34.54;-34 54 48.80
 120179;Córrego do Euclides;Linha do tiro;Recife;-8 0 40.03;-34 54 52.04
 120180;Córrego do Euclides;Linha do tiro;Recife;-8 00.759;-34 54.892
@@ -3466,13 +3470,13 @@ codigo_da_parada;logradouro;bairro;cidade;latitude;longitude
 130069;Águas Compridas;Águas Compridas;Olinda;-7 59 18.40;-34 53 58.63
 130070;Águas Compridas;Águas Compridas;Olinda;-7 59 23.61;-34 53 54.26
 130071;Águas Compridas;Águas Compridas;Olinda;-7 59 28.63;-34 53 47.14
-130072;Águas Compridas;Afonso;Olinda;-7 59 35.16;-34 53 43.12
+130072;Águas Compridas;Águas Compridas;Olinda;-7 59 35.16;-34 53 43.12
 130073;Águas Compridas;Nova olinda;Olinda;-7 59 46.21;-34 53 42.58
 130074;Águas Compridas;Águas Compridas;Olinda;-7 59 53.67;-34 53 41.27
 130075;Caenga;São Benedito;Olinda;-8 0 3.45;-34 53 45.20
 130076;Caenga;São Benedito;Olinda;-8 0 3.90;-34 53 45.12
 130077;Águas Compridas;Nova olinda;Olinda;-7 59 46.43;-34 53 42.24
-130078;Águas Compridas;Afonso;Olinda;-7 59 36.00;-34 53 42.50
+130078;Águas Compridas;Águas Compridas;Olinda;-7 59 36.00;-34 53 42.50
 130079;Águas Compridas;Águas Compridas;Olinda;-7 59 28.81;-34 53 46.35
 130080;Águas Compridas;Águas Compridas;Olinda;-7 59 20.99;-34 53 55.76
 130081;Águas Compridas;Águas Compridas;Olinda;-7 59 15.29;-34 54 0.42
@@ -3703,6 +3707,7 @@ codigo_da_parada;logradouro;bairro;cidade;latitude;longitude
 130316;Paraná;Jardim brasil;Olinda;-8  0 36.51;-34 52  3.95
 130317;Brasília;Jardim brasil;Olinda;-8  0 37.30;-34 52  3.21
 130318;Antônio da Costa Azevedo;Jardim brasil;Olinda;-8  0 29.42;-34 52 17.45
+130324;Aguazinha;Aguazinha;Olinda;-8 0  14.33;-34 53 15.44
 140000;Esquilo;Ouro Preto;Olinda;-7 59 19.65;-34 51 35.65
 140001;Getúlio Vargas;Centro;Paulista;-07 56 24.41;-34 52 50.54
 140002;Francisco S. da Costa;Centro;Paulista;-7 56 22.79;-34 52 53.04
@@ -4651,7 +4656,7 @@ codigo_da_parada;logradouro;bairro;cidade;latitude;longitude
 160111;Fagundes Varela;Jardim Atlantico;Olinda;-7 58 41.94;-34 50 23.55
 160112;Fagundes Varela;Jardim Atlantico;Olinda;-7 58 44.76;-34 50 17.61
 160113;Carlos de Lima Cavalcanti;Casa Caiada;Olinda;-7 58 49.47;-34 50 12.73
-160114;Carlos de Lima Cavalcanti;Casa Caiada;Olinda;-7 58 57.83;-34 50 15.80
+160114;PE-001;Janga;Paulista;-7 55 24.88;-34 49 16.54
 160115;Carlos de Lima Cavalcanti;Casa Caiada;Olinda;-7 59 3.65;-34 50 18.87
 160116;Carlos de Lima Cavalcanti;Casa Caiada;Olinda;-7 59 12.92;-34 50 23.45
 160117;Carlos de Lima Cavalcanti;Casa Caiada;Olinda;-7 59 22.80;-34 50 28.25
@@ -4871,6 +4876,7 @@ codigo_da_parada;logradouro;bairro;cidade;latitude;longitude
 160335;João Pereira de Oliveira (Mané Pa);Engenho maranguape;Paulista;-7 55 16.30;-34 50 32.74
 160336;João Pereira de Oliveira (Mané Pa);Engenho maranguape;Paulista;-7 55 14.13;-34 50 36.90
 160337;João Pereira de Oliveira (Mané Pa);Engenho maranguape;Paulista;-7 55 12.60;-34 50 41.60
+160338;João Pereira de Oliveira (Mané Pa);Janga;Paulista;-7 55 38.97;-34 49 35.37
 160339;Agamenon Magalhães;Engenho maranguape;Paulista;-7 55 8.78;-34 50 38.54
 160340;Agamenon Magalhães;Engenho maranguape;Paulista;-7 55 3.84;-34 50 33.98
 160341;Agamenon Magalhães;Engenho maranguape;Paulista;-7 54 58.08;-34 50 33.27
@@ -4960,7 +4966,9 @@ codigo_da_parada;logradouro;bairro;cidade;latitude;longitude
 160430;Manoel de Araújo;Pau Amarelo;Paulista;-7 54 26.34;-34 49 39.04
 160431;Estados Unidos;Pau Amarelo;Paulista;-7 54 42.96;-34 50 17.73
 160432;Paranatama;Pau Amarelo;Paulista;-7 54 51.02;-34 50 17.00
+160434;Doutor Sebastião Amaral;Pau Amarelo;Paulista;-7 54 46.96;-34 49 49.40
 160435;Severino Monteiro de Jesus;Janga;Paulista;-7 55 43.76;-34 49 26.24
+160436;Doutor Sebastião Amaral;Pau Amarelo;Paulista;-7 54 45.65;-34 49 36.96
 160441;Cláudio José Gueiros Leite (PE-001);Pau Amarelo;Paulista;-7 53 12.20;-34 49 36.89
 160442;Costa Azul;Pau Amarelo;Paulista;-7 54 40.16;-34 50 14.70
 160443;Costa Azul;Pau Amarelo;Paulista;-7 54 35.59;-34 50  4.20
@@ -5096,8 +5104,7 @@ codigo_da_parada;logradouro;bairro;cidade;latitude;longitude
 180018;Sul;São José;Recife;-8 4 23.36;-34 52 59.58
 180019;Sul;São José;Recife;-8 4 21.00;-34 52 51.47
 180020;Sul;São José;Recife;-8 4 20.80;-34 52 50.29
-180021;Sul;São José;Recife;-8 4 20.51;-34 52 48.24
-180022;Sul;São José;Recife;-8 4 20.27;-34 52 46.81
+180021;Praça Frei Caneca;São José;Recife;-8 4 20.20;-34 52 53.51
 180023;Martins de Barros;Santo Antônio;Recife;-8 3 59.92;-34 52 33.17
 180024;Martins de Barros;Santo Antônio;Recife;-8 3 58.90;-34 52 33.57
 180025;Martins de Barros;Santo Antônio;Recife;-8 3 56.24;-34 52 33.96
@@ -5145,6 +5152,7 @@ codigo_da_parada;logradouro;bairro;cidade;latitude;longitude
 180071;João de Barros;Santo Amaro;Recife;- 08 02.811;- 34 53.389
 180072;João de Barros;Espinheiro;Recife;- 08 02.586;- 34 53.434
 180073;João de Barros;Espinheiro;Recife;-8 2 26.42;-34 53 30.08
+180074;Hospício;Boa vista;Recife;-8 3 31.20;-34 52 59.76
 180075;Hospício;Boa vista;Recife;-8 3 36.62;-34 53 1.88
 180076;Riachuelo;Boa vista;Recife;-8 3 36.42;-34 52 54.32
 180077;Riachuelo;Boa vista;Recife;-8 3 35.44;-34 52 55.86
@@ -5162,7 +5170,7 @@ codigo_da_parada;logradouro;bairro;cidade;latitude;longitude
 180089;João Lira;Santo Amaro;Recife;-8 3 20.73;-34 52 51.91
 180090;João Lira;Santo Amaro;Recife;-8 3 19.94;-34 52 53.19
 180091;João Lira;Santo Amaro;Recife;-8 3 19.23;-34 52 54.29
-180092;Suassuna;Santo Amaro;Recife;-08 03.200;-34 53.107
+180092;Suassuna;Santo Amaro;Recife;-8 3 12.00;-34 53 6.42
 180093;Suassuna;Santo Amaro;Recife;-8 3 8.04;-34 53 12.09
 180094;Suassuna;Santo Amaro;Recife;-8 3   4.78;-34 53 16.73
 180095;Gouveia de Barros;Santo Amaro;Recife;-8 3 1.15;-34 53 18.42
@@ -5171,12 +5179,12 @@ codigo_da_parada;logradouro;bairro;cidade;latitude;longitude
 180098;Palmares;Santo Amaro;Recife;-8 3 8.69;-34 53 2.96
 180099;Palmares;Santo Amaro;Recife;- 08  03.230;- 34  52.928
 180100;Mário Melo;Santo Amaro;Recife;-8 3 19.41;-34 52 46.50
-180103;Cruz Cabugá;Santo Amaro;Recife;-8 3 12.95;-34 52 52.23
+180103;Cruz Cabugá;Santo Amaro;Recife;-8 3 15.10;-34 52 54.34
 180104;Cruz Cabugá;Santo Amaro;Recife;-8 3 5.87;-34 52 47.22
 180105;Cruz Cabugá;Santo Amaro;Recife;-8 2 58.30;-34 52 41.77
 180106;Cruz Cabugá;Santo Amaro;Recife;-8 2 48.12;-34 52 34.25
 180107;Cruz Cabugá;Santo Amaro;Recife;-8 2 39.37;-34 52 28.22
-180108;Cruz Cabugá;Santo Amaro;Recife;- 08 02.633;- 34 52.455
+180108;Cruz Cabugá;Santo Amaro;Recife;-8 2 43.40;-34 52 31.39
 180109;Cruz Cabugá;Santo Amaro;Recife;- 08 02.480;-  34 52.349
 180110;Cruz Cabugá;Santo Amaro;Recife;-08 02.469;- 34 52.337
 180111;Cruz Cabugá;Santo Amaro;Recife;- 08 02.355;- 34 52.255
@@ -5186,7 +5194,7 @@ codigo_da_parada;logradouro;bairro;cidade;latitude;longitude
 180115;Cruz Cabugá;Santo Amaro;Recife;-8 2 25.96;-34 52 19.41
 180116;Cruz Cabugá;Santo Amaro;Recife;- 08 02.514;- 34 52.380
 180117;Cruz Cabugá;Santo Amaro;Recife;-8 2 34.61;-34 52 25.62
-180118;Cruz Cabugá;Santo Amaro;Recife;-8 2 45.80;-34 52 33.61
+180118;Cruz Cabugá;Santo Amaro;Recife;-8 2 43.83;-34 52 32.26
 180119;Cruz Cabugá;Santo Amaro;Recife;-8 2 56.26;-34 52 41.12
 180120;Cruz Cabugá;Santo Amaro;Recife;- 08 03.017;- 34 52.740
 180121;Cruz Cabugá;Santo Amaro;Recife;-8 3 7.62;-34 52 49.26
@@ -5197,7 +5205,7 @@ codigo_da_parada;logradouro;bairro;cidade;latitude;longitude
 180126;João de Barros;Boa vista;Recife;-8 3 7.60;-34 53 24.18
 180127;João de Barros;Soledade;Recife;-8 3 14.24;-34 53 23.53
 180128;Príncipe;Soledade;Recife;-8 3 20.96;-34 53 16.52
-180129;Príncipe;Soledade;Recife;-8 3 23.39;-34 53 12.14
+180129;Príncipe;Soledade;Recife;-8 3 24.88;-34 53 9.51
 180130;Príncipe;Boa vista;Recife;-8 3 26.40;-34 53 6.68
 180131;Isabel;Boa vista;Recife;-08 03.519;-34 52.880
 180132;Isabel;Boa vista;Recife;-8 3 32.44;-34 52 50.95
@@ -5247,8 +5255,8 @@ codigo_da_parada;logradouro;bairro;cidade;latitude;longitude
 180176;Agamenon Magalhães (Pista Central);Paissandu;Recife;-8 3 48.10;-34 53 49.91
 180177;Agamenon Magalhães (Pista Local Oeste);Santo Antônio;Recife;- 08 03.788;- 34 53.831
 180178;Agamenon Magalhães;Paissandu;Recife;-8 3 34.12;-34 53 51.08
-180179;Agamenon Magalhães;Derby;Recife;-08 03.546;-34 53.859
-180180;Agamenon Magalhães;Derby;Recife;-8 3 27.55;-34 53 51.21
+180179;Agamenon Magalhães;Derby;Recife;-08 3 33.03;-34 53 51.53
+180180;Agamenon Magalhães;Derby;Recife;-8 3 28.15;-34 53 51.27
 180181;Boa Vista;Boa vista;Recife;-8 3 25.04;-34 53 51.63
 180182;Agamenon Magalhães;Boa vista;Recife;-8 3 16.52;-34 53 49.25
 180183;Agamenon Magalhães (Pista Central);Boa vista;Recife;-8 3 15.13;-34 53 47.77
@@ -5370,7 +5378,7 @@ codigo_da_parada;logradouro;bairro;cidade;latitude;longitude
 180311;Benfica;Madalena;Recife;-8 3 29.14;-34 54 12.01
 180312;Benfica;Madalena;Recife;-8 3 29.03;- 34 54 24.71
 180313;Benfica;Madalena;Recife;-8 3 29.51;-34 54 26.82
-180314;Benfica;Madalena;Recife;-8 3 29.26;-34 54 18.20
+180314;Benfica;Madalena;Recife;-8 3 29.14;-34 54 16.93
 180315;Benfica;Madalena;Recife;-8 3 31.65;-34 54 11.07
 180316;Derby;Derby;Recife;-8 3 24.46;-34 53 55.28
 180317;Boa Vista;Boa vista;Recife;-8 3 21.91;-34 53 40.52
@@ -5423,6 +5431,7 @@ codigo_da_parada;logradouro;bairro;cidade;latitude;longitude
 180381;Beira Rio;Joana bezerra;Recife;- 08 04.196;- 34 53.645
 180382;Beira Rio;Joana bezerra;Recife;-8 4 12.39;-34 53 43.40
 180383;Beira Rio;Imbiribeira;Recife;- 08 04.180;- 34 53.757
+180384;Estado de Israel;Ilha do Leite;Recife;-8  3 50.38;-34 53 40.73
 180385;José de Alencar;Ilha do Leite;Recife;- 08 03.931;- 34 53.544
 180386;Jasmin;Boa vista;Recife;-8 3 54.90;-34 53 23.56
 180387;Francisco Alves;Boa vista;Recife;-8 4 5.61;- 34 53 29.78
@@ -5454,7 +5463,7 @@ codigo_da_parada;logradouro;bairro;cidade;latitude;longitude
 180432;João Ivo da Silva;Madalena;Recife;-8 3 35.15;-34 54 36.02
 180433;João Ivo da Silva;Prado;Recife;-8 03.795;-34 54.572
 180434;João Ivo da Silva;Afogados;Recife;-8 03.888;-34 54.554
-180435;Cosme Viana;Afogados;Recife;-8 04.007;-34 54.557
+180435;Cosme Viana;Afogados;Recife;-8 4 0.84;-34 54 33.38
 180436;Cosme Viana;Afogados;Recife;-8 04.130;-34 54.593
 180437;Cosme Viana;Afogados;Recife;-8 04.247;-34 54.575
 180439;Cosme Viana;Afogados;Recife;-8 04.524;-34 54.542
