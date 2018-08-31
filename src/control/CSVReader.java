@@ -10,7 +10,7 @@ import java.nio.charset.StandardCharsets;
 
 public class CSVReader {
 
-    public double turnCoordinateInDegrees(String coordinate) {
+    private double turnCoordinateInDegrees(String coordinate) {
         StringBuilder degrees = new StringBuilder(""), minutes = new StringBuilder(""), seconds = new StringBuilder("");
         int field = 1;
         for (int i = 0; i < coordinate.length(); i++) {
@@ -169,9 +169,7 @@ public class CSVReader {
             double latitude = turnCoordinateInDegrees(latitudeString);
             double longitude = turnCoordinateInDegrees(longitudeString);
 
-            if (!stopRep.has(latitude, longitude)){
-                return;
-            }
+            //TODO
         }
     }
 }
