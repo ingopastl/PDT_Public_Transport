@@ -23,5 +23,7 @@ public class Main {
         NeighborhoodRepository neighRep = NeighborhoodRepository.getInstance();
         StreetRepository streetRep = StreetRepository.getInstance();
         BusStopRepository stopRep = BusStopRepository.getInstance();
+
+        stopRep.printList();
     }
 }
