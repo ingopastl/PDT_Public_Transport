@@ -41,9 +41,33 @@ public class BusLine {
         this.stopsInLine = stopsInLine;
     }
 
-    public void addStopToLine(BusStop stop, String itineraryName, String direction, int directionID, int ttrOrder, int rttOrder) throws NullPointerException {
+    public ArrayList<BusStopInLine> getSortedTtrStops() {
+        ArrayList<BusStopInLine> ttr = new ArrayList<BusStopInLine>();
+        for (int i = 0; i < stopsInLine.size(); i++) {
+            if (stopsInLine.get(i).getTtrOrder() != 0) {
+                ttr.add(stopsInLine.get(i));
+            }
+        }
+        ttr.sort(Comparator.comparing(BusStopInLine::getTtrOrder));
+
+        return ttr;
+    }
+
+    public ArrayList<BusStopInLine> getSortedRttStops() {
+        ArrayList<BusStopInLine> rtt = new ArrayList<BusStopInLine>();
+        for (int i = 0; i < stopsInLine.size(); i++) {
+            if (stopsInLine.get(i).getRttOrder() != 0) {
+                rtt.add(stopsInLine.get(i));
+            }
+        }
+        rtt.sort(Comparator.comparing(BusStopInLine::getRttOrder));
+
+        return rtt;
+    }
+
+    public void addStopToLine(BusStop stop, String itineraryName, int ttrOrder, int rttOrder) throws NullPointerException {
         if (stop != null) {
-            BusStopInLine newRelation = new BusStopInLine(stop, this, itineraryName, direction, directionID, ttrOrder, rttOrder);
+            BusStopInLine newRelation = new BusStopInLine(stop, this, itineraryName, ttrOrder, rttOrder);
             this.stopsInLine.add(newRelation);
             BusStopInLineRepository bsl = BusStopInLineRepository.getInstance();
             bsl.addBusStopInLine(newRelation);

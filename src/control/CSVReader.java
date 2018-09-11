@@ -133,22 +133,21 @@ public class CSVReader {
                 count++;
             }
         }
-        if (count != 14) {
+        if (count != 9) {
             System.out.print("Cabeçalho errado");
             System.exit(1);
         }
 
         //Instâncias dos repositórios
-        BusLineRepository lineReb = BusLineRepository.getInstance();
-        BusStopRepository stopRep = BusStopRepository.getInstance();
-        BusStopInLineRepository slRep = BusStopInLineRepository.getInstance();
+        BusLineRepository busLineReb = BusLineRepository.getInstance();
+        BusStopRepository busStopRep = BusStopRepository.getInstance();
         NeighborhoodRepository neighRep = NeighborhoodRepository.getInstance();
         StreetRepository streetRep = StreetRepository.getInstance();
 
         while ((currentLine = br.readLine()) != null) {
-            StringBuilder lineID = new StringBuilder(), lineName = new StringBuilder(), itineraryName = new StringBuilder(), stopID = new StringBuilder(),
-                    latitudeString = new StringBuilder(), longitudeString = new StringBuilder(), neighborhoodName = new StringBuilder(), streetName = new StringBuilder(),
-                    direction = new StringBuilder(), directionID = new StringBuilder(), trrOrder = new StringBuilder(), rrtOrder = new StringBuilder();
+            StringBuilder busLineID = new StringBuilder(), busLineName = new StringBuilder(), itineraryName = new StringBuilder(), stopID = new StringBuilder(),
+                    latitudeString = new StringBuilder(), longitudeString = new StringBuilder(), neighborhoodName = new StringBuilder(),
+                    streetName = new StringBuilder(), trrOrder = new StringBuilder(), rrtOrder = new StringBuilder();
 
             char latLastChar = ' ';
             char longeLasChar = ' ';
@@ -157,36 +156,32 @@ public class CSVReader {
             for (int i = 0; i < currentLine.length(); i++) {
                 if (currentLine.charAt(i) != ';') {
                     if (field == 1) {
-                        lineID.append(currentLine.charAt(i));
+                        busLineID.append(currentLine.charAt(i));
                     } else if(field == 2) {
-                        lineName.append(currentLine.charAt(i));
+                        busLineName.append(currentLine.charAt(i));
                     } else if(field == 3) {
                         itineraryName.append(currentLine.charAt(i));
-                    } else if(field == 7) {
+                    } else if(field == 4) {
                         stopID.append(currentLine.charAt(i));
-                    } else if(field == 8) {
+                    } else if(field == 5) {
                         streetName.append(currentLine.charAt(i));
-                    } else if(field == 9) {
+                    } else if(field == 6) {
                         neighborhoodName.append(currentLine.charAt(i));
-                    } else if(field == 10) {
+                    } else if(field == 7) {
                         char latCurrentChar = currentLine.charAt(i);
                         if ((latLastChar != ' ' || latCurrentChar != ' ') && (latLastChar != '-' || latCurrentChar != ' ')) {
                             latitudeString.append(latCurrentChar);
                         }
                         latLastChar = latCurrentChar;
-                    } else if(field == 11) {
+                    } else if(field == 8) {
                         char longeCurrentChar = currentLine.charAt(i);
                         if ((longeLasChar != ' ' || longeCurrentChar != ' ') && (longeLasChar != '-' || longeCurrentChar != ' ')) {
                             longitudeString.append(longeCurrentChar);
                         }
                         longeLasChar = longeCurrentChar;
-                    } else if(field == 12) {
-                        directionID.append(currentLine.charAt(i));
-                    } else if(field == 13) {
-                        direction.append(currentLine.charAt(i));
-                    } else if(field == 14) {
+                    } else if(field == 9) {
                         trrOrder.append(currentLine.charAt(i));
-                    } else if(field == 15) {
+                    } else if(field == 10) {
                         rrtOrder.append(currentLine.charAt(i));
                     }
                 } else {
@@ -194,10 +189,27 @@ public class CSVReader {
                 }
             }
 
+            if (field != 10) {
+                System.out.print("Erro na formatação do arquivo");
+                System.exit(1);
+            }
+
             double latitude = turnCoordinateInDegrees(latitudeString.toString());
             double longitude = turnCoordinateInDegrees(longitudeString.toString());
 
-            //TODO
+            //Se não existir um bairro com este nome cadastrada, um novo objeto Neighborhood é criado e adicionado ao repositório.
+            //Caso contrário, a referência para o objeto Neighborhood contendo aquele nome é retornada.
+            Neighborhood n = neighRep.getOrCreate(neighborhoodName.toString(), null);
+            //Acontece com street o mesmo que com Neighborhood
+            Street s = streetRep.getOrCreate(streetName.toString(), null, n);
+            s.addNeighborhood(n);
+            n.addStreet(s);
+            //Acontece com street o mesmo que com BusStop
+            BusStop stop = busStopRep.getOrCreate(stopID.toString(), s, n, null, latitude, longitude);
+            s.addBusStop(stop);
+            //Acontece com street o mesmo que com BusLine
+            BusLine bl = busLineReb.getOrCreate(busLineID.toString(), busLineName.toString());
+            bl.addStopToLine(stop, itineraryName.toString(), Integer.parseInt(trrOrder.toString()), Integer.parseInt(rrtOrder.toString()));
         }
     }
 }

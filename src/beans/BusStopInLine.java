@@ -6,17 +6,13 @@ public class BusStopInLine {
     private BusStop busStop;
     private BusLine line;
     private String itineraryName;
-    private String direction;
-    private int directionID;
     private int ttrOrder;
     private int rttOrder;
 
-    public BusStopInLine(BusStop busStop, BusLine line, String itineraryName, String direction, int directionID, int ttrOrder, int rttOrder) {
+    public BusStopInLine(BusStop busStop, BusLine line, String itineraryName, int ttrOrder, int rttOrder) {
         this.busStop = busStop;
         this.line = line;
         this.itineraryName = itineraryName;
-        this.direction = direction;
-        this.directionID = directionID;
         this.ttrOrder = ttrOrder;
         this.rttOrder = rttOrder;
     }
@@ -45,22 +41,6 @@ public class BusStopInLine {
         this.itineraryName = itineraryName;
     }
 
-    public String getDirection() {
-        return direction;
-    }
-
-    public void setDirection(String direction) {
-        this.direction = direction;
-    }
-
-    public int getDirectionID() {
-        return directionID;
-    }
-
-    public void setDirectionID(int directionID) {
-        this.directionID = directionID;
-    }
-
     public int getTtrOrder() {
         return ttrOrder;
     }
@@ -85,23 +65,19 @@ public class BusStopInLine {
         return Objects.equals(getBusStop(), that.getBusStop()) &&
                 Objects.equals(getLine(), that.getLine()) &&
                 Objects.equals(getItineraryName(), that.getItineraryName()) &&
-                Objects.equals(getDirection(), that.getDirection()) &&
-                Objects.equals(getDirectionID(), that.getDirectionID()) &&
                 Objects.equals(getTtrOrder(), that.getTtrOrder()) &&
                 Objects.equals(getRttOrder(), that.getRttOrder());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getBusStop(), getLine(), getItineraryName(), getDirection(), getDirectionID(), getTtrOrder(), getRttOrder());
+        return Objects.hash(getBusStop(), getLine(), getItineraryName(), getTtrOrder(), getRttOrder());
     }
 
     @Override
     public String toString() {
         return busStop + "; " + line +
                 "; itineraryName='" + itineraryName + '\'' +
-                "; direction='" + direction + '\'' +
-                "; directionID=" + directionID +
                 "; ttrOrder=" + ttrOrder +
                 "; rttOrder=" + rttOrder +
                 '}';
