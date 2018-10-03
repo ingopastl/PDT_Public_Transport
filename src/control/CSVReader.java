@@ -53,71 +53,89 @@ public class CSVReader {
         String currentLine = br.readLine(); //Pega o cabeçalho.
         int count = 0;
         for (int i = 0; i < currentLine.length(); i++) {
-            if (currentLine.charAt(i) == ';') {
+            if (currentLine.charAt(i) == ',') {
                 count++;
             }
         }
-        if (count != 5) {
+        if (count != 9) {
             System.out.print("Cabeçalho errado");
             System.exit(1);
         }
 
         //Instâncias dos repositórios
-        CityRepository cityRep = CityRepository.getInstance();
-        NeighborhoodRepository neighRep = NeighborhoodRepository.getInstance();
         StreetRepository streetRep = StreetRepository.getInstance();
         BusStopRepository stopRep = BusStopRepository.getInstance();
 
         while ((currentLine = br.readLine()) != null) {
-            StringBuilder stopId = new StringBuilder(), streetName = new StringBuilder(), neighborhoodName = new StringBuilder(),
-                    cityName = new StringBuilder(), latitudeString = new StringBuilder(), longitudeString = new StringBuilder();
-
-            char latLastChar = ' ';
-            char longeLasChar = ' ';
+            StringBuilder stopId = new StringBuilder(), streetName = new StringBuilder(), latitudeString = new StringBuilder(), longitudeString = new StringBuilder();
 
             int field = 1;
+            int quoteCount = 0;
             for (int i = 0; i < currentLine.length(); i++) {
-                if (currentLine.charAt(i) != ';') {
-                    if (field == 1) {
-                        stopId.append(currentLine.charAt(i));
-                    } else if(field == 2) {
-                        streetName.append(currentLine.charAt(i));
-                    } else if(field == 3) {
-                        neighborhoodName.append(currentLine.charAt(i));
-                    } else if(field == 4) {
-                        cityName.append(currentLine.charAt(i));
-                    } else if(field == 5) {
-                        char latCurrentChar = currentLine.charAt(i);
-                        if ((latLastChar != ' ' || latCurrentChar != ' ') && (latLastChar != '-' || latCurrentChar != ' ')) {
-                            latitudeString.append(latCurrentChar);
-                        }
-                        latLastChar = latCurrentChar;
-                    } else if(field == 6) {
-                        char longeCurrentChar = currentLine.charAt(i);
-                        if ((longeLasChar != ' ' || longeCurrentChar != ' ') && (longeLasChar != '-' || longeCurrentChar != ' ')) {
-                            longitudeString.append(longeCurrentChar);
-                        }
-                        longeLasChar = longeCurrentChar;
-                    }
-                } else {
+                char currentChar = currentLine.charAt(i);
+                if (currentChar == ',') {
                     field++;
+                } else {
+                    if (field == 1) {
+                        while(true) {
+                            if (currentLine.charAt(i) == '\"') {
+                                quoteCount++;
+                                if (quoteCount >= 2) {
+                                    quoteCount = 0;
+                                    break;
+                                }
+                            } else {
+                                stopId.append(currentLine.charAt(i));
+                            }
+                            ++i;
+                        }
+                    } else if (field == 3) {
+                        while(true) {
+                            if (currentLine.charAt(i) == '\"') {
+                                quoteCount++;
+                                if (quoteCount >= 2) {
+                                    quoteCount = 0;
+                                    break;
+                                }
+                            } else {
+                                streetName.append(currentLine.charAt(i));
+                            }
+                            ++i;
+                        }
+                    } else if (field == 5) {
+                        while(true) {
+                            if (currentLine.charAt(i) == '\"') {
+                                quoteCount++;
+                                if (quoteCount >= 2) {
+                                    quoteCount = 0;
+                                    break;
+                                }
+                            } else {
+                                latitudeString.append(currentLine.charAt(i));
+                            }
+                            ++i;
+                        }
+                    } else if (field == 6) {
+                        while(true) {
+                            if (currentLine.charAt(i) == '\"') {
+                                quoteCount++;
+                                if (quoteCount >= 2) {
+                                    quoteCount = 0;
+                                    break;
+                                }
+                            } else {
+                                longitudeString.append(currentLine.charAt(i));
+                            }
+                            ++i;
+                        }
+                    }
                 }
             }
 
-            double latitude = turnCoordinateInDegrees(latitudeString.toString());
-            double longitude = turnCoordinateInDegrees(longitudeString.toString());
-
-            //Se não existir uma cidade com este nome cadastrada, um novo objeto City é criado e adicionado ao repositório.
-            //Caso contrário, a referência para o objeto City contendo aquele nome é retornada.
-            City c = cityRep.getOrCreate(cityName.toString());
-            //O mesmo ocorre com a neighborhood.
-            Neighborhood n = neighRep.getOrCreate(neighborhoodName.toString(), c);
-            c.addNeighborhood(n);
-            //Acontece com street o mesmo que com Neighborhood e City
-            Street s = streetRep.getOrCreate(streetName.toString(), c, n);
-            s.addNeighborhood(n);
-            n.addStreet(s);
-            BusStop stop = new BusStop(stopId.toString(), s, n, c, latitude, longitude);
+            //Se não existir uma rua com este nome cadastrada, um novo objeto Street é criado e adicionado ao repositório.
+            //Caso contrário, a referência para o objeto Street contendo aquele nome é retornada.
+            Street s = streetRep.getOrCreate(streetName.toString());
+            BusStop stop = new BusStop(stopId.toString(), s, Double.parseDouble(latitudeString.toString()), Double.parseDouble(longitudeString.toString()));
             stopRep.addBusStop(stop);
             s.addBusStop(stop);
         }
@@ -129,87 +147,145 @@ public class CSVReader {
         String currentLine = br.readLine(); //Pega o cabeçalho
         int count = 0;
         for (int i = 0; i < currentLine.length(); i++) {
-            if (currentLine.charAt(i) == ';') {
+            if (currentLine.charAt(i) == ',') {
                 count++;
             }
         }
-        if (count != 9) {
+        if (count != 8) {
             System.out.print("Cabeçalho errado");
             System.exit(1);
         }
 
         //Instâncias dos repositórios
         BusLineRepository busLineReb = BusLineRepository.getInstance();
-        BusStopRepository busStopRep = BusStopRepository.getInstance();
-        NeighborhoodRepository neighRep = NeighborhoodRepository.getInstance();
-        StreetRepository streetRep = StreetRepository.getInstance();
 
         while ((currentLine = br.readLine()) != null) {
-            StringBuilder busLineID = new StringBuilder(), busLineName = new StringBuilder(), itineraryName = new StringBuilder(), stopID = new StringBuilder(),
-                    latitudeString = new StringBuilder(), longitudeString = new StringBuilder(), neighborhoodName = new StringBuilder(),
-                    streetName = new StringBuilder(), trrOrder = new StringBuilder(), rrtOrder = new StringBuilder();
-
-            char latLastChar = ' ';
-            char longeLasChar = ' ';
+            StringBuilder busLineID = new StringBuilder(), busLineShortName = new StringBuilder(), busLineLongName = new StringBuilder();
 
             int field = 1;
             for (int i = 0; i < currentLine.length(); i++) {
-                if (currentLine.charAt(i) != ';') {
-                    if (field == 1) {
-                        busLineID.append(currentLine.charAt(i));
-                    } else if(field == 2) {
-                        busLineName.append(currentLine.charAt(i));
-                    } else if(field == 3) {
-                        itineraryName.append(currentLine.charAt(i));
-                    } else if(field == 4) {
-                        stopID.append(currentLine.charAt(i));
-                    } else if(field == 5) {
-                        streetName.append(currentLine.charAt(i));
-                    } else if(field == 6) {
-                        neighborhoodName.append(currentLine.charAt(i));
-                    } else if(field == 7) {
-                        char latCurrentChar = currentLine.charAt(i);
-                        if ((latLastChar != ' ' || latCurrentChar != ' ') && (latLastChar != '-' || latCurrentChar != ' ')) {
-                            latitudeString.append(latCurrentChar);
+                char currentChar = currentLine.charAt(i);
+                if (currentChar != ',') {
+                    if (currentChar != '\"') {
+                        if (field == 1) {
+                            busLineID.append(currentChar);
+                        } else if (field == 3) {
+                            busLineShortName.append(currentChar);
+                        } else if (field == 4) {
+                            busLineLongName.append(currentChar);
                         }
-                        latLastChar = latCurrentChar;
-                    } else if(field == 8) {
-                        char longeCurrentChar = currentLine.charAt(i);
-                        if ((longeLasChar != ' ' || longeCurrentChar != ' ') && (longeLasChar != '-' || longeCurrentChar != ' ')) {
-                            longitudeString.append(longeCurrentChar);
-                        }
-                        longeLasChar = longeCurrentChar;
-                    } else if(field == 9) {
-                        trrOrder.append(currentLine.charAt(i));
-                    } else if(field == 10) {
-                        rrtOrder.append(currentLine.charAt(i));
                     }
                 } else {
                     field++;
                 }
             }
 
-            if (field != 10) {
-                System.out.print("Erro na formatação do arquivo");
-                System.exit(1);
+            //Acontece com street o mesmo que com BusLine
+            BusLine bl = new BusLine(busLineID.toString(), busLineShortName.toString(), busLineLongName.toString());
+            busLineReb.addBusLine(bl);
+        }
+    }
+
+    public void readItineraries(String filePath) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(filePath), StandardCharsets.ISO_8859_1));
+
+        String currentLine = br.readLine(); //Pega o cabeçalho
+        int count = 0;
+        for (int i = 0; i < currentLine.length(); i++) {
+            if (currentLine.charAt(i) == ',') {
+                count++;
+            }
+        }
+        if (count != 7) {
+            System.out.print("Cabeçalho errado");
+            System.exit(1);
+        }
+
+        //Instâncias dos repositórios
+        ItineraryRepository itRep = ItineraryRepository.getInstance();
+        BusLineRepository lineRep = BusLineRepository.getInstance();
+
+        while ((currentLine = br.readLine()) != null) {
+            StringBuilder busLineID = new StringBuilder(), serviceId = new StringBuilder(), itineraryId = new StringBuilder(), itineraryHeadsign = new StringBuilder();
+
+            int field = 1;
+            for (int i = 0; i < currentLine.length(); i++) {
+                char currentChar = currentLine.charAt(i);
+                if (currentChar != ',') {
+                    if (currentChar != '\"') {
+                        if (field == 1) {
+                            busLineID.append(currentChar);
+                        } else if (field == 2) {
+                            serviceId.append(currentChar);
+                        } else if (field == 3) {
+                            itineraryId.append(currentChar);
+                        } else if (field == 4) {
+                            itineraryHeadsign.append(currentChar);
+                        }
+                    }
+                } else {
+                    field++;
+                }
             }
 
-            double latitude = turnCoordinateInDegrees(latitudeString.toString());
-            double longitude = turnCoordinateInDegrees(longitudeString.toString());
+            BusLine bl = lineRep.getByID(busLineID.toString());
+            if (bl == null) {
+                throw new NullPointerException();
+            }
 
-            //Se não existir um bairro com este nome cadastrada, um novo objeto Neighborhood é criado e adicionado ao repositório.
-            //Caso contrário, a referência para o objeto Neighborhood contendo aquele nome é retornada.
-            Neighborhood n = neighRep.getOrCreate(neighborhoodName.toString(), null);
-            //Acontece com street o mesmo que com Neighborhood
-            Street s = streetRep.getOrCreate(streetName.toString(), null, n);
-            s.addNeighborhood(n);
-            n.addStreet(s);
-            //Acontece com street o mesmo que com BusStop
-            BusStop stop = busStopRep.getOrCreate(stopID.toString(), s, n, null, latitude, longitude);
-            s.addBusStop(stop);
-            //Acontece com street o mesmo que com BusLine
-            BusLine bl = busLineReb.getOrCreate(busLineID.toString(), busLineName.toString());
-            bl.addStopToLine(stop, itineraryName.toString(), Integer.parseInt(trrOrder.toString()), Integer.parseInt(rrtOrder.toString()));
+            Itinerary it = new Itinerary(bl, serviceId.toString().charAt(0), itineraryId.toString(), itineraryHeadsign.toString());
+            bl.addItinerary(it);
+
+            itRep.addItinerary(it);
+        }
+    }
+
+    public void readStopsInItineraries(String filePath) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(filePath), StandardCharsets.ISO_8859_1));
+
+        String currentLine = br.readLine(); //Pega o cabeçalho
+        int count = 0;
+        for (int i = 0; i < currentLine.length(); i++) {
+            if (currentLine.charAt(i) == ',') {
+                count++;
+            }
+        }
+        if (count != 5) {
+            System.out.print("Cabeçalho errado");
+            System.exit(1);
+        }
+
+        //Instâncias dos repositórios
+        ItineraryRepository itRep = ItineraryRepository.getInstance();
+        BusStopRepository busStopRep = BusStopRepository.getInstance();
+        ItineraryBusStopRepository itiBsRep = ItineraryBusStopRepository.getInstance();
+
+        while ((currentLine = br.readLine()) != null) {
+            StringBuilder itineraryId = new StringBuilder(), stopId = new StringBuilder(), stopSequence = new StringBuilder();
+
+            int field = 1;
+            for (int i = 0; i < currentLine.length(); i++) {
+                char currentChar = currentLine.charAt(i);
+                if (currentChar != ',') {
+                    if (currentChar != '\"') {
+                        if (field == 1) {
+                            itineraryId.append(currentChar);
+                        } else if (field == 4) {
+                            stopId.append(currentChar);
+                        } else if (field == 5) {
+                            stopSequence.append(currentChar);
+                        }
+                    }
+                } else {
+                    field++;
+                }
+            }
+
+            BusStop bs = busStopRep.getById(stopId.toString());
+            Itinerary iti = itRep.getById(itineraryId.toString());
+            ItineraryBusStop ibs = new ItineraryBusStop(bs, iti, Integer.parseInt(stopSequence.toString()));
+            iti.addItineraryBusStop(ibs);
+            itiBsRep.addItineraryBusStop(ibs);
         }
     }
 }

@@ -5,16 +5,12 @@ import java.util.Objects;
 public class BusStop {
     private String id;
     private Street street;
-    private Neighborhood neighborhood;
-    private City city;
     private double latitude;
     private double longitude;
 
-    public BusStop(String id, Street street, Neighborhood neighborhood, City city, double latitude, double longitude) {
+    public BusStop(String id, Street street, double latitude, double longitude) {
         this.id = id;
         this.street = street;
-        this.neighborhood = neighborhood;
-        this.city = city;
         this.latitude = latitude;
         this.longitude = longitude;
     }
@@ -33,22 +29,6 @@ public class BusStop {
 
     public void setStreet(Street street) {
         this.street = street;
-    }
-
-    public Neighborhood getNeighborhood() {
-        return neighborhood;
-    }
-
-    public void setNeighborhood(Neighborhood neighborhood) {
-        this.neighborhood = neighborhood;
-    }
-
-    public City getCity() {
-        return city;
-    }
-
-    public void setCity(City city) {
-        this.city = city;
     }
 
     public double getLatitude() {

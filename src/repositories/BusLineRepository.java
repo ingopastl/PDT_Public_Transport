@@ -40,17 +40,6 @@ public class BusLineRepository {
         return null;
     }
 
-    public BusLine getOrCreate(String id, String name) {
-        for (int i = 0; i < list.size(); i++) {
-            if (this.list.get(i).getId().equals(id)) {
-                return list.get(i);
-            }
-        }
-        BusLine newLine = new BusLine(id, name);
-        this.list.add(newLine);
-        return newLine;
-    }
-
     public void printList() {
         for (int i = 0; i < this.list.size(); i++) {
             System.out.print(this.list.get(i) + "\n");

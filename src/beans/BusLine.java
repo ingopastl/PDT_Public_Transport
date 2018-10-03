@@ -1,20 +1,19 @@
 package beans;
 
-import repositories.BusStopInLineRepository;
-
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
 public class BusLine {
     private String id;
-    private String name;
-    private List<BusStopInLine> stopsInLine;
+    private String shortName;
+    private String longName;
+    private List<Itinerary> itineraries;
 
-    public BusLine(String id, String name) {
+    public BusLine(String id, String shortName, String longName) {
         this.id = id;
-        this.name = name;
-        this.stopsInLine = new ArrayList<BusStopInLine>();
+        this.shortName = shortName;
+        this.longName = longName;
+        this.itineraries = new ArrayList<Itinerary>();
     }
 
     public String getId() {
@@ -25,62 +24,35 @@ public class BusLine {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getShortName() {
+        return shortName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setShortName(String name) {
+        this.shortName = name;
     }
 
-    public List<BusStopInLine> getStopsInLine() {
-        return stopsInLine;
+    public String getLongName() {
+        return longName;
     }
 
-    public void setStopsInLine(List<BusStopInLine> stopsInLine) {
-        this.stopsInLine = stopsInLine;
+    public void setLongName(String longName) {
+        this.longName = longName;
     }
 
-    public ArrayList<BusStopInLine> getSortedTtrStops() {
-        ArrayList<BusStopInLine> ttr = new ArrayList<BusStopInLine>();
-        for (int i = 0; i < stopsInLine.size(); i++) {
-            if (stopsInLine.get(i).getTtrOrder() != 0) {
-                ttr.add(stopsInLine.get(i));
-            }
-        }
-        ttr.sort(Comparator.comparing(BusStopInLine::getTtrOrder));
-
-        return ttr;
+    public List<Itinerary> getItineraries() {
+        return itineraries;
     }
 
-    public ArrayList<BusStopInLine> getSortedRttStops() {
-        ArrayList<BusStopInLine> rtt = new ArrayList<BusStopInLine>();
-        for (int i = 0; i < stopsInLine.size(); i++) {
-            if (stopsInLine.get(i).getRttOrder() != 0) {
-                rtt.add(stopsInLine.get(i));
-            }
-        }
-        rtt.sort(Comparator.comparing(BusStopInLine::getRttOrder));
-
-        return rtt;
+    public void setItineraries(List<Itinerary> itineraries) {
+        this.itineraries = itineraries;
     }
 
-    public void addStopToLine(BusStop stop, String itineraryName, int ttrOrder, int rttOrder) throws NullPointerException {
-        if (stop != null) {
-            BusStopInLine newRelation = new BusStopInLine(stop, this, itineraryName, ttrOrder, rttOrder);
-            this.stopsInLine.add(newRelation);
-            BusStopInLineRepository bsl = BusStopInLineRepository.getInstance();
-            bsl.addBusStopInLine(newRelation);
+    public void addItinerary(Itinerary it) throws NullPointerException {
+        if (it != null) {
+            itineraries.add(it);
         } else {
             throw new NullPointerException();
-        }
-    }
-
-    public void printStopsInLine() {
-        //this.stopsInLine.sort(Comparator.comparing(BusStopInLine::getRttOrder));
-        System.out.print(this + "\n");
-        for(int i = 0; i < this.stopsInLine.size(); i++) {
-            System.out.print(this.stopsInLine.get(i) + "\n");
         }
     }
 
@@ -88,7 +60,8 @@ public class BusLine {
     public String toString() {
         return "BusLine{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
+                ", short name='" + shortName + '\'' +
+                ", long name='" + longName + '\'' +
                 '}';
     }
 }

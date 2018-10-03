@@ -1,8 +1,7 @@
 package repositories;
 
-import beans.Neighborhood;
 import beans.Street;
-import beans.City;
+
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -32,8 +31,8 @@ public class StreetRepository {
         }
     }
 
-    public Street getOrCreate(String streetName, City c, Neighborhood n) {
-        Street s = new Street(streetName, c, n);
+    public Street getOrCreate(String streetName) {
+        Street s = new Street(streetName);
         for (int i = 0; i < list.size(); i++) {
             if (s.equals(list.get(i))) {
                 return list.get(i);

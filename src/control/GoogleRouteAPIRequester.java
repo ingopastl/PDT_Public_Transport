@@ -1,21 +1,17 @@
 package control;
 
-import beans.BusLine;
-import beans.BusStopInLine;
-import java.util.ArrayList;
-
 /*
 TODO
 This class is not really being used as of now.
  */
 public class GoogleRouteAPIRequester {
-
+    /*
     private static final String DEFAULTURL = "https://maps.googleapis.com/maps/api/directions/json?";
     private static final String APIKEY = "AIzaSyA4nuxucJdREFeUZ_8NtmgtX1tBf1ShurU";
 
     /*
     Encode a double value to the Google's Encoded Polyline Algorithm Format
-     */
+
     private String polylineEncode(double value) {
         //Take the decimal value and multiply it by 1e5
         int round = (int) Math.round(value * 1e5);
@@ -151,8 +147,8 @@ public class GoogleRouteAPIRequester {
 
     /*
     Convert a series of waypoint coordinates into a single polyline string.
-     */
-    public String getWaypointsPolyline(ArrayList<BusStopInLine> stopsInLine) {
+
+    public String getWaypointsPolyline(ArrayList<ItineraryBusStop> stopsInLine) {
         double previousLat = 0;
         double previousLong = 0;
         StringBuilder poliLyneString = new StringBuilder();
@@ -173,9 +169,9 @@ public class GoogleRouteAPIRequester {
     /*
     TODO
     This method is supposerd to make a http request to the Google's Route API
-     */
+
     public void getRoute(BusLine bl) throws Exception {
-        ArrayList<BusStopInLine> ttrOrder = bl.getSortedTtrStops();
+        ArrayList<ItineraryBusStop> ttrOrder = bl.getSortedTtrStops();
         String originCoordinate = ttrOrder.get(0).getBusStop().getLatitude() + "," + ttrOrder.get(0).getBusStop().getLongitude();
         String destinationCoodinate = ttrOrder.get(ttrOrder.size() - 1).getBusStop().getLatitude() + "," + ttrOrder.get(ttrOrder.size() - 1).getBusStop().getLongitude();
         ttrOrder.remove(0);
@@ -193,4 +189,5 @@ public class GoogleRouteAPIRequester {
         //HttpPost postRequest = new HttpPost(url);
         //HttpResponse response = client.execute(postRequest);
     }
+    */
 }

@@ -1,8 +1,6 @@
 package repositories;
 
 import beans.BusStop;
-import beans.City;
-import beans.Neighborhood;
 import beans.Street;
 
 import java.util.ArrayList;
@@ -37,15 +35,13 @@ public class BusStopRepository {
         }
     }
 
-    public BusStop getOrCreate(String id, Street s, Neighborhood n, City c, double latitude, double longitude) {
+    public BusStop getById(String id) {
         for (int i = 0; i < this.list.size(); i++) {
             if (this.list.get(i).getId().equals(id)) {
                 return this.list.get(i);
             }
         }
-        BusStop stop = new BusStop(id, s, n, c, latitude, longitude);
-        this.list.add(stop);
-        return stop;
+        return null;
     }
 
     public int getListSize() {

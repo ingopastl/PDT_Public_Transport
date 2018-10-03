@@ -17,18 +17,19 @@ public class Main extends Application {
     public static void main(String[] args) {
         CSVReader reader = new CSVReader();
         try{
-            reader.readBusLines("dataFiles\\CTMGrandeRecife_LinhaParadaTrajeto_dado.csv");
+            reader.readBusStops("src\\data\\SpBusLineData\\stops.txt");
+            reader.readBusLines("src\\data\\SpBusLineData\\routes.txt");
+            reader.readItineraries("src\\data\\SpBusLineData\\trips.txt");
+            reader.readStopsInItineraries("src\\data\\SpBusLineData\\test.txt");
         } catch (IOException e) {
             e.printStackTrace();
         }
 
         //Instâncias dos repositórios
-        //CityRepository cityRep = CityRepository.getInstance();
-        //NeighborhoodRepository neighRep = NeighborhoodRepository.getInstance();
         //StreetRepository streetRep = StreetRepository.getInstance();
         //BusStopRepository busStopRep = BusStopRepository.getInstance();
-        //BusLineRepository busLineRep = BusLineRepository.getInstance();
-        //BusStopInLineRepository busStopInLineRep = BusStopInLineRepository.getInstance();
+        //ItineraryRepository itRep = ItineraryRepository.getInstance();
+        //ItineraryBusStopRepository itiBsRep = ItineraryBusStopRepository.getInstance();
 
         Application.launch(args);
     }
@@ -46,8 +47,8 @@ public class Main extends Application {
                 try {
                 BusLineRepository busLineRep = BusLineRepository.getInstance();
                 HtmlBuilder html = new HtmlBuilder();
-                html.build(busLineRep.getByID("645"));
-                File file = new File("webFiles\\displayRoute.html");
+                html.build(busLineRep.getByID("423032"));
+                File file = new File("src\\web\\displayRoute.html");
                     engine.load(file.toURI().toURL().toString());
                 } catch (Exception e) {
                     e.printStackTrace();

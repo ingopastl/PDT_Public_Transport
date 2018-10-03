@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Encoding">
-    <file url="file://$PROJECT_DIR$/CTMGrandeRecife_LinhaParadaTrajeto_dado.csv" charset="ISO-8859-1" />
-    <file url="file://$PROJECT_DIR$/CTMGrandeRecife_RuasParadasOnibus_dado.csv" charset="ISO-8859-1" />
-    <file url="file://$PROJECT_DIR$/dataFiles/CTMGrandeRecife_LinhaParadaTrajeto_dado.csv" charset="windows-1252" />
-    <file url="file://$PROJECT_DIR$/dataFiles/CTMGrandeRecife_RuasParadasOnibus_dado.csv" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/data/CTMGrandeRecife_LinhaParadaTrajeto_dado.csv" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/data/CTMGrandeRecife_RuasParadasOnibus_dado.csv" charset="windows-1252" />
   </component>
 </project>
