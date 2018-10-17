@@ -28,7 +28,11 @@ public class BusLineRepository {
     }
 
     public BusLine getByIndex(int i) {
-        return this.list.get(i);
+        if (i < this.list.size() && i >= 0) {
+            return this.list.get(i);
+        } else {
+            throw new IndexOutOfBoundsException();
+        }
     }
 
     public BusLine getByID(String id) {

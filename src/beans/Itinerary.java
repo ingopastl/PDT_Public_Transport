@@ -19,14 +19,6 @@ public class Itinerary {
         this.stops = new ArrayList<ItineraryBusStop>();
     }
 
-    public void addItineraryBusStop(ItineraryBusStop ibs) throws NullPointerException {
-        if (ibs != null) {
-            this.stops.add(ibs);
-        } else {
-            throw new NullPointerException();
-        }
-    }
-
     public BusLine getBusLine() {
         return busLine;
     }
@@ -57,6 +49,14 @@ public class Itinerary {
 
     public void setItineraryHeadsign(String itineraryHeadsign) {
         this.itineraryHeadsign = itineraryHeadsign;
+    }
+
+    public void addItineraryBusStop(ItineraryBusStop ibs) throws NullPointerException {
+        if (ibs != null) {
+            this.stops.add(ibs);
+        } else {
+            throw new NullPointerException();
+        }
     }
 
     public List<ItineraryBusStop> getStops() {

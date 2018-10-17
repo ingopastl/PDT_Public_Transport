@@ -2,10 +2,8 @@ package control;
 
 import beans.*;
 import repositories.*;
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.InputStreamReader;
-import java.io.IOException;
+
+import java.io.*;
 import java.nio.charset.StandardCharsets;
 
 public class CSVReader {
@@ -62,8 +60,7 @@ public class CSVReader {
             System.exit(1);
         }
 
-        //Instâncias dos repositórios
-        StreetRepository streetRep = StreetRepository.getInstance();
+        //StreetRepository streetRep = StreetRepository.getInstance();
         BusStopRepository stopRep = BusStopRepository.getInstance();
 
         while ((currentLine = br.readLine()) != null) {
@@ -132,12 +129,13 @@ public class CSVReader {
                 }
             }
 
-            //Se não existir uma rua com este nome cadastrada, um novo objeto Street é criado e adicionado ao repositório.
-            //Caso contrário, a referência para o objeto Street contendo aquele nome é retornada.
-            Street s = streetRep.getOrCreate(streetName.toString());
-            BusStop stop = new BusStop(stopId.toString(), s, Double.parseDouble(latitudeString.toString()), Double.parseDouble(longitudeString.toString()));
+            /*
+            * Street data is not necessary as of now.
+            */
+            //Street s = streetRep.getOrCreate(streetName.toString());
+            BusStop stop = new BusStop(stopId.toString(), null, Double.parseDouble(latitudeString.toString()), Double.parseDouble(longitudeString.toString()));
             stopRep.addBusStop(stop);
-            s.addBusStop(stop);
+            //s.addBusStop(stop);
         }
     }
 
@@ -240,7 +238,7 @@ public class CSVReader {
         }
     }
 
-    public void readStopsInItineraries(String filePath) throws IOException {
+    public void readStopSequence(String filePath) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(filePath), StandardCharsets.ISO_8859_1));
 
         String currentLine = br.readLine(); //Pega o cabeçalho

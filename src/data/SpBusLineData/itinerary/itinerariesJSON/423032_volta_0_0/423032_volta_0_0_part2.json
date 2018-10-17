@@ -1,0 +1,1417 @@
+{
+   "geocoded_waypoints" : [
+      {
+         "geocoder_status" : "OK",
+         "place_id" : "ChIJi8Fs449DzpQREfsESSLpwrs",
+         "types" : [
+            "bus_station",
+            "establishment",
+            "point_of_interest",
+            "transit_station"
+         ]
+      },
+      {
+         "geocoder_status" : "OK",
+         "place_id" : "ChIJHQOtyo9DzpQR0eqQ2pP3-j4",
+         "types" : [ "premise" ]
+      },
+      {
+         "geocoder_status" : "OK",
+         "place_id" : "ChIJuxaCgI5DzpQRQ0b74NQRRKc",
+         "types" : [ "street_address" ]
+      },
+      {
+         "geocoder_status" : "OK",
+         "place_id" : "ChIJQfxeQoxDzpQRMZT578xvQew",
+         "types" : [ "street_address" ]
+      },
+      {
+         "geocoder_status" : "OK",
+         "place_id" : "ChIJ13dCj4xDzpQRncRBQewD4og",
+         "types" : [ "street_address" ]
+      },
+      {
+         "geocoder_status" : "OK",
+         "place_id" : "ChIJkTrBdvRDzpQR21Kv_5Ag2gU",
+         "types" : [ "street_address" ]
+      },
+      {
+         "geocoder_status" : "OK",
+         "place_id" : "ChIJs35Xy_ZDzpQReOnOVyah0yE",
+         "types" : [ "premise" ]
+      },
+      {
+         "geocoder_status" : "OK",
+         "place_id" : "ChIJQxFEx_BDzpQR-mey6fnm0a4",
+         "types" : [ "car_repair", "establishment", "point_of_interest", "store" ]
+      },
+      {
+         "geocoder_status" : "OK",
+         "place_id" : "ChIJxRJpQ_pDzpQRWI8OKXoJkw4",
+         "types" : [ "street_address" ]
+      },
+      {
+         "geocoder_status" : "OK",
+         "place_id" : "ChIJxcUdbftDzpQR1x5w2CNrnFs",
+         "types" : [
+            "bus_station",
+            "establishment",
+            "point_of_interest",
+            "transit_station"
+         ]
+      },
+      {
+         "geocoder_status" : "OK",
+         "place_id" : "ChIJVcRar_xDzpQRa-RJ8mkg28E",
+         "types" : [
+            "bus_station",
+            "establishment",
+            "point_of_interest",
+            "transit_station"
+         ]
+      },
+      {
+         "geocoder_status" : "OK",
+         "place_id" : "ChIJQw0YS-NDzpQRw372FNEkHD4",
+         "types" : [
+            "bus_station",
+            "establishment",
+            "point_of_interest",
+            "transit_station"
+         ]
+      },
+      {
+         "geocoder_status" : "OK",
+         "place_id" : "ChIJ1ViF5-JDzpQRWGD1ZbhuCAs",
+         "types" : [
+            "bus_station",
+            "establishment",
+            "point_of_interest",
+            "transit_station"
+         ]
+      },
+      {
+         "geocoder_status" : "OK",
+         "place_id" : "ChIJ9TSAf1hBzpQRlPxn4HENhUw",
+         "types" : [ "street_address" ]
+      },
+      {
+         "geocoder_status" : "OK",
+         "place_id" : "ChIJsXYm41hBzpQR3JmC2vFgH5w",
+         "types" : [ "street_address" ]
+      },
+      {
+         "geocoder_status" : "OK",
+         "place_id" : "ChIJM82HWllBzpQRuNi63dSHg4k",
+         "types" : [ "establishment", "point_of_interest" ]
+      },
+      {
+         "geocoder_status" : "OK",
+         "place_id" : "ChIJq4L6uF1BzpQRISPYVg0voGw",
+         "types" : [ "street_address" ]
+      },
+      {
+         "geocoder_status" : "OK",
+         "place_id" : "ChIJNerIcV1BzpQRyg11jQjz9PI",
+         "types" : [ "street_address" ]
+      },
+      {
+         "geocoder_status" : "OK",
+         "place_id" : "ChIJ8z_iz1xBzpQR9TqkREef46o",
+         "types" : [ "street_address" ]
+      },
+      {
+         "geocoder_status" : "OK",
+         "place_id" : "ChIJ86m9ZUNBzpQRhfNBSByDLRM",
+         "types" : [
+            "bus_station",
+            "establishment",
+            "point_of_interest",
+            "transit_station"
+         ]
+      },
+      {
+         "geocoder_status" : "OK",
+         "place_id" : "ChIJvVWsdERBzpQRyiyDOxg4WNM",
+         "types" : [
+            "bus_station",
+            "establishment",
+            "point_of_interest",
+            "transit_station"
+         ]
+      },
+      {
+         "geocoder_status" : "OK",
+         "place_id" : "ChIJXWjepEZBzpQRgk2JT66TvvM",
+         "types" : [
+            "bus_station",
+            "establishment",
+            "point_of_interest",
+            "transit_station"
+         ]
+      },
+      {
+         "geocoder_status" : "OK",
+         "place_id" : "ChIJHfWzcUZBzpQReahnkwA9Vp0",
+         "types" : [ "establishment", "food", "point_of_interest", "restaurant" ]
+      },
+      {
+         "geocoder_status" : "OK",
+         "place_id" : "ChIJtxqTlk5BzpQRMhUqbQaqDb4",
+         "types" : [
+            "bus_station",
+            "establishment",
+            "point_of_interest",
+            "transit_station"
+         ]
+      }
+   ],
+   "routes" : [
+      {
+         "bounds" : {
+            "northeast" : {
+               "lat" : -23.6933408,
+               "lng" : -46.5747414
+            },
+            "southwest" : {
+               "lat" : -23.7355264,
+               "lng" : -46.5888703
+            }
+         },
+         "copyrights" : "Map data ©2018 Google",
+         "legs" : [
+            {
+               "distance" : {
+                  "text" : "0.3 km",
+                  "value" : 263
+               },
+               "duration" : {
+                  "text" : "1 min",
+                  "value" : 38
+               },
+               "end_address" : "Av. Humberto de Alencar Castelo Branco, 200 - Independência, São Bernardo do Campo - SP, 09850-300, Brazil",
+               "end_location" : {
+                  "lat" : -23.6955404,
+                  "lng" : -46.5848172
+               },
+               "start_address" : "Avenida Humberto de Alencar Castelo Branco, 32 - Casa Grande, Diadema - SP, 09850-300, Brazil",
+               "start_location" : {
+                  "lat" : -23.6933408,
+                  "lng" : -46.5838799
+               },
+               "steps" : [
+                  {
+                     "distance" : {
+                        "text" : "0.3 km",
+                        "value" : 263
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 38
+                     },
+                     "end_location" : {
+                        "lat" : -23.6955404,
+                        "lng" : -46.5848172
+                     },
+                     "html_instructions" : "Head \u003cb\u003esouth\u003c/b\u003e on \u003cb\u003eAv. Humberto de Alencar Castelo Branco\u003c/b\u003e toward \u003cb\u003eAv. Rosa Aizemberg\u003c/b\u003e",
+                     "polyline" : {
+                        "points" : "jrroCfli{Gn@RXH`Bj@\\JzAd@LDlBn@TH"
+                     },
+                     "start_location" : {
+                        "lat" : -23.6933408,
+                        "lng" : -46.5838799
+                     },
+                     "travel_mode" : "DRIVING"
+                  }
+               ],
+               "traffic_speed_entry" : [],
+               "via_waypoint" : []
+            },
+            {
+               "distance" : {
+                  "text" : "0.3 km",
+                  "value" : 307
+               },
+               "duration" : {
+                  "text" : "1 min",
+                  "value" : 44
+               },
+               "end_address" : "Av. Humberto de Alencar Castelo Branco, 600 - Independência, São Bernardo do Campo - SP, 09850-300, Brazil",
+               "end_location" : {
+                  "lat" : -23.6980277,
+                  "lng" : -46.58607079999999
+               },
+               "start_address" : "Av. Humberto de Alencar Castelo Branco, 200 - Independência, São Bernardo do Campo - SP, 09850-300, Brazil",
+               "start_location" : {
+                  "lat" : -23.6955404,
+                  "lng" : -46.5848172
+               },
+               "steps" : [
+                  {
+                     "distance" : {
+                        "text" : "0.3 km",
+                        "value" : 307
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 44
+                     },
+                     "end_location" : {
+                        "lat" : -23.6980277,
+                        "lng" : -46.58607079999999
+                     },
+                     "html_instructions" : "Head \u003cb\u003esouth\u003c/b\u003e on \u003cb\u003eAv. Humberto de Alencar Castelo Branco\u003c/b\u003e toward \u003cb\u003eAv. Rosa Aizemberg\u003c/b\u003e",
+                     "polyline" : {
+                        "points" : "b`soCbri{GzAf@RFd@Pd@NZJf@PpA^PDJDHDJDJBHFJDFDFDFDDDFDFDDFFDDFFD"
+                     },
+                     "start_location" : {
+                        "lat" : -23.6955404,
+                        "lng" : -46.5848172
+                     },
+                     "travel_mode" : "DRIVING"
+                  }
+               ],
+               "traffic_speed_entry" : [],
+               "via_waypoint" : []
+            },
+            {
+               "distance" : {
+                  "text" : "0.3 km",
+                  "value" : 279
+               },
+               "duration" : {
+                  "text" : "1 min",
+                  "value" : 42
+               },
+               "end_address" : "Av. Humberto de Alencar Castelo Branco, 809 - Vila Rosa, São Bernardo do Campo - SP, 09850-300, Brazil",
+               "end_location" : {
+                  "lat" : -23.7001814,
+                  "lng" : -46.5873681
+               },
+               "start_address" : "Av. Humberto de Alencar Castelo Branco, 600 - Independência, São Bernardo do Campo - SP, 09850-300, Brazil",
+               "start_location" : {
+                  "lat" : -23.6980277,
+                  "lng" : -46.58607079999999
+               },
+               "steps" : [
+                  {
+                     "distance" : {
+                        "text" : "0.3 km",
+                        "value" : 279
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 42
+                     },
+                     "end_location" : {
+                        "lat" : -23.7001814,
+                        "lng" : -46.5873681
+                     },
+                     "html_instructions" : "Head \u003cb\u003esouthwest\u003c/b\u003e on \u003cb\u003eAv. Humberto de Alencar Castelo Branco\u003c/b\u003e toward \u003cb\u003eAv. Rosa Aizemberg\u003c/b\u003e\u003cdiv style=\"font-size:0.9em\"\u003eDestination will be on the right\u003c/div\u003e",
+                     "polyline" : {
+                        "points" : "tosoC|yi{GXXHLHFFFBDDFBDDDBBDDDBDB~@l@v@\\B@FBFBD@FBPBXDh@JD?HBHBD@D@B@DBHBBBTLHD"
+                     },
+                     "start_location" : {
+                        "lat" : -23.6980277,
+                        "lng" : -46.58607079999999
+                     },
+                     "travel_mode" : "DRIVING"
+                  }
+               ],
+               "traffic_speed_entry" : [],
+               "via_waypoint" : []
+            },
+            {
+               "distance" : {
+                  "text" : "0.2 km",
+                  "value" : 159
+               },
+               "duration" : {
+                  "text" : "1 min",
+                  "value" : 22
+               },
+               "end_address" : "R. Galiléia, 2 - Jardim Independencia, São Bernardo do Campo - SP, 09851-750, Brazil",
+               "end_location" : {
+                  "lat" : -23.7015069,
+                  "lng" : -46.5878229
+               },
+               "start_address" : "Av. Humberto de Alencar Castelo Branco, 809 - Vila Rosa, São Bernardo do Campo - SP, 09850-300, Brazil",
+               "start_location" : {
+                  "lat" : -23.7001814,
+                  "lng" : -46.5873681
+               },
+               "steps" : [
+                  {
+                     "distance" : {
+                        "text" : "0.2 km",
+                        "value" : 159
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 22
+                     },
+                     "end_location" : {
+                        "lat" : -23.7015069,
+                        "lng" : -46.5878229
+                     },
+                     "html_instructions" : "Head \u003cb\u003esouthwest\u003c/b\u003e on \u003cb\u003eAv. Humberto de Alencar Castelo Branco\u003c/b\u003e toward \u003cb\u003eAv. Joaquim Gonçalves Lêdo\u003c/b\u003e\u003cdiv style=\"font-size:0.9em\"\u003eDestination will be on the left\u003c/div\u003e",
+                     "polyline" : {
+                        "points" : "b}soC`bj{GbAf@FBTLDDFBFBB@B@FBF@B@H@F@H@F@J?N?D?F?D?F?F?PA"
+                     },
+                     "start_location" : {
+                        "lat" : -23.7001814,
+                        "lng" : -46.5873681
+                     },
+                     "travel_mode" : "DRIVING"
+                  }
+               ],
+               "traffic_speed_entry" : [],
+               "via_waypoint" : []
+            },
+            {
+               "distance" : {
+                  "text" : "0.6 km",
+                  "value" : 643
+               },
+               "duration" : {
+                  "text" : "2 mins",
+                  "value" : 94
+               },
+               "end_address" : "Av. Humberto de Alencar Castelo Branco, 1534 - Independência, São Bernardo do Campo - SP, 09850-300, Brazil",
+               "end_location" : {
+                  "lat" : -23.7070439,
+                  "lng" : -46.5886967
+               },
+               "start_address" : "R. Galiléia, 2 - Jardim Independencia, São Bernardo do Campo - SP, 09851-750, Brazil",
+               "start_location" : {
+                  "lat" : -23.7015069,
+                  "lng" : -46.5878229
+               },
+               "steps" : [
+                  {
+                     "distance" : {
+                        "text" : "0.6 km",
+                        "value" : 643
+                     },
+                     "duration" : {
+                        "text" : "2 mins",
+                        "value" : 94
+                     },
+                     "end_location" : {
+                        "lat" : -23.7070439,
+                        "lng" : -46.5886967
+                     },
+                     "html_instructions" : "Head \u003cb\u003esouth\u003c/b\u003e on \u003cb\u003eAv. Humberto de Alencar Castelo Branco\u003c/b\u003e toward \u003cb\u003eR. Galiléia\u003c/b\u003e\u003cdiv style=\"font-size:0.9em\"\u003eDestination will be on the right\u003c/div\u003e",
+                     "polyline" : {
+                        "points" : "letoCzdj{GD?d@EDAH?F?F?B?D?F?F@B?D@B@D@FBD@BBDBB@HHFF`@X^ZBBDB@@DB@@FD@@DBD@B@B@DBB@D@F@F@B@D?F@D?D@F?FAFAH?JAJCHAFALCFAFAD?FAF?D?D?@?L?J@L?H@L@LB^JLBND@?RBF@VBV@^?rBAb@An@CJ?H?\\@L@N@ZDT@NBRD"
+                     },
+                     "start_location" : {
+                        "lat" : -23.7015069,
+                        "lng" : -46.5878229
+                     },
+                     "travel_mode" : "DRIVING"
+                  }
+               ],
+               "traffic_speed_entry" : [],
+               "via_waypoint" : []
+            },
+            {
+               "distance" : {
+                  "text" : "0.3 km",
+                  "value" : 346
+               },
+               "duration" : {
+                  "text" : "1 min",
+                  "value" : 81
+               },
+               "end_address" : "Av. Humberto de Alencar Castelo Branco, 2174 - Assunção, São Bernardo do Campo - SP, 09850-300, Brazil",
+               "end_location" : {
+                  "lat" : -23.7100808,
+                  "lng" : -46.58838069999999
+               },
+               "start_address" : "Av. Humberto de Alencar Castelo Branco, 1534 - Independência, São Bernardo do Campo - SP, 09850-300, Brazil",
+               "start_location" : {
+                  "lat" : -23.7070439,
+                  "lng" : -46.5886967
+               },
+               "steps" : [
+                  {
+                     "distance" : {
+                        "text" : "0.3 km",
+                        "value" : 346
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 81
+                     },
+                     "end_location" : {
+                        "lat" : -23.7100808,
+                        "lng" : -46.58838069999999
+                     },
+                     "html_instructions" : "Head \u003cb\u003esouth\u003c/b\u003e on \u003cb\u003eAv. Humberto de Alencar Castelo Branco\u003c/b\u003e toward \u003cb\u003eAv. Plínio Barreto\u003c/b\u003e\u003cdiv style=\"font-size:0.9em\"\u003eDestination will be on the right\u003c/div\u003e",
+                     "polyline" : {
+                        "points" : "~guoCjjj{GN@\\Fp@JVDN@XBP?P?VAXEj@IFB@?@?b@G`B[\\EFAx@Of@K^K@?"
+                     },
+                     "start_location" : {
+                        "lat" : -23.7070439,
+                        "lng" : -46.5886967
+                     },
+                     "travel_mode" : "DRIVING"
+                  }
+               ],
+               "traffic_speed_entry" : [],
+               "via_waypoint" : []
+            },
+            {
+               "distance" : {
+                  "text" : "0.2 km",
+                  "value" : 202
+               },
+               "duration" : {
+                  "text" : "1 min",
+                  "value" : 34
+               },
+               "end_address" : "Av. Humberto de Alencar Castelo Branco, 2374 - Assunção, São Bernardo do Campo - SP, 09850-300, Brazil",
+               "end_location" : {
+                  "lat" : -23.7117618,
+                  "lng" : -46.5876445
+               },
+               "start_address" : "Av. Humberto de Alencar Castelo Branco, 2174 - Assunção, São Bernardo do Campo - SP, 09850-300, Brazil",
+               "start_location" : {
+                  "lat" : -23.7100808,
+                  "lng" : -46.58838069999999
+               },
+               "steps" : [
+                  {
+                     "distance" : {
+                        "text" : "0.2 km",
+                        "value" : 202
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 34
+                     },
+                     "end_location" : {
+                        "lat" : -23.7117618,
+                        "lng" : -46.5876445
+                     },
+                     "html_instructions" : "Head \u003cb\u003esouth\u003c/b\u003e on \u003cb\u003eAv. Humberto de Alencar Castelo Branco\u003c/b\u003e toward \u003cb\u003eR. Yolanda Suppi Bosqueiro\u003c/b\u003e\u003cdiv style=\"font-size:0.9em\"\u003eDestination will be on the right\u003c/div\u003e",
+                     "polyline" : {
+                        "points" : "~zuoCjhj{GXGLM\\ObA]lCy@HADAf@Q"
+                     },
+                     "start_location" : {
+                        "lat" : -23.7100808,
+                        "lng" : -46.58838069999999
+                     },
+                     "travel_mode" : "DRIVING"
+                  }
+               ],
+               "traffic_speed_entry" : [],
+               "via_waypoint" : []
+            },
+            {
+               "distance" : {
+                  "text" : "0.3 km",
+                  "value" : 280
+               },
+               "duration" : {
+                  "text" : "1 min",
+                  "value" : 46
+               },
+               "end_address" : "Av. Humberto de Alencar Castelo Branco, 2520 - Alves Dias, São Bernardo do Campo - SP, 09851-000, Brazil",
+               "end_location" : {
+                  "lat" : -23.7141093,
+                  "lng" : -46.5866475
+               },
+               "start_address" : "Av. Humberto de Alencar Castelo Branco, 2374 - Assunção, São Bernardo do Campo - SP, 09850-300, Brazil",
+               "start_location" : {
+                  "lat" : -23.7117618,
+                  "lng" : -46.5876445
+               },
+               "steps" : [
+                  {
+                     "distance" : {
+                        "text" : "0.3 km",
+                        "value" : 280
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 46
+                     },
+                     "end_location" : {
+                        "lat" : -23.7141093,
+                        "lng" : -46.5866475
+                     },
+                     "html_instructions" : "Head \u003cb\u003esoutheast\u003c/b\u003e on \u003cb\u003eAv. Humberto de Alencar Castelo Branco\u003c/b\u003e toward \u003cb\u003eR. Aliomar Baleeiro\u003c/b\u003e\u003cdiv style=\"font-size:0.9em\"\u003eDestination will be on the right\u003c/div\u003e",
+                     "polyline" : {
+                        "points" : "nevoCvcj{GDAbA_@r@S~@[FAhBi@fBk@d@ORIBA"
+                     },
+                     "start_location" : {
+                        "lat" : -23.7117618,
+                        "lng" : -46.5876445
+                     },
+                     "travel_mode" : "DRIVING"
+                  }
+               ],
+               "traffic_speed_entry" : [],
+               "via_waypoint" : []
+            },
+            {
+               "distance" : {
+                  "text" : "0.2 km",
+                  "value" : 233
+               },
+               "duration" : {
+                  "text" : "1 min",
+                  "value" : 42
+               },
+               "end_address" : "Avenida Humberto de Alencar Castelo Branco, 2922 - Alves Dias, São Bernardo do Campo - SP, 09851-000, Brazil",
+               "end_location" : {
+                  "lat" : -23.7158097,
+                  "lng" : -46.5853398
+               },
+               "start_address" : "Av. Humberto de Alencar Castelo Branco, 2520 - Alves Dias, São Bernardo do Campo - SP, 09851-000, Brazil",
+               "start_location" : {
+                  "lat" : -23.7141093,
+                  "lng" : -46.5866475
+               },
+               "steps" : [
+                  {
+                     "distance" : {
+                        "text" : "0.2 km",
+                        "value" : 233
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 42
+                     },
+                     "end_location" : {
+                        "lat" : -23.7158097,
+                        "lng" : -46.5853398
+                     },
+                     "html_instructions" : "Head \u003cb\u003esoutheast\u003c/b\u003e on \u003cb\u003eAv. Humberto de Alencar Castelo Branco\u003c/b\u003e toward \u003cb\u003eR. Francisco Fusari\u003c/b\u003e\u003cdiv style=\"font-size:0.9em\"\u003eDestination will be on the right\u003c/div\u003e",
+                     "polyline" : {
+                        "points" : "dtvoCp}i{GLGRGFEh@URKNIVQFGHGHGRSj@g@NOPOZY\\YJI"
+                     },
+                     "start_location" : {
+                        "lat" : -23.7141093,
+                        "lng" : -46.5866475
+                     },
+                     "travel_mode" : "DRIVING"
+                  }
+               ],
+               "traffic_speed_entry" : [],
+               "via_waypoint" : []
+            },
+            {
+               "distance" : {
+                  "text" : "0.2 km",
+                  "value" : 162
+               },
+               "duration" : {
+                  "text" : "1 min",
+                  "value" : 33
+               },
+               "end_address" : "Av. Humberto Alencar Castelo Branco, 3054 - Alves Dias, São Bernardo do Campo - SP, 09851-000, Brazil",
+               "end_location" : {
+                  "lat" : -23.7169097,
+                  "lng" : -46.58429719999999
+               },
+               "start_address" : "Avenida Humberto de Alencar Castelo Branco, 2922 - Alves Dias, São Bernardo do Campo - SP, 09851-000, Brazil",
+               "start_location" : {
+                  "lat" : -23.7158097,
+                  "lng" : -46.5853398
+               },
+               "steps" : [
+                  {
+                     "distance" : {
+                        "text" : "0.2 km",
+                        "value" : 162
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 33
+                     },
+                     "end_location" : {
+                        "lat" : -23.7169097,
+                        "lng" : -46.58429719999999
+                     },
+                     "html_instructions" : "Head \u003cb\u003esoutheast\u003c/b\u003e on \u003cb\u003eAv. Humberto de Alencar Castelo Branco\u003c/b\u003e toward \u003cb\u003eValentine\u003c/b\u003e",
+                     "polyline" : {
+                        "points" : "x~voCjui{Gl@i@x@s@r@s@\\]`@_@"
+                     },
+                     "start_location" : {
+                        "lat" : -23.7158097,
+                        "lng" : -46.5853398
+                     },
+                     "travel_mode" : "DRIVING"
+                  }
+               ],
+               "traffic_speed_entry" : [],
+               "via_waypoint" : []
+            },
+            {
+               "distance" : {
+                  "text" : "0.1 km",
+                  "value" : 104
+               },
+               "duration" : {
+                  "text" : "1 min",
+                  "value" : 24
+               },
+               "end_address" : "Avenida Humberto de Alencar Castelo Branco, 3126-3148 - Alves Dias, São Bernardo do Campo - SP, 09850-305, Brazil",
+               "end_location" : {
+                  "lat" : -23.7176235,
+                  "lng" : -46.5836378
+               },
+               "start_address" : "Av. Humberto Alencar Castelo Branco, 3054 - Alves Dias, São Bernardo do Campo - SP, 09851-000, Brazil",
+               "start_location" : {
+                  "lat" : -23.7169097,
+                  "lng" : -46.58429719999999
+               },
+               "steps" : [
+                  {
+                     "distance" : {
+                        "text" : "0.1 km",
+                        "value" : 104
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 24
+                     },
+                     "end_location" : {
+                        "lat" : -23.7176235,
+                        "lng" : -46.5836378
+                     },
+                     "html_instructions" : "Head \u003cb\u003esoutheast\u003c/b\u003e on \u003cb\u003eAv. Humberto de Alencar Castelo Branco\u003c/b\u003e toward \u003cb\u003eR. Luígia Bortoloto Bernardelo\u003c/b\u003e\u003cdiv style=\"font-size:0.9em\"\u003eDestination will be on the right\u003c/div\u003e",
+                     "polyline" : {
+                        "points" : "tewoCzni{G@Cd@c@x@o@POX["
+                     },
+                     "start_location" : {
+                        "lat" : -23.7169097,
+                        "lng" : -46.58429719999999
+                     },
+                     "travel_mode" : "DRIVING"
+                  }
+               ],
+               "traffic_speed_entry" : [],
+               "via_waypoint" : []
+            },
+            {
+               "distance" : {
+                  "text" : "0.2 km",
+                  "value" : 199
+               },
+               "duration" : {
+                  "text" : "1 min",
+                  "value" : 46
+               },
+               "end_address" : "Av. Humberto Alencar Castelo Branco, 3329-3383 - Alves Dias, São Bernardo do Campo - SP, 09850-305, Brazil",
+               "end_location" : {
+                  "lat" : -23.7189675,
+                  "lng" : -46.5823557
+               },
+               "start_address" : "Avenida Humberto de Alencar Castelo Branco, 3126-3148 - Alves Dias, São Bernardo do Campo - SP, 09850-305, Brazil",
+               "start_location" : {
+                  "lat" : -23.7176235,
+                  "lng" : -46.5836378
+               },
+               "steps" : [
+                  {
+                     "distance" : {
+                        "text" : "0.2 km",
+                        "value" : 199
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 46
+                     },
+                     "end_location" : {
+                        "lat" : -23.7189675,
+                        "lng" : -46.5823557
+                     },
+                     "html_instructions" : "Head \u003cb\u003esoutheast\u003c/b\u003e on \u003cb\u003eAv. Humberto de Alencar Castelo Branco\u003c/b\u003e toward \u003cb\u003eAv. Horácio Barione\u003c/b\u003e\u003cdiv style=\"font-size:0.9em\"\u003eDestination will be on the right\u003c/div\u003e",
+                     "polyline" : {
+                        "points" : "bjwoCvji{GNO`@c@j@g@d@a@HIHI`@_@ZYJMj@e@"
+                     },
+                     "start_location" : {
+                        "lat" : -23.7176235,
+                        "lng" : -46.5836378
+                     },
+                     "travel_mode" : "DRIVING"
+                  }
+               ],
+               "traffic_speed_entry" : [],
+               "via_waypoint" : []
+            },
+            {
+               "distance" : {
+                  "text" : "0.2 km",
+                  "value" : 178
+               },
+               "duration" : {
+                  "text" : "1 min",
+                  "value" : 34
+               },
+               "end_address" : "Av. Humberto de Alencar Castelo Branco, 3524 - Alves Dias, São Bernardo do Campo - SP, 09850-305, Brazil",
+               "end_location" : {
+                  "lat" : -23.7202914,
+                  "lng" : -46.58139569999999
+               },
+               "start_address" : "Av. Humberto Alencar Castelo Branco, 3329-3383 - Alves Dias, São Bernardo do Campo - SP, 09850-305, Brazil",
+               "start_location" : {
+                  "lat" : -23.7189675,
+                  "lng" : -46.5823557
+               },
+               "steps" : [
+                  {
+                     "distance" : {
+                        "text" : "0.2 km",
+                        "value" : 178
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 34
+                     },
+                     "end_location" : {
+                        "lat" : -23.7202914,
+                        "lng" : -46.58139569999999
+                     },
+                     "html_instructions" : "Head \u003cb\u003esoutheast\u003c/b\u003e on \u003cb\u003eAv. Humberto de Alencar Castelo Branco\u003c/b\u003e toward \u003cb\u003eR. Rev. Paulo Lício Rizo\u003c/b\u003e\u003cdiv style=\"font-size:0.9em\"\u003eDestination will be on the right\u003c/div\u003e",
+                     "polyline" : {
+                        "points" : "prwoCvbi{GXYtAoAZUTOZOZMXKRE"
+                     },
+                     "start_location" : {
+                        "lat" : -23.7189675,
+                        "lng" : -46.5823557
+                     },
+                     "travel_mode" : "DRIVING"
+                  }
+               ],
+               "traffic_speed_entry" : [],
+               "via_waypoint" : []
+            },
+            {
+               "distance" : {
+                  "text" : "0.2 km",
+                  "value" : 230
+               },
+               "duration" : {
+                  "text" : "1 min",
+                  "value" : 52
+               },
+               "end_address" : "Av. Humberto de Alencar Castelo Branco, 3784 - Alves Dias, São Bernardo do Campo - SP, 09850-305, Brazil",
+               "end_location" : {
+                  "lat" : -23.7222049,
+                  "lng" : -46.5805447
+               },
+               "start_address" : "Av. Humberto de Alencar Castelo Branco, 3524 - Alves Dias, São Bernardo do Campo - SP, 09850-305, Brazil",
+               "start_location" : {
+                  "lat" : -23.7202914,
+                  "lng" : -46.58139569999999
+               },
+               "steps" : [
+                  {
+                     "distance" : {
+                        "text" : "0.2 km",
+                        "value" : 230
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 52
+                     },
+                     "end_location" : {
+                        "lat" : -23.7222049,
+                        "lng" : -46.5805447
+                     },
+                     "html_instructions" : "Head \u003cb\u003esouth\u003c/b\u003e on \u003cb\u003eAv. Humberto de Alencar Castelo Branco\u003c/b\u003e toward \u003cb\u003ePraça Luísa Nunes Coelho\u003c/b\u003e/\u003cb\u003eR. Giácomo Capitania\u003c/b\u003e\u003cdiv style=\"font-size:0.9em\"\u003eDestination will be on the right\u003c/div\u003e",
+                     "polyline" : {
+                        "points" : "xzwoCv|h{GZKTIzAg@p@Wr@YhC{@"
+                     },
+                     "start_location" : {
+                        "lat" : -23.7202914,
+                        "lng" : -46.58139569999999
+                     },
+                     "travel_mode" : "DRIVING"
+                  }
+               ],
+               "traffic_speed_entry" : [],
+               "via_waypoint" : []
+            },
+            {
+               "distance" : {
+                  "text" : "0.2 km",
+                  "value" : 220
+               },
+               "duration" : {
+                  "text" : "1 min",
+                  "value" : 38
+               },
+               "end_address" : "Av. Humberto de Alencar Castelo Branco, 3972 - B009 - Assunção, São Bernardo do Campo - SP, 09850-901, Brazil",
+               "end_location" : {
+                  "lat" : -23.7239534,
+                  "lng" : -46.5795851
+               },
+               "start_address" : "Av. Humberto de Alencar Castelo Branco, 3784 - Alves Dias, São Bernardo do Campo - SP, 09850-305, Brazil",
+               "start_location" : {
+                  "lat" : -23.7222049,
+                  "lng" : -46.5805447
+               },
+               "steps" : [
+                  {
+                     "distance" : {
+                        "text" : "0.2 km",
+                        "value" : 220
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 38
+                     },
+                     "end_location" : {
+                        "lat" : -23.7239534,
+                        "lng" : -46.5795851
+                     },
+                     "html_instructions" : "Head \u003cb\u003esouth\u003c/b\u003e on \u003cb\u003eAv. Humberto de Alencar Castelo Branco\u003c/b\u003e toward \u003cb\u003eR. Ricardo\u003c/b\u003e\u003cdiv style=\"font-size:0.9em\"\u003eDestination will be on the right\u003c/div\u003e",
+                     "polyline" : {
+                        "points" : "vfxoCjwh{GzCaAp@UPGr@[TQLILKLKHM"
+                     },
+                     "start_location" : {
+                        "lat" : -23.7222049,
+                        "lng" : -46.5805447
+                     },
+                     "travel_mode" : "DRIVING"
+                  }
+               ],
+               "traffic_speed_entry" : [],
+               "via_waypoint" : []
+            },
+            {
+               "distance" : {
+                  "text" : "0.4 km",
+                  "value" : 418
+               },
+               "duration" : {
+                  "text" : "1 min",
+                  "value" : 66
+               },
+               "end_address" : "Praça Giovani Breda, 4416 - Assunção, São Bernardo do Campo - SP, 09850-310, Brazil",
+               "end_location" : {
+                  "lat" : -23.7243951,
+                  "lng" : -46.5755829
+               },
+               "start_address" : "Av. Humberto de Alencar Castelo Branco, 3972 - B009 - Assunção, São Bernardo do Campo - SP, 09850-901, Brazil",
+               "start_location" : {
+                  "lat" : -23.7239534,
+                  "lng" : -46.5795851
+               },
+               "steps" : [
+                  {
+                     "distance" : {
+                        "text" : "0.4 km",
+                        "value" : 418
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 66
+                     },
+                     "end_location" : {
+                        "lat" : -23.7243951,
+                        "lng" : -46.5755829
+                     },
+                     "html_instructions" : "Head \u003cb\u003esoutheast\u003c/b\u003e on \u003cb\u003eAv. Humberto de Alencar Castelo Branco\u003c/b\u003e toward \u003cb\u003eR. Lourdes Rabêlo\u003c/b\u003e\u003cdiv style=\"font-size:0.9em\"\u003eDestination will be on the right\u003c/div\u003e",
+                     "polyline" : {
+                        "points" : "tqxoClqh{G?AJOFOBGBIFo@Fo@HcAB[?M?I?IGy@Gw@AO?KAIAo@@W?WLo@Hk@?C?G@CDuABa@?M@G@EBE@C@EBC"
+                     },
+                     "start_location" : {
+                        "lat" : -23.7239534,
+                        "lng" : -46.5795851
+                     },
+                     "travel_mode" : "DRIVING"
+                  }
+               ],
+               "traffic_speed_entry" : [],
+               "via_waypoint" : []
+            },
+            {
+               "distance" : {
+                  "text" : "0.2 km",
+                  "value" : 173
+               },
+               "duration" : {
+                  "text" : "1 min",
+                  "value" : 24
+               },
+               "end_address" : "Estr. dos Alvarengas, 26 - Assunção, São Bernardo do Campo - SP, 09850-550, Brazil",
+               "end_location" : {
+                  "lat" : -23.7256926,
+                  "lng" : -46.57474310000001
+               },
+               "start_address" : "Praça Giovani Breda, 4416 - Assunção, São Bernardo do Campo - SP, 09850-310, Brazil",
+               "start_location" : {
+                  "lat" : -23.7243951,
+                  "lng" : -46.5755829
+               },
+               "steps" : [
+                  {
+                     "distance" : {
+                        "text" : "33 m",
+                        "value" : 33
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 5
+                     },
+                     "end_location" : {
+                        "lat" : -23.7246073,
+                        "lng" : -46.5753537
+                     },
+                     "html_instructions" : "Head \u003cb\u003esoutheast\u003c/b\u003e on \u003cb\u003eAv. Humberto de Alencar Castelo Branco\u003c/b\u003e toward \u003cb\u003ePraça Giovani Breda\u003c/b\u003e",
+                     "polyline" : {
+                        "points" : "ntxoCjxg{G?ADEb@e@"
+                     },
+                     "start_location" : {
+                        "lat" : -23.7243951,
+                        "lng" : -46.5755829
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "80 m",
+                        "value" : 80
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 11
+                     },
+                     "end_location" : {
+                        "lat" : -23.7251784,
+                        "lng" : -46.5749144
+                     },
+                     "html_instructions" : "Slight \u003cb\u003eright\u003c/b\u003e onto \u003cb\u003ePraça Giovani Breda\u003c/b\u003e",
+                     "maneuver" : "turn-slight-right",
+                     "polyline" : {
+                        "points" : "xuxoC|vg{GNCPENGLKLIJMJMHO@C"
+                     },
+                     "start_location" : {
+                        "lat" : -23.7246073,
+                        "lng" : -46.5753537
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "60 m",
+                        "value" : 60
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 8
+                     },
+                     "end_location" : {
+                        "lat" : -23.7256926,
+                        "lng" : -46.57474310000001
+                     },
+                     "html_instructions" : "Slight \u003cb\u003eright\u003c/b\u003e onto \u003cb\u003eEstr. dos Alvarengas\u003c/b\u003e",
+                     "maneuver" : "turn-slight-right",
+                     "polyline" : {
+                        "points" : "jyxoCdtg{Gd@OHEFAFAFAJAPC"
+                     },
+                     "start_location" : {
+                        "lat" : -23.7251784,
+                        "lng" : -46.5749144
+                     },
+                     "travel_mode" : "DRIVING"
+                  }
+               ],
+               "traffic_speed_entry" : [],
+               "via_waypoint" : []
+            },
+            {
+               "distance" : {
+                  "text" : "0.5 km",
+                  "value" : 459
+               },
+               "duration" : {
+                  "text" : "1 min",
+                  "value" : 63
+               },
+               "end_address" : "Estr. dos Alvarengas, 502 - Vila Artuelia, São Bernardo do Campo - SP, 09850-550, Brazil",
+               "end_location" : {
+                  "lat" : -23.7279622,
+                  "lng" : -46.5771408
+               },
+               "start_address" : "Estr. dos Alvarengas, 26 - Assunção, São Bernardo do Campo - SP, 09850-550, Brazil",
+               "start_location" : {
+                  "lat" : -23.7256926,
+                  "lng" : -46.57474310000001
+               },
+               "steps" : [
+                  {
+                     "distance" : {
+                        "text" : "0.5 km",
+                        "value" : 459
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 63
+                     },
+                     "end_location" : {
+                        "lat" : -23.7279622,
+                        "lng" : -46.5771408
+                     },
+                     "html_instructions" : "Head \u003cb\u003esouth\u003c/b\u003e on \u003cb\u003eEstr. dos Alvarengas\u003c/b\u003e toward \u003cb\u003eR. Padre Rolim\u003c/b\u003e\u003cdiv style=\"font-size:0.9em\"\u003eDestination will be on the right\u003c/div\u003e",
+                     "polyline" : {
+                        "points" : "p|xoCbsg{Gn@?h@@Z?P?R?l@?N@ZBXDB?l@LZHXHVJXNRRHLHTFR@R@J@J?NAJCf@Ir@ANEd@AJ?H?JAH@BAF?@?F@H?P@FAF"
+                     },
+                     "start_location" : {
+                        "lat" : -23.7256926,
+                        "lng" : -46.57474310000001
+                     },
+                     "travel_mode" : "DRIVING"
+                  }
+               ],
+               "traffic_speed_entry" : [],
+               "via_waypoint" : []
+            },
+            {
+               "distance" : {
+                  "text" : "0.3 km",
+                  "value" : 311
+               },
+               "duration" : {
+                  "text" : "1 min",
+                  "value" : 30
+               },
+               "end_address" : "Estr. dos Alvarengas, 2810 - Alves Dias, São Bernardo do Campo - SP, 09850-000, Brazil",
+               "end_location" : {
+                  "lat" : -23.7303665,
+                  "lng" : -46.5783207
+               },
+               "start_address" : "Estr. dos Alvarengas, 502 - Vila Artuelia, São Bernardo do Campo - SP, 09850-550, Brazil",
+               "start_location" : {
+                  "lat" : -23.7279622,
+                  "lng" : -46.5771408
+               },
+               "steps" : [
+                  {
+                     "distance" : {
+                        "text" : "0.3 km",
+                        "value" : 311
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 30
+                     },
+                     "end_location" : {
+                        "lat" : -23.7303665,
+                        "lng" : -46.5783207
+                     },
+                     "html_instructions" : "Head \u003cb\u003ewest\u003c/b\u003e on \u003cb\u003eEstr. dos Alvarengas\u003c/b\u003e toward \u003cb\u003eR. Artuelia\u003c/b\u003e\u003cdiv style=\"font-size:0.9em\"\u003eDestination will be on the right\u003c/div\u003e",
+                     "polyline" : {
+                        "points" : "vjyoCbbh{G?F?F?B?D@B@@@D@B@B@@@BBB@BFFHFJJDBFFHFFDHFHFJFh@ZB?B@D@B@B?B@F@F@B?@@`@Df@Dv@HF@d@FL@j@HXDPD"
+                     },
+                     "start_location" : {
+                        "lat" : -23.7279622,
+                        "lng" : -46.5771408
+                     },
+                     "travel_mode" : "DRIVING"
+                  }
+               ],
+               "traffic_speed_entry" : [],
+               "via_waypoint" : []
+            },
+            {
+               "distance" : {
+                  "text" : "0.3 km",
+                  "value" : 263
+               },
+               "duration" : {
+                  "text" : "1 min",
+                  "value" : 31
+               },
+               "end_address" : "Rua Estrada do Alvarengas, 999 - Alves Dias, São Bernardo do Campo - SP, 09850-000, Brazil",
+               "end_location" : {
+                  "lat" : -23.7326394,
+                  "lng" : -46.5790183
+               },
+               "start_address" : "Estr. dos Alvarengas, 2810 - Alves Dias, São Bernardo do Campo - SP, 09850-000, Brazil",
+               "start_location" : {
+                  "lat" : -23.7303665,
+                  "lng" : -46.5783207
+               },
+               "steps" : [
+                  {
+                     "distance" : {
+                        "text" : "0.3 km",
+                        "value" : 263
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 31
+                     },
+                     "end_location" : {
+                        "lat" : -23.7326394,
+                        "lng" : -46.5790183
+                     },
+                     "html_instructions" : "Head \u003cb\u003esouth\u003c/b\u003e on \u003cb\u003eEstr. dos Alvarengas\u003c/b\u003e toward \u003cb\u003eR. Pedro Brêda\u003c/b\u003e\u003cdiv style=\"font-size:0.9em\"\u003eDestination will be on the right\u003c/div\u003e",
+                     "polyline" : {
+                        "points" : "xyyoCnih{GTFF@n@NRDXFfAVp@Lt@Nt@NHBrAVD@"
+                     },
+                     "start_location" : {
+                        "lat" : -23.7303665,
+                        "lng" : -46.5783207
+                     },
+                     "travel_mode" : "DRIVING"
+                  }
+               ],
+               "traffic_speed_entry" : [],
+               "via_waypoint" : []
+            },
+            {
+               "distance" : {
+                  "text" : "0.2 km",
+                  "value" : 236
+               },
+               "duration" : {
+                  "text" : "1 min",
+                  "value" : 30
+               },
+               "end_address" : "Estr. dos Alvarengas, 3096 - Alves Dias, São Bernardo do Campo - SP, 09840-670, Brazil",
+               "end_location" : {
+                  "lat" : -23.734572,
+                  "lng" : -46.5797928
+               },
+               "start_address" : "Rua Estrada do Alvarengas, 999 - Alves Dias, São Bernardo do Campo - SP, 09850-000, Brazil",
+               "start_location" : {
+                  "lat" : -23.7326394,
+                  "lng" : -46.5790183
+               },
+               "steps" : [
+                  {
+                     "distance" : {
+                        "text" : "0.2 km",
+                        "value" : 203
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 24
+                     },
+                     "end_location" : {
+                        "lat" : -23.7343938,
+                        "lng" : -46.57955519999999
+                     },
+                     "html_instructions" : "Head \u003cb\u003esouth\u003c/b\u003e on \u003cb\u003eEstr. dos Alvarengas\u003c/b\u003e toward \u003cb\u003eR. Min. Otávio Mangabeira\u003c/b\u003e",
+                     "polyline" : {
+                        "points" : "~gzoCzmh{Gj@LD@^HZDJBr@Nt@NnBb@HB"
+                     },
+                     "start_location" : {
+                        "lat" : -23.7326394,
+                        "lng" : -46.5790183
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "33 m",
+                        "value" : 33
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 6
+                     },
+                     "end_location" : {
+                        "lat" : -23.734572,
+                        "lng" : -46.5797928
+                     },
+                     "html_instructions" : "Turn \u003cb\u003eright\u003c/b\u003e\u003cdiv style=\"font-size:0.9em\"\u003ePartial restricted usage road\u003c/div\u003e\u003cdiv style=\"font-size:0.9em\"\u003eDestination will be on the left\u003c/div\u003e",
+                     "maneuver" : "turn-right",
+                     "polyline" : {
+                        "points" : "|rzoCfqh{GBN@DBB@@DBPL"
+                     },
+                     "start_location" : {
+                        "lat" : -23.7343938,
+                        "lng" : -46.57955519999999
+                     },
+                     "travel_mode" : "DRIVING"
+                  }
+               ],
+               "traffic_speed_entry" : [],
+               "via_waypoint" : []
+            },
+            {
+               "distance" : {
+                  "text" : "0.4 km",
+                  "value" : 375
+               },
+               "duration" : {
+                  "text" : "1 min",
+                  "value" : 66
+               },
+               "end_address" : "Estr. dos Alvarengas, 4447 - Alvarenga, São Bernardo do Campo - SP, 09850-550, Brazil",
+               "end_location" : {
+                  "lat" : -23.7353512,
+                  "lng" : -46.5821409
+               },
+               "start_address" : "Estr. dos Alvarengas, 3096 - Alves Dias, São Bernardo do Campo - SP, 09840-670, Brazil",
+               "start_location" : {
+                  "lat" : -23.734572,
+                  "lng" : -46.5797928
+               },
+               "steps" : [
+                  {
+                     "distance" : {
+                        "text" : "33 m",
+                        "value" : 33
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 5
+                     },
+                     "end_location" : {
+                        "lat" : -23.7343938,
+                        "lng" : -46.57955519999999
+                     },
+                     "html_instructions" : "Head \u003cb\u003enortheast\u003c/b\u003e toward \u003cb\u003eEstr. dos Alvarengas\u003c/b\u003e\u003cdiv style=\"font-size:0.9em\"\u003ePartial restricted usage road\u003c/div\u003e",
+                     "polyline" : {
+                        "points" : "`tzoCtrh{GQMECAACCAECO"
+                     },
+                     "start_location" : {
+                        "lat" : -23.734572,
+                        "lng" : -46.5797928
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.3 km",
+                        "value" : 258
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 50
+                     },
+                     "end_location" : {
+                        "lat" : -23.7354225,
+                        "lng" : -46.5813226
+                     },
+                     "html_instructions" : "Turn \u003cb\u003eright\u003c/b\u003e onto \u003cb\u003eEstr. dos Alvarengas\u003c/b\u003e",
+                     "maneuver" : "turn-right",
+                     "polyline" : {
+                        "points" : "|rzoCfqh{GdB\\r@PRH@@@@@@B@BB?@@@BB@@@B@B@B@B@D@F@F@F?F?F@F?H?P?P?PAP?PANAX?FAD?l@"
+                     },
+                     "start_location" : {
+                        "lat" : -23.7343938,
+                        "lng" : -46.57955519999999
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "84 m",
+                        "value" : 84
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 11
+                     },
+                     "end_location" : {
+                        "lat" : -23.7353512,
+                        "lng" : -46.5821409
+                     },
+                     "html_instructions" : "Continue straight to stay on \u003cb\u003eEstr. dos Alvarengas\u003c/b\u003e\u003cdiv style=\"font-size:0.9em\"\u003eDestination will be on the right\u003c/div\u003e",
+                     "maneuver" : "straight",
+                     "polyline" : {
+                        "points" : "jyzoCf|h{GG~AEj@?J?H?@"
+                     },
+                     "start_location" : {
+                        "lat" : -23.7354225,
+                        "lng" : -46.5813226
+                     },
+                     "travel_mode" : "DRIVING"
+                  }
+               ],
+               "traffic_speed_entry" : [],
+               "via_waypoint" : []
+            },
+            {
+               "distance" : {
+                  "text" : "0.6 km",
+                  "value" : 589
+               },
+               "duration" : {
+                  "text" : "2 mins",
+                  "value" : 106
+               },
+               "end_address" : "Estrada dos Alvarengas, 4798 - Cooperativa, São Bernardo do Campo - SP, 09850-550, Brazil",
+               "end_location" : {
+                  "lat" : -23.7355264,
+                  "lng" : -46.5876621
+               },
+               "start_address" : "Estr. dos Alvarengas, 4447 - Alvarenga, São Bernardo do Campo - SP, 09850-550, Brazil",
+               "start_location" : {
+                  "lat" : -23.7353512,
+                  "lng" : -46.5821409
+               },
+               "steps" : [
+                  {
+                     "distance" : {
+                        "text" : "0.6 km",
+                        "value" : 589
+                     },
+                     "duration" : {
+                        "text" : "2 mins",
+                        "value" : 106
+                     },
+                     "end_location" : {
+                        "lat" : -23.7355264,
+                        "lng" : -46.5876621
+                     },
+                     "html_instructions" : "Head \u003cb\u003ewest\u003c/b\u003e on \u003cb\u003eEstr. dos Alvarengas\u003c/b\u003e toward \u003cb\u003eR. Campína Grande\u003c/b\u003e\u003cdiv style=\"font-size:0.9em\"\u003eDestination will be on the right\u003c/div\u003e",
+                     "polyline" : {
+                        "points" : "|xzoCjai{G?F?HAH?F?DCt@Er@Ch@ATEx@Er@CXARCNETKXCHEJ[t@CDADADAFCDAFAHAFAD?F?D?J?D?F@N?D@H@H?D@H@H@BBH@H@F@@@FJZJXDJ?@Vp@Rr@Pn@FVJv@L`A?BBL"
+                     },
+                     "start_location" : {
+                        "lat" : -23.7353512,
+                        "lng" : -46.5821409
+                     },
+                     "travel_mode" : "DRIVING"
+                  }
+               ],
+               "traffic_speed_entry" : [],
+               "via_waypoint" : []
+            }
+         ],
+         "overview_polyline" : {
+            "points" : "jrroCfli{GvLzDzDpAfDbAl@Td@Xx@r@hApATP~@l@v@\\JDf@LrATl@TvCzAVH^FfA@bAI\\?X@VHRJrAfAb@Zl@PVB\\ApAQZA`@@r@F~@TjAJfFG`ABpALrBZf@Fj@Bh@AdAOJBjDk@bCg@XGLM`Bm@dEoA|DqA~FgBx@[tAq@r@i@`B{ArBgBlDeDrBgBh@k@lAkAzAuAlBgBpBeBp@_@t@Yn@QvEcBhJ{ChAm@ZUb@k@JWJy@PsBBi@OeCEuA@o@V{AFeBF}@JSDGb@e@NC`@MZUV[JS~@YRC`ACjB@|@@t@HfB`@p@Z\\`@Ph@B^@ZEr@StB?~@@~@P\\fA|@bAj@PDVDbCVfBThATlIfBjCh@z@N~@RdDr@HBBNDHFDPLQMGEEICOdB\\fAZBBHHHJFPD^@j@G~BGlCEv@?\\WzFOpB[dAc@fAI^CZ@h@L`Ad@~Aj@dBXfA\\jC"
+         },
+         "summary" : "Av. Humberto de Alencar Castelo Branco",
+         "warnings" : [],
+         "waypoint_order" : [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21
+         ]
+      }
+   ],
+   "status" : "OK"
+}
