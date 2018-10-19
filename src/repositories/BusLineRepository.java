@@ -1,6 +1,8 @@
 package repositories;
 
 import beans.BusLine;
+import control.CSVReader;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,13 +37,16 @@ public class BusLineRepository {
         }
     }
 
-    public BusLine getByID(String id) {
+    public BusLine getByID(String id) throws Exception {
+        BusLine bl = null;
         for (int i = 0; i < this.list.size(); i++) {
             if (id.equals(this.list.get(i).getId())) {
-                return this.list.get(i);
+                bl = this.list.get(i);
+                break;
             }
         }
-        return null;
+
+        return bl;
     }
 
     public void printList() {

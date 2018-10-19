@@ -1,6 +1,7 @@
 package control;
 
 import beans.BusLine;
+import beans.Itinerary;
 import beans.ItineraryBusStop;
 
 import org.apache.http.client.HttpClient;
@@ -8,6 +9,8 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.HttpResponse;
 import org.apache.http.util.EntityUtils;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -207,13 +210,13 @@ public class GoogleRouteAPIRequester {
     * TODO
     * This method is supposerd to make a http request to the Google's Route API
     */
-    public void requestRoute(BusLine bl, int direction) throws IOException, NullPointerException {
-        if (bl == null) {
+    public void requestRoute(Itinerary iti) throws IOException, NullPointerException {
+        if (iti == null) {
             throw new NullPointerException();
         }
-        List<ItineraryBusStop> stops = bl.getItineraries().get(direction).getStops();
+        List<ItineraryBusStop> stops = iti.getStops();
         if (stops.size() == 0) {
-            reader.readStopSequence("src\\data\\SpBusLineData\\itinerary\\stopSequence\\" + bl.getItineraries().get(direction).getItineraryId() + ".txt");
+            reader.readStopSequence("src\\data\\SpBusLineData\\itinerary\\stopSequence\\" + iti.getItineraryId() + ".txt");
         }
 
         int start = 0, end = 24, part = 1;
@@ -228,15 +231,15 @@ public class GoogleRouteAPIRequester {
 
             String routePoly = getWaypointsPolyline(stops.subList(start + 1, end - 1));
             String url = DEFAULTURL + "origin=" + URLEncoder.encode(originCoordinate, StandardCharsets.UTF_8) + "&destination=" + URLEncoder.encode(destinationCoodinate, StandardCharsets.UTF_8) + "&waypoints=enc:" + URLEncoder.encode(routePoly, StandardCharsets.UTF_8) + ":&key=" + APIKEY;
-            String url2 = DEFAULTURL + "origin=" + originCoordinate + "&destination=" + destinationCoodinate + "&waypoints=enc:" + routePoly + ":&key=" + APIKEY;
-            System.out.print(url2 + '\n');
+            //String url2 = DEFAULTURL + "origin=" + originCoordinate + "&destination=" + destinationCoodinate + "&waypoints=enc:" + routePoly + ":&key=" + APIKEY;
+            //System.out.print(url2 + '\n');
 
             HttpClient client = HttpClientBuilder.create().build();
             HttpPost postRequest = new HttpPost(url);
             HttpResponse response = client.execute(postRequest);
             String json = EntityUtils.toString(response.getEntity(), "UTF-8");
 
-            File f = new File("src\\data\\SpBusLineData\\itinerary\\itinerariesJSON\\" + bl.getItineraries().get(direction).getItineraryId() + "\\" + bl.getItineraries().get(direction).getItineraryId() + "_part" + part + ".json");
+            File f = new File("src\\data\\SpBusLineData\\itinerary\\itinerariesJSON\\" + iti.getItineraryId() + "\\" + iti.getItineraryId() + "_part" + part + ".json");
             BufferedWriter bw = new BufferedWriter(new FileWriter(f));
             bw.write(json);
             bw.close();
@@ -249,5 +252,26 @@ public class GoogleRouteAPIRequester {
                 part++;
             }
         }
+    }
+
+    public double walkingDistance(double originLat, double originLong, double destinationLat, double destinationLong) throws Exception {
+        String originCoordinate = originLat + "," + originLong;
+        String destinationCoodinate = destinationLat + "," + destinationLong;
+
+        String url = DEFAULTURL + "origin=" + originCoordinate + "&destination=" + destinationCoodinate + "&mode=walking&key=" + APIKEY;
+        System.out.print(url + '\n');
+
+        HttpClient client = HttpClientBuilder.create().build();
+        HttpPost postRequest = new HttpPost(url);
+        HttpResponse response = client.execute(postRequest);
+        String json = EntityUtils.toString(response.getEntity(), "UTF-8");
+
+        JSONObject jsonObject = new JSONObject(json);
+        JSONArray routes = jsonObject.getJSONArray("routes");
+        JSONArray legs = routes.getJSONObject(0).getJSONArray("legs");
+
+        double d = (int) legs.getJSONObject(0).getJSONObject("distance").get("value");
+
+        return d;
     }
 }

@@ -184,7 +184,7 @@ public class CSVReader {
         }
     }
 
-    public void readItineraries(String filePath) throws IOException {
+    public void readItineraries(String filePath) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(filePath), StandardCharsets.ISO_8859_1));
 
         String currentLine = br.readLine(); //Pega o cabeçalho

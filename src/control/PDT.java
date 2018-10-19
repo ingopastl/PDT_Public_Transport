@@ -1,122 +1,57 @@
 package control;
 
-import beans.BusLine;
-import org.apache.commons.io.FileUtils;
-import org.json.JSONArray;
-import org.json.JSONObject;
+import beans.BusStop;
+import beans.Itinerary;
+import beans.ItineraryBusStop;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 public class PDT {
+    public double[] randomLocation(Itinerary itinerary) throws Exception {
+        double[] boundaries = itinerary.getBoudaries();
 
-    public double getTravelTime(BusLine bl, int direction) throws Exception {
-        File f = new File("src\\data\\SpBusLineData\\itinerary\\itinerariesJSON\\" + bl.getItineraries().get(direction).getItineraryId());
+        double meters = 800;
+        // number of km per degree = ~111km (111.32 in google maps, but range varies
+        // between 110.567km at the equator and 111.699km at the poles)
+        // 1km in degree = 1 / 111.32km = 0.0089
+        // 1m in degree = 0.0089 / 1000 = 0.0000089
+        double coef = meters * 0.0000089;
 
-        if (!f.exists()) {
-            f.mkdir();
-            GoogleRouteAPIRequester apiRequester = new GoogleRouteAPIRequester();
-            apiRequester.requestRoute(bl, direction);
-        }
+        double highestLat = boundaries[0] + coef;
+        double lowestLat = boundaries[1] - coef;
+        double highestLong = boundaries[2] + coef;
+        double lowestLong = boundaries[3] - coef;
 
-        File[] files = f.listFiles();
+        double[] randomLocation = new double[2];
 
-        //Time in seconds.
-        double time = 0;
+        Random r = new Random();
+        randomLocation[0] = lowestLat + (highestLat - lowestLat) * r.nextDouble();
+        randomLocation[1] = lowestLong + (highestLong - lowestLong) * r.nextDouble();
 
-        if (files != null) {
-            for (int i = 0; i < files.length; i++) {
-                String json = FileUtils.readFileToString(files[i], StandardCharsets.UTF_8);
-                JSONObject jsonObject = new JSONObject(json);
-                JSONArray routes = jsonObject.getJSONArray("routes");
-                JSONArray legs = routes.getJSONObject(0).getJSONArray("legs");
-
-                //System.out.print("Quantidade de pernas: " + legs.length() + "\n");
-
-                for (int j = 0; j < legs.length(); j++) {
-                    int duration = (int) legs.getJSONObject(j).getJSONObject("duration").get("value");
-                    time += duration;
-                }
-            }
-            System.out.print(time + "\n");
-        }else {
-            throw new NullPointerException();
-        }
-        return time;
+        return randomLocation;
     }
 
-    public double getTotalTravelDistance(BusLine bl, int direction) throws Exception {
-        File f = new File("src\\data\\SpBusLineData\\itinerary\\itinerariesJSON\\" + bl.getItineraries().get(direction).getItineraryId());
+    public BusStop findNearestStop(double[] point, Itinerary itinerary) {
+        List<ItineraryBusStop> stops = itinerary.getStops();
+        double stopLat;
+        double stopLong;
+        double closestStopEuclidianDistance = 100000;
+        BusStop closestStop = null;
+        for (int i = 0; i < stops.size(); i++) {
+            stopLat = stops.get(i).getBusStop().getLatitude();
+            stopLong = stops.get(i).getBusStop().getLongitude();
 
-        if (!f.exists()) {
-            f.mkdir();
-            GoogleRouteAPIRequester apiRequester = new GoogleRouteAPIRequester();
-            apiRequester.requestRoute(bl, direction);
-        }
-
-        File[] files = f.listFiles();
-
-        //Distance in meters.
-        double totalDistance = 0;
-
-        if (files != null) {
-            for (int i = 0; i < files.length; i++) {
-                String json = FileUtils.readFileToString(files[i], StandardCharsets.UTF_8);
-                JSONObject jsonObject = new JSONObject(json);
-                JSONArray routes = jsonObject.getJSONArray("routes");
-                JSONArray legs = routes.getJSONObject(0).getJSONArray("legs");
-
-                //System.out.print("Quantidade de pernas: " + legs.length() + "\n");
-
-                for (int j = 0; j < legs.length(); j++) {
-                    int distance = (int) legs.getJSONObject(j).getJSONObject("distance").get("value");
-                    totalDistance += distance;
-                }
+            double euclidian = Math.sqrt(Math.pow(point[0] - stopLat, 2) + Math.pow(point[1] - stopLong, 2));
+            if (euclidian < closestStopEuclidianDistance) {
+                closestStopEuclidianDistance = euclidian;
+                closestStop = stops.get(i).getBusStop();
             }
-            System.out.print(totalDistance + "\n");
-        }else {
-            throw new NullPointerException();
         }
-        return totalDistance;
-    }
 
-    public double getDistanceVariance(BusLine bl, int direction) throws Exception {
-        File f = new File("src\\data\\SpBusLineData\\itinerary\\itinerariesJSON\\" + bl.getItineraries().get(direction).getItineraryId());
-        if (!f.exists()) {
-            f.mkdir();
-            GoogleRouteAPIRequester apiRequester = new GoogleRouteAPIRequester();
-            apiRequester.requestRoute(bl, direction);
-        }
-        File[] files = f.listFiles();
+        //System.out.print(point[0] + "\n" + point[1] + "\n\n");
+        //System.out.print(closestStop.getLatitude() + "\n" + closestStop.getLongitude() + "\n\n");
 
-        ArrayList<Double> x = new ArrayList<Double>();
-        double average = 0;
-
-        if (files != null) {
-            for (int i = 0; i < files.length; i++) {
-                String json = FileUtils.readFileToString(files[i], StandardCharsets.UTF_8);
-                JSONObject jsonObject = new JSONObject(json);
-                JSONArray routes = jsonObject.getJSONArray("routes");
-                JSONArray legs = routes.getJSONObject(0).getJSONArray("legs");
-
-                for (int j = 0; j < legs.length(); j++) {
-                    double d = (int) legs.getJSONObject(j).getJSONObject("distance").get("value");
-                    x.add(d);
-                    average += d;
-                }
-            }
-            average = average/x.size();
-
-            double x2_sum = 0;
-            for (int i = 0; i < x.size(); i++) {
-                x2_sum += Math.pow(x.get(i) - average, 2);
-            }
-
-            return x2_sum/x.size();
-        }else {
-            throw new FileNotFoundException();
-        }
+        return closestStop;
     }
 }

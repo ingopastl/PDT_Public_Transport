@@ -1,4 +1,5 @@
 import beans.BusLine;
+import beans.BusStop;
 import control.*;
 import repositories.BusLineRepository;
 
@@ -17,11 +18,11 @@ import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 
 import java.io.File;
-import java.io.IOException;
 
 public class Main extends Application {
 
     private static CSVReader reader = new CSVReader();
+    private static GoogleRouteAPIRequester apiRequester = new GoogleRouteAPIRequester();
     private static PDT pdt = new PDT();
 
     public static void main(String[] args) {
@@ -33,12 +34,20 @@ public class Main extends Application {
 
             BusLineRepository busLineRep = BusLineRepository.getInstance();
             BusLine bl = busLineRep.getByID("423032");
-            System.out.print(pdt.getDistanceVariance(bl, 0));
+
+            double[] randomLocation = pdt.randomLocation(bl.getItineraries().get(0));
+            BusStop closestStop = pdt.findNearestStop(randomLocation, bl.getItineraries().get(0));
+
+            System.out.print("Localização: Lat = " + randomLocation[0] + ", Long = " + randomLocation[1] + "\n");
+            System.out.print("Parada mais próxima: Lat = " + closestStop.getLatitude() + ", Long = " + closestStop.getLongitude() + "\n");
+
+            System.out.print("Distância de caminhada: " + apiRequester.walkingDistance(randomLocation[0], randomLocation[1], closestStop.getLatitude(), closestStop.getLongitude()) + " metros");
+
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        Application.launch(args);
+        //Application.launch(args);
     }
 
     @Override
