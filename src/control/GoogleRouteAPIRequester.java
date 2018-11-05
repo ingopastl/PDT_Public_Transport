@@ -1,6 +1,7 @@
 package control;
 
 import beans.BusLine;
+import beans.BusStop;
 import beans.Itinerary;
 import beans.ItineraryBusStop;
 
@@ -186,13 +187,13 @@ public class GoogleRouteAPIRequester {
     /*
     * Convert a series of waypoint coordinates into a single polyline string.
      */
-    private String getWaypointsPolyline(List<ItineraryBusStop> stopsInItinerary) {
+    private String getWaypointsPolyline(List<BusStop> stopsInItinerary) {
         double previousLat = 0;
         double previousLong = 0;
         StringBuilder poliLyneString = new StringBuilder();
         for (int i = 0; i < stopsInItinerary.size(); i++) {
-            double lat = stopsInItinerary.get(i).getBusStop().getLatitude();
-            double longi = stopsInItinerary.get(i).getBusStop().getLongitude();
+            double lat = stopsInItinerary.get(i).getLatitude();
+            double longi = stopsInItinerary.get(i).getLongitude();
             double latChange = lat - previousLat;
             double longChange = longi - previousLong;
 
@@ -206,30 +207,28 @@ public class GoogleRouteAPIRequester {
         return poliLyneString.toString();
     }
 
-    /*
-    * TODO
-    * This method is supposerd to make a http request to the Google's Route API
-    */
-    public void requestRoute(Itinerary iti) throws IOException, NullPointerException {
-        if (iti == null) {
+    public JSONArray requestRoute(List<BusStop> route) throws Exception {
+        if (route == null) {
             throw new NullPointerException();
         }
-        List<ItineraryBusStop> stops = iti.getStops();
-        if (stops.size() == 0) {
-            reader.readStopSequence("src\\data\\SpBusLineData\\itinerary\\stopSequence\\" + iti.getItineraryId() + ".txt");
-        }
 
-        int start = 0, end = 24, part = 1;
+        JSONArray jsonArray = new JSONArray();
 
+        int start = 0, end = 24;
         while (true) {
-            if (end >= stops.size()) {
-                end = stops.size() - 1;
+            if (end >= route.size()) {
+                end = route.size() - 1;
             }
 
-            String originCoordinate = stops.get(start).getBusStop().getLatitude() + "," + stops.get(start).getBusStop().getLongitude();
-            String destinationCoodinate = stops.get(end).getBusStop().getLatitude() + "," + stops.get(end).getBusStop().getLongitude();
+            String originCoordinate = route.get(start).getLatitude() + "," + route.get(start).getLongitude();
+            String destinationCoodinate = route.get(end).getLatitude() + "," + route.get(end).getLongitude();
 
-            String routePoly = getWaypointsPolyline(stops.subList(start + 1, end - 1));
+            String routePoly;
+            if (route.subList(start, end).size() > 2) {
+                routePoly = getWaypointsPolyline(route.subList(start + 1, end - 1));
+            } else {
+                routePoly = "";
+            }
             String url = DEFAULTURL + "origin=" + URLEncoder.encode(originCoordinate, StandardCharsets.UTF_8) + "&destination=" + URLEncoder.encode(destinationCoodinate, StandardCharsets.UTF_8) + "&waypoints=enc:" + URLEncoder.encode(routePoly, StandardCharsets.UTF_8) + ":&key=" + APIKEY;
             //String url2 = DEFAULTURL + "origin=" + originCoordinate + "&destination=" + destinationCoodinate + "&waypoints=enc:" + routePoly + ":&key=" + APIKEY;
             //System.out.print(url2 + '\n');
@@ -239,39 +238,31 @@ public class GoogleRouteAPIRequester {
             HttpResponse response = client.execute(postRequest);
             String json = EntityUtils.toString(response.getEntity(), "UTF-8");
 
-            File f = new File("src\\data\\SpBusLineData\\itinerary\\itinerariesJSON\\" + iti.getItineraryId() + "\\" + iti.getItineraryId() + "_part" + part + ".json");
-            BufferedWriter bw = new BufferedWriter(new FileWriter(f));
-            bw.write(json);
-            bw.close();
+            jsonArray.put(new JSONObject(json));
 
-            if (end == stops.size() - 1) {
+            if (end == route.size() - 1) {
                 break;
             } else {
                 start += 24;
                 end = start + 24;
-                part++;
             }
         }
+
+        return jsonArray;
     }
 
-    public double walkingDistance(double originLat, double originLong, double destinationLat, double destinationLong) throws Exception {
+    public JSONObject walkingRoute(double originLat, double originLong, double destinationLat, double destinationLong) throws Exception {
         String originCoordinate = originLat + "," + originLong;
         String destinationCoodinate = destinationLat + "," + destinationLong;
 
         String url = DEFAULTURL + "origin=" + originCoordinate + "&destination=" + destinationCoodinate + "&mode=walking&key=" + APIKEY;
-        System.out.print(url + '\n');
+        //System.out.print(url + '\n');
 
         HttpClient client = HttpClientBuilder.create().build();
         HttpPost postRequest = new HttpPost(url);
         HttpResponse response = client.execute(postRequest);
         String json = EntityUtils.toString(response.getEntity(), "UTF-8");
 
-        JSONObject jsonObject = new JSONObject(json);
-        JSONArray routes = jsonObject.getJSONArray("routes");
-        JSONArray legs = routes.getJSONObject(0).getJSONArray("legs");
-
-        double d = (int) legs.getJSONObject(0).getJSONObject("distance").get("value");
-
-        return d;
+        return new JSONObject(json);
     }
 }

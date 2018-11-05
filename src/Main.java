@@ -1,5 +1,4 @@
 import beans.BusLine;
-import beans.BusStop;
 import control.*;
 import repositories.BusLineRepository;
 
@@ -32,30 +31,31 @@ public class Main extends Application {
             reader.readBusLines("src\\data\\SpBusLineData\\routes.txt");
             reader.readItineraries("src\\data\\SpBusLineData\\itinerary\\itineraries.txt");
 
+            /*
             BusLineRepository busLineRep = BusLineRepository.getInstance();
             BusLine bl = busLineRep.getByID("423032");
 
-            double[] randomLocation = pdt.randomLocation(bl.getItineraries().get(0));
-            BusStop closestStop = pdt.findNearestStop(randomLocation, bl.getItineraries().get(0));
-
-            System.out.print("Localização: Lat = " + randomLocation[0] + ", Long = " + randomLocation[1] + "\n");
-            System.out.print("Parada mais próxima: Lat = " + closestStop.getLatitude() + ", Long = " + closestStop.getLongitude() + "\n");
-
-            System.out.print("Distância de caminhada: " + apiRequester.walkingDistance(randomLocation[0], randomLocation[1], closestStop.getLatitude(), closestStop.getLongitude()) + " metros");
+            for (int i = 0; i < 30; i++) {
+                pdt.simulateTravel(bl.getItineraries().get(0));
+            }
+            System.out.print("END");
+            */
 
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        //Application.launch(args);
+        Application.launch(args);
     }
 
     @Override
     public void start(Stage stage) throws Exception {
         WebView myWebView = new WebView();
+        myWebView.setMaxSize(1920, 1080);
         WebEngine engine = myWebView.getEngine();
         TextField busLineInput = new TextField();
         Button loadFileBtn = new Button("Display");
+        Button simulateBtn = new Button("Simulate");
         ObservableList<String> directionsOptions = FXCollections.observableArrayList("Outward", "Return");
         ComboBox directionOptions = new ComboBox(directionsOptions);
 
@@ -85,8 +85,33 @@ public class Main extends Application {
             }
         });
 
+        simulateBtn.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                try {
+                    HtmlBuilder html = new HtmlBuilder();
+                    GoogleRouteAPIRequester apiRequester = new GoogleRouteAPIRequester();
+                    String busLineString = busLineInput.getText();
+                    String dOption = (String) directionOptions.getValue();
+
+                    BusLineRepository busLineRep = BusLineRepository.getInstance();
+                    BusLine bl = busLineRep.getByID(busLineString);
+                    if (dOption.equals("Outward")) {
+                        html.crateMapSimulation(bl, 0);
+                    } else {
+                        html.crateMapSimulation(bl, 1);
+                    }
+
+                    File file = new File("src\\web\\simulation.html");
+                    engine.load(file.toURI().toURL().toString());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
         VBox root = new VBox();
-        root.getChildren().addAll(myWebView, busLineInput, directionOptions, loadFileBtn);
+        root.getChildren().addAll(myWebView, busLineInput, directionOptions, loadFileBtn, simulateBtn);
         stage.setTitle("IC 2018");
         Scene scene = new Scene(root, 800, 500);
         stage.setScene(scene);
