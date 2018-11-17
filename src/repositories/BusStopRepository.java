@@ -1,8 +1,11 @@
 package repositories;
 
 import beans.BusStop;
-import beans.Street;
-
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,6 +22,92 @@ public class BusStopRepository {
             instance = new BusStopRepository();
         }
         return instance;
+    }
+
+    public void readCSV(String filePath) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(filePath), StandardCharsets.ISO_8859_1));
+
+        String currentLine = br.readLine(); //Pega o cabeçalho.
+        int count = 0;
+        for (int i = 0; i < currentLine.length(); i++) {
+            if (currentLine.charAt(i) == ',') {
+                count++;
+            }
+        }
+        if (count != 9) {
+            System.out.print("Cabeçalho errado");
+            System.exit(1);
+        }
+
+        while ((currentLine = br.readLine()) != null) {
+            StringBuilder stopId = new StringBuilder(), streetName = new StringBuilder(), latitudeString = new StringBuilder(), longitudeString = new StringBuilder();
+
+            int field = 1;
+            int quoteCount = 0;
+            for (int i = 0; i < currentLine.length(); i++) {
+                char currentChar = currentLine.charAt(i);
+                if (currentChar == ',') {
+                    field++;
+                } else {
+                    if (field == 1) {
+                        while(true) {
+                            if (currentLine.charAt(i) == '\"') {
+                                quoteCount++;
+                                if (quoteCount >= 2) {
+                                    quoteCount = 0;
+                                    break;
+                                }
+                            } else {
+                                stopId.append(currentLine.charAt(i));
+                            }
+                            ++i;
+                        }
+                    } else if (field == 3) {
+                        while(true) {
+                            if (currentLine.charAt(i) == '\"') {
+                                quoteCount++;
+                                if (quoteCount >= 2) {
+                                    quoteCount = 0;
+                                    break;
+                                }
+                            } else {
+                                streetName.append(currentLine.charAt(i));
+                            }
+                            ++i;
+                        }
+                    } else if (field == 5) {
+                        while(true) {
+                            if (currentLine.charAt(i) == '\"') {
+                                quoteCount++;
+                                if (quoteCount >= 2) {
+                                    quoteCount = 0;
+                                    break;
+                                }
+                            } else {
+                                latitudeString.append(currentLine.charAt(i));
+                            }
+                            ++i;
+                        }
+                    } else if (field == 6) {
+                        while(true) {
+                            if (currentLine.charAt(i) == '\"') {
+                                quoteCount++;
+                                if (quoteCount >= 2) {
+                                    quoteCount = 0;
+                                    break;
+                                }
+                            } else {
+                                longitudeString.append(currentLine.charAt(i));
+                            }
+                            ++i;
+                        }
+                    }
+                }
+            }
+
+            BusStop stop = new BusStop(stopId.toString(), null, Double.parseDouble(latitudeString.toString()), Double.parseDouble(longitudeString.toString()));
+            addBusStop(stop);
+        }
     }
 
     public void addBusStop(BusStop stop) throws NullPointerException {
@@ -42,9 +131,5 @@ public class BusStopRepository {
             }
         }
         return null;
-    }
-
-    public int getListSize() {
-        return list.size();
     }
 }

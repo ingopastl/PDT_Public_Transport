@@ -1,14 +1,13 @@
 package beans;
 
-import control.CSVReader;
-import control.GoogleRouteAPIRequester;
+import services.GoogleRouteAPIRequester;
 import org.apache.commons.io.FileUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import repositories.ItineraryBusStopRepository;
 
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -73,9 +72,9 @@ public class Itinerary {
     }
 
     public double getTotalTravelTime() throws Exception {
-        CSVReader reader = new CSVReader();
+        ItineraryBusStopRepository itineraryBusStopRepository = ItineraryBusStopRepository.getInstance();
         if (this.stops.size() == 0) {
-            reader.readStopSequence("src\\data\\SpBusLineData\\itinerary\\stopSequence\\" + this.itineraryId + ".txt");
+            itineraryBusStopRepository.readStopSequence("src\\data\\SpBusLineData\\itineraries\\stopSequence\\" + this.itineraryId + ".txt");
         }
 
         JSONArray jsonArray;
@@ -110,9 +109,9 @@ public class Itinerary {
     }
 
     public double getTotalTravelDistance() throws Exception {
-        CSVReader reader = new CSVReader();
+        ItineraryBusStopRepository itineraryBusStopRepository = ItineraryBusStopRepository.getInstance();
         if (this.stops.size() == 0) {
-            reader.readStopSequence("src\\data\\SpBusLineData\\itinerary\\stopSequence\\" + this.itineraryId + ".txt");
+            itineraryBusStopRepository.readStopSequence("src\\data\\SpBusLineData\\itineraries\\stopSequence\\" + this.itineraryId + ".txt");
         }
 
         JSONArray jsonArray;
@@ -148,9 +147,9 @@ public class Itinerary {
     }
 
     public double getStopsDistanceVariance() throws Exception {
-        CSVReader reader = new CSVReader();
+        ItineraryBusStopRepository itineraryBusStopRepository = ItineraryBusStopRepository.getInstance();
         if (this.stops.size() == 0) {
-            reader.readStopSequence("src\\data\\SpBusLineData\\itinerary\\stopSequence\\" + this.itineraryId + ".txt");
+            itineraryBusStopRepository.readStopSequence("src\\data\\SpBusLineData\\itineraries\\stopSequence\\" + this.itineraryId + ".txt");
         }
 
         JSONArray jsonArray;
@@ -191,9 +190,9 @@ public class Itinerary {
     }
 
     public double[] getBoudaries() throws Exception {
-        CSVReader reader = new CSVReader();
+        ItineraryBusStopRepository itineraryBusStopRepository = ItineraryBusStopRepository.getInstance();
         if (this.stops.size() == 0) {
-            reader.readStopSequence("src\\data\\SpBusLineData\\itinerary\\stopSequence\\" + this.itineraryId + ".txt");
+            itineraryBusStopRepository.readStopSequence("src\\data\\SpBusLineData\\itineraries\\stopSequence\\" + this.itineraryId + ".txt");
         }
 
         double highestLat, lowestLat, highestLong, lowestLong;
@@ -240,9 +239,9 @@ public class Itinerary {
     }
 
     public List<ItineraryBusStop> getStops() throws Exception {
-        CSVReader reader = new CSVReader();
+        ItineraryBusStopRepository itineraryBusStopRepository = ItineraryBusStopRepository.getInstance();
         if (this.stops.size() == 0) {
-            reader.readStopSequence("src\\data\\SpBusLineData\\itinerary\\stopSequence\\" + this.itineraryId + ".txt");
+            itineraryBusStopRepository.readStopSequence("src\\data\\SpBusLineData\\itineraries\\stopSequence\\" + this.itineraryId + ".txt");
         }
 
         return stops;

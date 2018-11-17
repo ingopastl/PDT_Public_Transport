@@ -1,8 +1,12 @@
 package repositories;
 
 import beans.BusLine;
-import control.CSVReader;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,6 +23,47 @@ public class BusLineRepository {
             instance = new BusLineRepository();
         }
         return instance;
+    }
+
+    public void readCSV(String filePath) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(filePath), StandardCharsets.ISO_8859_1));
+
+        String currentLine = br.readLine(); //Pega o cabeçalho
+        int count = 0;
+        for (int i = 0; i < currentLine.length(); i++) {
+            if (currentLine.charAt(i) == ',') {
+                count++;
+            }
+        }
+        if (count != 8) {
+            System.out.print("Cabeçalho errado");
+            System.exit(1);
+        }
+
+        while ((currentLine = br.readLine()) != null) {
+            StringBuilder busLineID = new StringBuilder(), busLineShortName = new StringBuilder(), busLineLongName = new StringBuilder();
+
+            int field = 1;
+            for (int i = 0; i < currentLine.length(); i++) {
+                char currentChar = currentLine.charAt(i);
+                if (currentChar != ',') {
+                    if (currentChar != '\"') {
+                        if (field == 1) {
+                            busLineID.append(currentChar);
+                        } else if (field == 3) {
+                            busLineShortName.append(currentChar);
+                        } else if (field == 4) {
+                            busLineLongName.append(currentChar);
+                        }
+                    }
+                } else {
+                    field++;
+                }
+            }
+
+            BusLine bl = new BusLine(busLineID.toString(), busLineShortName.toString(), busLineLongName.toString());
+            addBusLine(bl);
+        }
     }
 
     public void addBusLine(BusLine line) throws NullPointerException {

@@ -163,13 +163,13 @@ public class XML {
          * any Unicode character, excluding the surrogate blocks, FFFE, and FFFF. 
          */
         // isISOControl is true when (cp >= 0 && cp <= 0x1F) || (cp >= 0x7F && cp <= 0x9F)
-        // all ISO control characters are out of range except tabs and new lines
+        // all ISO services characters are out of range except tabs and new lines
         return (Character.isISOControl(cp)
                 && cp != 0x9
                 && cp != 0xA
                 && cp != 0xD
             ) || !(
-                // valid the range of acceptable characters that aren't control
+                // valid the range of acceptable characters that aren't services
                 (cp >= 0x20 && cp <= 0xD7FF)
                 || (cp >= 0xE000 && cp <= 0xFFFD)
                 || (cp >= 0x10000 && cp <= 0x10FFFF)
