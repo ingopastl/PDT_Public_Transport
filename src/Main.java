@@ -17,7 +17,7 @@ public class Main {
 
             BusLineRepository busLineRep = BusLineRepository.getInstance();
             Itinerary i = busLineRep.getByID("423032").getItineraries().get(0);
-            TCsimulator simulator = new TCsimulator(i, 200, 800);
+            TCsimulator simulator = new TCsimulator(i, 1, 800);
             System.out.print("Average walking time: " + simulator.getAverageWalkingTime());
             System.out.print("\nAverage trip time: " + simulator.getAverageTripTime());
             System.out.print("\nStops variance: " + simulator.getStopsVariance());

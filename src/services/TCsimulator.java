@@ -96,12 +96,12 @@ public class TCsimulator {
         return randomLocation;
     }
 
-    private BusStop findNearestStop(double[] point, Itinerary itinerary) throws Exception {
+    private ItineraryBusStop findNearestStop(double[] point, Itinerary itinerary) throws Exception {
         List<ItineraryBusStop> stops = itinerary.getStops();
         double stopLat;
         double stopLong;
-        double closestStopEuclidianDistance = 100000;
-        BusStop closestStop = null;
+        double closestStopEuclidianDistance = 100000000;
+        ItineraryBusStop closestStop = null;
         for (int i = 0; i < stops.size(); i++) {
             stopLat = stops.get(i).getBusStop().getLatitude();
             stopLong = stops.get(i).getBusStop().getLongitude();
@@ -109,7 +109,7 @@ public class TCsimulator {
             double euclidian = Math.sqrt(Math.pow(point[0] - stopLat, 2) + Math.pow(point[1] - stopLong, 2));
             if (euclidian < closestStopEuclidianDistance) {
                 closestStopEuclidianDistance = euclidian;
-                closestStop = stops.get(i).getBusStop();
+                closestStop = stops.get(i);
             }
         }
         //System.out.print(point[0] + "\n" + point[1] + "\n\n");
@@ -120,29 +120,26 @@ public class TCsimulator {
     private void simulate() throws Exception {
         for (int t = 0; t < this.numberOfTrips; t++) {
             GoogleRouteAPIRequester googleRouteAPIRequester = new GoogleRouteAPIRequester();
-            BusStop departure = this.itinerary.getStops().get(0).getBusStop();
 
             double[] p1 = randomLocation();
             double[] p2 = randomLocation();
-            BusStop bs1 = findNearestStop(p1, this.itinerary);
-            BusStop bs2 = findNearestStop(p2, this.itinerary);
-            double euclidian1 = Math.sqrt(Math.pow(departure.getLatitude() - bs1.getLatitude(), 2) + Math.pow(departure.getLongitude() - bs1.getLongitude(), 2));
-            double euclidian2 = Math.sqrt(Math.pow(departure.getLatitude() - bs2.getLatitude(), 2) + Math.pow(departure.getLongitude() - bs2.getLongitude(), 2));
+            ItineraryBusStop bs1 = findNearestStop(p1, this.itinerary);
+            ItineraryBusStop bs2 = findNearestStop(p2, this.itinerary);
 
             BusStop start, end;
             double[] startP = new double[2];
             double[] endP = new double[2];
             JSONObject startWalkJson, endWalkJson;
-            if (euclidian1 < euclidian2) {
-                start = bs1;
-                end = bs2;
+            if (bs1.getSequenceValue() < bs2.getSequenceValue()) {
+                start = bs1.getBusStop();
+                end = bs2.getBusStop();
                 startP[0] = p1[0];
                 startP[1] = p1[1];
                 endP[0] = p2[0];
                 endP[1] = p2[1];
             } else {
-                start = bs2;
-                end = bs1;
+                start = bs2.getBusStop();
+                end = bs1.getBusStop();
                 startP[0] = p2[0];
                 startP[1] = p2[1];
                 endP[0] = p1[0];
@@ -154,44 +151,49 @@ public class TCsimulator {
             } else {
                 startWalkJson = googleRouteAPIRequester.walkingRoute(startP[0], startP[1], start.getLatitude(), start.getLongitude());
                 endWalkJson = googleRouteAPIRequester.walkingRoute(end.getLatitude(), end.getLongitude(), endP[0], endP[1]);
-                double startWalkDuration = (int) startWalkJson.getJSONArray("routes").getJSONObject(0).getJSONArray("legs").getJSONObject(0).getJSONObject("duration").get("value");
-                double startWalkDistance = (int) startWalkJson.getJSONArray("routes").getJSONObject(0).getJSONArray("legs").getJSONObject(0).getJSONObject("distance").get("value");
-                double endWalkDuration = (int) endWalkJson.getJSONArray("routes").getJSONObject(0).getJSONArray("legs").getJSONObject(0).getJSONObject("duration").get("value");
-                double endWalkDistance = (int) endWalkJson.getJSONArray("routes").getJSONObject(0).getJSONArray("legs").getJSONObject(0).getJSONObject("distance").get("value");
 
-                int i = 0;
-                while (!this.itinerary.getStops().get(i).getBusStop().equals(start)) {
-                    i++;
-                }
-                ArrayList<BusStop> way = new ArrayList<>();
-                while (!this.itinerary.getStops().get(i).getBusStop().equals(end)) {
-                    way.add(this.itinerary.getStops().get(i).getBusStop());
-                    i++;
-                }
-                way.add(this.itinerary.getStops().get(i).getBusStop());
+                if (!startWalkJson.getString("status").equals("OK") || !endWalkJson.getString("status").equals("OK")) {
+                    --t;
+                } else {
+                    double startWalkDuration = (int) startWalkJson.getJSONArray("routes").getJSONObject(0).getJSONArray("legs").getJSONObject(0).getJSONObject("duration").get("value");
+                    double startWalkDistance = (int) startWalkJson.getJSONArray("routes").getJSONObject(0).getJSONArray("legs").getJSONObject(0).getJSONObject("distance").get("value");
+                    double endWalkDuration = (int) endWalkJson.getJSONArray("routes").getJSONObject(0).getJSONArray("legs").getJSONObject(0).getJSONObject("duration").get("value");
+                    double endWalkDistance = (int) endWalkJson.getJSONArray("routes").getJSONObject(0).getJSONArray("legs").getJSONObject(0).getJSONObject("distance").get("value");
 
-                JSONArray jsonArray = new GoogleRouteAPIRequester().requestRoute(way);
-
-                double totalTravelDistance = 0;
-                double totalTravelTime = 0;
-                for (i = 0; i < jsonArray.length(); i++) {
-                    JSONObject jsonObject = (JSONObject) jsonArray.get(i);
-                    JSONArray routes = jsonObject.getJSONArray("routes");
-                    JSONArray legs = routes.getJSONObject(0).getJSONArray("legs");
-
-                    for (int j = 0; j < legs.length(); j++) {
-                        int duration = (int) legs.getJSONObject(j).getJSONObject("duration").get("value");
-                        int distance = (int) legs.getJSONObject(j).getJSONObject("distance").get("value");
-                        totalTravelTime += duration;
-                        totalTravelDistance += distance;
+                    int i = 0;
+                    while (!this.itinerary.getStops().get(i).getBusStop().equals(start)) {
+                        i++;
                     }
+                    ArrayList<BusStop> way = new ArrayList<>();
+                    while (!this.itinerary.getStops().get(i).getBusStop().equals(end)) {
+                        way.add(this.itinerary.getStops().get(i).getBusStop());
+                        i++;
+                    }
+                    way.add(this.itinerary.getStops().get(i).getBusStop());
+
+                    JSONArray jsonArray = new GoogleRouteAPIRequester().requestRoute(way);
+
+                    double totalTravelDistance = 0;
+                    double totalTravelTime = 0;
+                    for (i = 0; i < jsonArray.length(); i++) {
+                        JSONObject jsonObject = (JSONObject) jsonArray.get(i);
+                        JSONArray routes = jsonObject.getJSONArray("routes");
+                        JSONArray legs = routes.getJSONObject(0).getJSONArray("legs");
+
+                        for (int j = 0; j < legs.length(); j++) {
+                            int duration = (int) legs.getJSONObject(j).getJSONObject("duration").get("value");
+                            int distance = (int) legs.getJSONObject(j).getJSONObject("distance").get("value");
+                            totalTravelTime += duration;
+                            totalTravelDistance += distance;
+                        }
+                    }
+
+                    //System.out.print("Tempo andando até a parada/Distancia até a parada/Tempo no onibus/Distancia percorrida no onibus/Tempo andando até o destino/Dsitancia andada até o destino\n");
+                    //System.out.print(startWalkDuration/60 + " minutos / " + startWalkDistance + " metros / " + totalTravelTime/60 + " minutos / " + totalTravelDistance + " metros / " + endWalkDuration/60 + " minutos / " + endWalkDistance + " metros\n");
+
+                    this.averageTripTime += totalTravelTime;
+                    this.averageWalkingTime += startWalkDuration + endWalkDuration;
                 }
-
-                //System.out.print("Tempo andando até a parada/Distancia até a parada/Tempo no onibus/Distancia percorrida no onibus/Tempo andando até o destino/Dsitancia andada até o destino\n");
-                //System.out.print(startWalkDuration/60 + " minutos / " + startWalkDistance + " metros / " + totalTravelTime/60 + " minutos / " + totalTravelDistance + " metros / " + endWalkDuration/60 + " minutos / " + endWalkDistance + " metros\n");
-
-                this.averageTripTime += totalTravelTime;
-                this.averageWalkingTime += startWalkDuration + endWalkDuration;
             }
         }
         this.averageTripTime /= this.numberOfTrips;

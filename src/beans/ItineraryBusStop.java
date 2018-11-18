@@ -29,7 +29,7 @@ public class ItineraryBusStop {
         this.iti = iti;
     }
 
-    public int getOrder() {
+    public int getSequenceValue() {
         return order;
     }
 
@@ -42,14 +42,14 @@ public class ItineraryBusStop {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ItineraryBusStop that = (ItineraryBusStop) o;
-        return getOrder() == that.getOrder() &&
+        return getSequenceValue() == that.getSequenceValue() &&
                 Objects.equals(getBusStop(), that.getBusStop()) &&
                 Objects.equals(getIti(), that.getIti());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getBusStop(), getIti(), getOrder());
+        return Objects.hash(getBusStop(), getIti(), getSequenceValue());
     }
 
     @Override
