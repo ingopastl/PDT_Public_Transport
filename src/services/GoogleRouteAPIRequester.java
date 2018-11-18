@@ -222,8 +222,8 @@ public class GoogleRouteAPIRequester {
                 routePoly = "";
             }
             String url = DEFAULTURL + "origin=" + URLEncoder.encode(originCoordinate, StandardCharsets.UTF_8) + "&destination=" + URLEncoder.encode(destinationCoodinate, StandardCharsets.UTF_8) + "&waypoints=enc:" + URLEncoder.encode(routePoly, StandardCharsets.UTF_8) + ":&key=" + APIKEY;
-            //String url2 = DEFAULTURL + "origin=" + originCoordinate + "&destination=" + destinationCoodinate + "&waypoints=enc:" + routePoly + ":&key=" + APIKEY;
-            //System.out.print(url2 + '\n');
+            String url2 = DEFAULTURL + "origin=" + originCoordinate + "&destination=" + destinationCoodinate + "&waypoints=enc:" + routePoly + ":&key=" + APIKEY;
+            System.out.print(url2 + '\n');
 
             HttpClient client = HttpClientBuilder.create().build();
             HttpPost postRequest = new HttpPost(url);
@@ -248,7 +248,7 @@ public class GoogleRouteAPIRequester {
         String destinationCoodinate = destinationLat + "," + destinationLong;
 
         String url = DEFAULTURL + "origin=" + originCoordinate + "&destination=" + destinationCoodinate + "&mode=walking&key=" + APIKEY;
-        //System.out.print(url + '\n');
+        System.out.print(url + '\n');
 
         HttpClient client = HttpClientBuilder.create().build();
         HttpPost postRequest = new HttpPost(url);

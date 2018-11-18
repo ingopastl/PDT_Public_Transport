@@ -21,12 +21,16 @@ public class Itinerary {
     private String itineraryHeadsign;
     private List<ItineraryBusStop> stops;
 
+    private Double totalTravelTime = null;
+    private Double totalTravelDistance = null;
+    private Double stopsDistanceVariance = null;
+
     public Itinerary(BusLine busLine, char serviceId, String itineraryId, String itineraryHeadsign) {
         this.busLine = busLine;
         this.serviceId = serviceId;
         this.itineraryId = itineraryId;
         this.itineraryHeadsign = itineraryHeadsign;
-        this.stops = new ArrayList<ItineraryBusStop>();
+        this.stops = new ArrayList<>();
     }
 
     public BusLine getBusLine() {
@@ -61,24 +65,35 @@ public class Itinerary {
         this.itineraryHeadsign = itineraryHeadsign;
     }
 
-    private List<BusStop> turnIntoBusStopList(List<ItineraryBusStop> l) {
-        List<BusStop> list = new ArrayList<BusStop>();
-
-        for (int i = 0; i < l.size(); i++) {
-            list.add(l.get(i).getBusStop());
+    public Double getTotalTravelTime() throws Exception {
+        if (this.totalTravelTime == null) {
+            requestRouteInfo();
         }
-
-        return list;
+        return this.totalTravelTime;
     }
 
-    public double getTotalTravelTime() throws Exception {
+    public Double getTotalTravelDistance() throws Exception {
+        if (this.totalTravelDistance == null) {
+            requestRouteInfo();
+        }
+        return this.totalTravelDistance;
+    }
+
+    public Double getStopsDistanceVariance() throws Exception {
+        if (this.stopsDistanceVariance == null) {
+            requestRouteInfo();
+        }
+        return this.stopsDistanceVariance;
+    }
+
+    private void requestRouteInfo() throws Exception {
         ItineraryBusStopRepository itineraryBusStopRepository = ItineraryBusStopRepository.getInstance();
         if (this.stops.size() == 0) {
-            itineraryBusStopRepository.readStopSequence("src\\data\\SpBusLineData\\itineraries\\stopSequence\\" + this.itineraryId + ".txt");
+            itineraryBusStopRepository.readStopSequence("src\\data\\itineraries\\stopSequence\\" + this.itineraryId + ".txt");
         }
 
         JSONArray jsonArray;
-        File f = new File("src\\data\\SpBusLineData\\itinerary\\itinerariesJSON\\" + this.itineraryId + ".json");
+        File f = new File("src\\data\\itineraries\\itinerariesJSON\\" + this.itineraryId + ".json");
         if (!f.exists()) {
             GoogleRouteAPIRequester apiRequester = new GoogleRouteAPIRequester();
             jsonArray = apiRequester.requestRoute(turnIntoBusStopList(this.stops));
@@ -89,8 +104,11 @@ public class Itinerary {
             jsonArray = new JSONArray(FileUtils.readFileToString(f, StandardCharsets.UTF_8));
         }
 
-        //Time in seconds.
-        double time = 0;
+        //Distance in meters; Time in seconds.
+        double totalDistance = 0, totalTime = 0;
+        //Distance average
+        ArrayList<Double> x = new ArrayList<>();
+        double distanceAverage = 0;
 
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject jsonObject = (JSONObject) jsonArray.get(i);
@@ -100,99 +118,31 @@ public class Itinerary {
             //System.out.print("Quantidade de pernas: " + legs.length() + "\n");
 
             for (int j = 0; j < legs.length(); j++) {
+                int distance = (int) legs.getJSONObject(j).getJSONObject("distance").get("value");
                 int duration = (int) legs.getJSONObject(j).getJSONObject("duration").get("value");
-                time += duration;
+                totalTime += duration;
+                totalDistance += distance;
+
+                x.add((double) distance);
+                distanceAverage += distance;
             }
         }
-
-        return time;
-    }
-
-    public double getTotalTravelDistance() throws Exception {
-        ItineraryBusStopRepository itineraryBusStopRepository = ItineraryBusStopRepository.getInstance();
-        if (this.stops.size() == 0) {
-            itineraryBusStopRepository.readStopSequence("src\\data\\SpBusLineData\\itineraries\\stopSequence\\" + this.itineraryId + ".txt");
-        }
-
-        JSONArray jsonArray;
-        File f = new File("src\\data\\SpBusLineData\\itinerary\\itinerariesJSON\\" + this.itineraryId + ".json");
-        if (!f.exists()) {
-            GoogleRouteAPIRequester apiRequester = new GoogleRouteAPIRequester();
-            jsonArray = apiRequester.requestRoute(turnIntoBusStopList(this.stops));
-
-            BufferedWriter bw = new BufferedWriter(new FileWriter(f));
-            bw.write(jsonArray.toString());
-            bw.close();
-        } else {
-            jsonArray = new JSONArray(FileUtils.readFileToString(f, StandardCharsets.UTF_8));
-        }
-
-        //Distance in meters.
-        double totalDistance = 0;
-
-        for (int i = 0; i < jsonArray.length(); i++) {
-            JSONObject jsonObject = (JSONObject) jsonArray.get(i);
-            JSONArray routes = jsonObject.getJSONArray("routes");
-            JSONArray legs = routes.getJSONObject(0).getJSONArray("legs");
-
-            //System.out.print("Quantidade de pernas: " + legs.length() + "\n");
-
-            for (int j = 0; j < legs.length(); j++) {
-                int duration = (int) legs.getJSONObject(j).getJSONObject("distance").get("value");
-                totalDistance += duration;
-            }
-        }
-
-        return totalDistance;
-    }
-
-    public double getStopsDistanceVariance() throws Exception {
-        ItineraryBusStopRepository itineraryBusStopRepository = ItineraryBusStopRepository.getInstance();
-        if (this.stops.size() == 0) {
-            itineraryBusStopRepository.readStopSequence("src\\data\\SpBusLineData\\itineraries\\stopSequence\\" + this.itineraryId + ".txt");
-        }
-
-        JSONArray jsonArray;
-        File f = new File("src\\data\\SpBusLineData\\itinerary\\itinerariesJSON\\" + this.itineraryId + ".json");
-        if (!f.exists()) {
-            GoogleRouteAPIRequester apiRequester = new GoogleRouteAPIRequester();
-            jsonArray = apiRequester.requestRoute(turnIntoBusStopList(this.stops));
-
-            BufferedWriter bw = new BufferedWriter(new FileWriter(f));
-            bw.write(jsonArray.toString());
-            bw.close();
-        } else {
-            jsonArray = new JSONArray(FileUtils.readFileToString(f, StandardCharsets.UTF_8));
-        }
-
-        ArrayList<Double> x = new ArrayList<Double>();
-        double average = 0;
-
-        for (int i = 0; i < jsonArray.length(); i++) {
-            JSONObject jsonObject = (JSONObject) jsonArray.get(i);
-            JSONArray routes = jsonObject.getJSONArray("routes");
-            JSONArray legs = routes.getJSONObject(0).getJSONArray("legs");
-
-            for (int j = 0; j < legs.length(); j++) {
-                double d = (int) legs.getJSONObject(j).getJSONObject("distance").get("value");
-                x.add(d);
-                average += d;
-            }
-        }
-        average = average/x.size();
-
-        double x2_sum = 0;
+        distanceAverage = distanceAverage/x.size();
+        System.out.print("\nAverage distance: " + distanceAverage);
+        double variance = 0;
         for (int i = 0; i < x.size(); i++) {
-            x2_sum += Math.pow(x.get(i) - average, 2);
+            variance += Math.pow(x.get(i) - distanceAverage, 2);
         }
 
-        return x2_sum/x.size();
+        this.totalTravelDistance = totalDistance;
+        this.totalTravelTime = totalTime;
+        this.stopsDistanceVariance = variance;
     }
 
     public double[] getBoudaries() throws Exception {
         ItineraryBusStopRepository itineraryBusStopRepository = ItineraryBusStopRepository.getInstance();
         if (this.stops.size() == 0) {
-            itineraryBusStopRepository.readStopSequence("src\\data\\SpBusLineData\\itineraries\\stopSequence\\" + this.itineraryId + ".txt");
+            itineraryBusStopRepository.readStopSequence("src\\data\\itineraries\\stopSequence\\" + this.itineraryId + ".txt");
         }
 
         double highestLat, lowestLat, highestLong, lowestLong;
@@ -238,12 +188,20 @@ public class Itinerary {
         }
     }
 
+    private List<BusStop> turnIntoBusStopList(List<ItineraryBusStop> l) {
+        List<BusStop> list = new ArrayList<>();
+
+        for (int i = 0; i < l.size(); i++) {
+            list.add(l.get(i).getBusStop());
+        }
+        return list;
+    }
+
     public List<ItineraryBusStop> getStops() throws Exception {
         ItineraryBusStopRepository itineraryBusStopRepository = ItineraryBusStopRepository.getInstance();
         if (this.stops.size() == 0) {
-            itineraryBusStopRepository.readStopSequence("src\\data\\SpBusLineData\\itineraries\\stopSequence\\" + this.itineraryId + ".txt");
+            itineraryBusStopRepository.readStopSequence("src\\data\\itineraries\\stopSequence\\" + this.itineraryId + ".txt");
         }
-
         return stops;
     }
 

@@ -13,7 +13,7 @@ public class BusLine {
         this.id = id;
         this.shortName = shortName;
         this.longName = longName;
-        this.itineraries = new ArrayList<Itinerary>();
+        this.itineraries = new ArrayList<>();
     }
 
     public String getId() {
