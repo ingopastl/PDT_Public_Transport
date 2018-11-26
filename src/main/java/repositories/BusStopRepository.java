@@ -105,7 +105,7 @@ public class BusStopRepository {
                 }
             }
 
-            BusStop stop = new BusStop(stopId.toString(), null, Double.parseDouble(latitudeString.toString()), Double.parseDouble(longitudeString.toString()));
+            BusStop stop = new BusStop(stopId.toString(), Double.parseDouble(latitudeString.toString()), Double.parseDouble(longitudeString.toString()));
             addBusStop(stop);
         }
     }

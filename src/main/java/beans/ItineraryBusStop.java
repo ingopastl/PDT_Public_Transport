@@ -33,7 +33,7 @@ public class ItineraryBusStop {
         return order;
     }
 
-    public void setSequenceValue(int order) {
+    public void setOrder(int order) {
         this.order = order;
     }
 

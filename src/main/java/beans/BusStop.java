@@ -4,13 +4,11 @@ import java.util.Objects;
 
 public class BusStop {
     private String id;
-    private Street street;
     private double latitude;
     private double longitude;
 
-    public BusStop(String id, Street street, double latitude, double longitude) {
+    public BusStop(String id, double latitude, double longitude) {
         this.id = id;
-        this.street = street;
         this.latitude = latitude;
         this.longitude = longitude;
     }
@@ -21,14 +19,6 @@ public class BusStop {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public Street getStreet() {
-        return street;
-    }
-
-    public void setStreet(Street street) {
-        this.street = street;
     }
 
     public double getLatitude() {

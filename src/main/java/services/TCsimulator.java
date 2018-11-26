@@ -3,14 +3,12 @@ package services;
 import beans.BusStop;
 import beans.Itinerary;
 import beans.ItineraryBusStop;
-import org.apache.commons.io.FileUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
-import java.nio.charset.StandardCharsets;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.ArrayList;
 import java.util.List;
@@ -91,7 +89,7 @@ public class TCsimulator {
         this.stopsDistanceVariance = stopsDistanceVariance;
     }
 
-    private double[] randomLocation(Itinerary itinerary) throws Exception {
+    private double[] randomLocationAlpha(Itinerary itinerary) throws Exception {
         int randomInt = ThreadLocalRandom.current().nextInt(0, itinerary.getStops().size());
         BusStop stop = itinerary.getStops().get(randomInt).getBusStop();
 
@@ -114,6 +112,34 @@ public class TCsimulator {
         randomLocation[1] = lowestLong + (highestLong - lowestLong) * r.nextDouble();
 
         return randomLocation;
+    }
+
+    private double[] randomLocationBeta(Itinerary itinerary) throws Exception {
+        double[] boundaries = itinerary.getBoudaries();
+
+        double meters = this.radius;
+        // number of km per degree = ~111km (111.32 in google maps, but range varies
+        // between 110.567km at the equator and 111.699km at the poles)
+        // 1km in degree = 1 / 111.32km = 0.0089
+        // 1m in degree = 0.0089 / 1000 = 0.0000089
+        double coef = meters * 0.0000089;
+
+        double highestLat = boundaries[0] + coef;
+        double lowestLat = boundaries[1] - coef;
+        double highestLong = boundaries[2] + coef;
+        double lowestLong = boundaries[3] - coef;
+
+        double[] randomLocation = new double[2];
+
+        Random r = new Random();
+        randomLocation[0] = lowestLat + (highestLat - lowestLat) * r.nextDouble();
+        randomLocation[1] = lowestLong + (highestLong - lowestLong) * r.nextDouble();
+
+        return randomLocation;
+    }
+
+    public double[] getBoundariesBeta() throws Exception {
+        return itinerary.getBoudaries();
     }
 
     private ItineraryBusStop findNearestStop(double[] point, Itinerary itinerary) throws Exception {
@@ -142,7 +168,7 @@ public class TCsimulator {
         Itinerary itinerary = new Itinerary(null, '1', "1", "Solution");
         BusStop v;
         while (i < vars.length) {
-            v = new BusStop(Integer.toString(i), null, vars[i], vars[i+1]);
+            v = new BusStop(Integer.toString(i), vars[i], vars[i+1]);
             i += 2;
             ItineraryBusStop ibs = new ItineraryBusStop(v, itinerary, order);
             order++;
@@ -156,8 +182,8 @@ public class TCsimulator {
         double stopsDistanceVariance = 0;
 
         for (int t = 0; t < this.numberOfTrips; t++) {
-            double[] p1 = randomLocation(itinerary);
-            double[] p2 = randomLocation(itinerary);
+            double[] p1 = randomLocationBeta(itinerary);
+            double[] p2 = randomLocationBeta(itinerary);
             ItineraryBusStop bs1 = findNearestStop(p1, itinerary);
             ItineraryBusStop bs2 = findNearestStop(p2, itinerary);
 
@@ -200,7 +226,6 @@ public class TCsimulator {
                     double totalTravelDistance = 0;
                     double totalTravelTime = 0;
 
-                    int numberOfLegs = 0;
                     JSONArray allLegs = new JSONArray();
                     for (i = 0; i < jsonArray.length(); i++) {
                         JSONObject jsonObject = (JSONObject) jsonArray.get(i);
@@ -238,12 +263,29 @@ public class TCsimulator {
         return objectives;
     }
 
+    public void simulateWalk(int fileNumber) throws Exception {
+        double[] loc1 = randomLocationBeta(itinerary);
+        double[] loc2 = randomLocationBeta(itinerary);
+
+        JSONObject jsonObject = new GoogleRouteAPIRequester().walkingRoute(loc1[0], loc1[1], loc2[0], loc2[1]);
+
+        if (!jsonObject.getString("status").equals("OK")) {
+            return;
+        }
+
+        File f = new File("src\\main\\resources\\pointsData\\" + fileNumber + ".txt");
+        BufferedWriter bw = new BufferedWriter(new FileWriter(f));
+        bw.write(jsonObject.toString());
+        bw.close();
+
+    }
+
     public void simulate() throws Exception {
         for (int t = 0; t < this.numberOfTrips; t++) {
             GoogleRouteAPIRequester googleRouteAPIRequester = new GoogleRouteAPIRequester();
 
-            double[] p1 = randomLocation(this.itinerary);
-            double[] p2 = randomLocation(this.itinerary);
+            double[] p1 = randomLocationBeta(this.itinerary);
+            double[] p2 = randomLocationBeta(this.itinerary);
             ItineraryBusStop bs1 = findNearestStop(p1, this.itinerary);
             ItineraryBusStop bs2 = findNearestStop(p2, this.itinerary);
 

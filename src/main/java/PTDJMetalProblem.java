@@ -7,6 +7,7 @@ import org.uma.jmetal.solution.impl.DefaultDoubleSolution;
 import services.TCsimulator;
 
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class PTDJMetalProblem extends AbstractDoubleProblem {
 	private TCsimulator tc;
@@ -38,12 +39,14 @@ public class PTDJMetalProblem extends AbstractDoubleProblem {
 		DefaultDoubleSolution sol = new DefaultDoubleSolution(this);
 		try {
 			List<ItineraryBusStop> l = tc.getItinerary().getStops();
-			int stopCount = 0;
+			int stopsCount = 0;
 			for (int i = 0; i < getNumberOfVariables(); i++) {
-				sol.setVariableValue(i ,l.get(stopCount).getBusStop().getLatitude());
+				double random1 = ThreadLocalRandom.current().nextDouble(-0.05, 0.05);
+				double random2 = ThreadLocalRandom.current().nextDouble(-0.05, 0.05);
+				sol.setVariableValue(i ,l.get(stopsCount).getBusStop().getLatitude() + random1);
 				++i;
-				sol.setVariableValue(i ,l.get(stopCount).getBusStop().getLongitude());
-				stopCount++;
+				sol.setVariableValue(i ,l.get(stopsCount).getBusStop().getLongitude() + random2);
+				stopsCount++;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -63,11 +66,13 @@ public class PTDJMetalProblem extends AbstractDoubleProblem {
 
 	@Override
 	public Double getLowerBound(int index) {
-		return 5.0; //tc.getLowerLimitVariableAt(index);
+		//todo
+		return 5.0;
 	}
 
 	@Override
 	public Double getUpperBound(int index) {
-		return 5.0; //tc.getUpperLimitVariableAt(index);
+		//todo
+		return 5.0;
 	}
 }
