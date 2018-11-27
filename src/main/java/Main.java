@@ -57,7 +57,7 @@ public class Main {
             selection = new BinaryTournamentSelection<DoubleSolution>();
 
             algorithm = new NSGAIIIBuilder<>(problem).setCrossoverOperator(crossover).setMutationOperator(mutation)
-                    .setSelectionOperator(selection).setPopulationSize(10).setMaxIterations(100).build();
+                    .setSelectionOperator(selection).setPopulationSize(10).setMaxIterations(1).build();
             AlgorithmRunner algorithmRunner = new AlgorithmRunner.Executor(algorithm).execute();
 
             List<DoubleSolution> population = algorithm.getResult();
@@ -98,7 +98,7 @@ public class Main {
      * @param population
      * @param paretoFrontFile
      * @throws Exception
-
+     */
     public static void printQualityIndicators(List<? extends Solution<?>> population, String paretoFrontFile) throws Exception {
             Front referenceFront = new ArrayFront(paretoFrontFile);
             FrontNormalizer frontNormalizer = new FrontNormalizer(referenceFront);
@@ -152,5 +152,4 @@ public class Main {
 
             JMetalLogger.logger.info(outputString);
     }
-     */
 }

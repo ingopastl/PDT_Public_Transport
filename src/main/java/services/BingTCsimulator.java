@@ -9,28 +9,50 @@ import org.json.JSONObject;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
-import java.util.concurrent.ThreadLocalRandom;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
-public class TCsimulator {
+public class BingTCsimulator {
     private static final int NUMBER_OF_OBJECTIVES = 3;
-    private int numberOfVariables;
 
     private Itinerary itinerary;
+    private List<Double> lowerLimit;
+    private List<Double> upperLimit;
+    private int numberOfVariables;
     private int numberOfTrips;
     private int radius;
-
     private double averageWalkingTime = 0;
     private double averageTripTime = 0;
     private double stopsDistanceVariance = 0;
 
-    public TCsimulator(Itinerary itinerary, int numberOfTrips, int radius) throws Exception{
+    public BingTCsimulator(Itinerary itinerary, int numberOfTrips, int radius) throws Exception{
         this.itinerary = itinerary;
         this.numberOfVariables = itinerary.getStops().size() * 2;
         this.numberOfTrips = numberOfTrips;
         this.radius = radius;
+
+        double[] boudaries = itinerary.getBoudaries();
+        this.lowerLimit = new ArrayList<>(this.numberOfVariables);
+        this.upperLimit = new ArrayList<>(this.numberOfVariables);
+        for (int i = 0; i < this.numberOfVariables; i++) {
+            if (i % 2 == 0) {
+                lowerLimit.add(boudaries[0]);
+                upperLimit.add(boudaries[1]);
+            } else {
+                lowerLimit.add(boudaries[2]);
+                upperLimit.add(boudaries[3]);
+            }
+        }
+    }
+
+    public double getLowerLimitVariableAt(int index) {
+        return this.lowerLimit.get(index);
+    }
+
+    public double getUpperLimitVariableAt(int index) {
+        return this.upperLimit.get(index);
     }
 
     public Itinerary getItinerary() {
@@ -267,9 +289,9 @@ public class TCsimulator {
         double[] loc1 = randomLocationBeta(itinerary);
         double[] loc2 = randomLocationBeta(itinerary);
 
-        JSONObject jsonObject = new GoogleRouteAPIRequester().walkingRoute(loc1[0], loc1[1], loc2[0], loc2[1]);
+        JSONObject jsonObject = new BingAPIRequester().walkingRoute(loc1[0], loc1[1], loc2[0], loc2[1]);
 
-        if (!jsonObject.getString("status").equals("OK")) {
+        if (!jsonObject.getString("statusDescription").equals("OK")) {
             return;
         }
 
@@ -282,7 +304,7 @@ public class TCsimulator {
 
     public void simulate() throws Exception {
         for (int t = 0; t < this.numberOfTrips; t++) {
-            GoogleRouteAPIRequester googleRouteAPIRequester = new GoogleRouteAPIRequester();
+            BingAPIRequester bingAPIRequester = new BingAPIRequester();
 
             double[] p1 = randomLocationBeta(this.itinerary);
             double[] p2 = randomLocationBeta(this.itinerary);
@@ -312,17 +334,18 @@ public class TCsimulator {
             if (start.equals(end)) {
                 --t;
             } else {
-                startWalkJson = googleRouteAPIRequester.walkingRoute(startP[0], startP[1], start.getLatitude(), start.getLongitude());
-                endWalkJson = googleRouteAPIRequester.walkingRoute(end.getLatitude(), end.getLongitude(), endP[0], endP[1]);
+                startWalkJson = bingAPIRequester.walkingRoute(startP[0], startP[1], start.getLatitude(), start.getLongitude());
+                endWalkJson = bingAPIRequester.walkingRoute(end.getLatitude(), end.getLongitude(), endP[0], endP[1]);
 
-                if (!startWalkJson.getString("status").equals("OK") || !endWalkJson.getString("status").equals("OK")) {
+                if (!startWalkJson.getString("statusDescription").equals("OK") || !endWalkJson.getString("statusDescription").equals("OK")) {
                     --t;
                 } else {
-                    double startWalkDuration = (int) startWalkJson.getJSONArray("routes").getJSONObject(0).getJSONArray("legs").getJSONObject(0).getJSONObject("duration").get("value");
-                    double startWalkDistance = (int) startWalkJson.getJSONArray("routes").getJSONObject(0).getJSONArray("legs").getJSONObject(0).getJSONObject("distance").get("value");
-                    double endWalkDuration = (int) endWalkJson.getJSONArray("routes").getJSONObject(0).getJSONArray("legs").getJSONObject(0).getJSONObject("duration").get("value");
-                    double endWalkDistance = (int) endWalkJson.getJSONArray("routes").getJSONObject(0).getJSONArray("legs").getJSONObject(0).getJSONObject("distance").get("value");
+                    double startWalkDuration = (int) startWalkJson.getJSONArray("resourceSets").getJSONObject(0).getJSONArray("resources").getJSONObject(0).get("travelDuration");
+                    double startWalkDistance = (double) startWalkJson.getJSONArray("resourceSets").getJSONObject(0).getJSONArray("resources").getJSONObject(0).get("travelDistance");
+                    double endWalkDuration = (int) endWalkJson.getJSONArray("resourceSets").getJSONObject(0).getJSONArray("resources").getJSONObject(0).get("travelDuration");
+                    double endWalkDistance = (double) endWalkJson.getJSONArray("resourceSets").getJSONObject(0).getJSONArray("resources").getJSONObject(0).get("travelDistance");
 
+                    /*
                     int i = 0;
                     while (!this.itinerary.getStops().get(i).getBusStop().equals(start)) {
                         i++;
@@ -356,11 +379,12 @@ public class TCsimulator {
 
                     this.averageTripTime += totalTravelTime;
                     this.averageWalkingTime += startWalkDuration + endWalkDuration;
+                    */
                 }
             }
         }
-        this.averageTripTime /= this.numberOfTrips;
-        this.averageWalkingTime /= this.numberOfTrips;
-        this.stopsDistanceVariance = this.itinerary.getStopsDistanceVariance();
+        //this.averageTripTime /= this.numberOfTrips;
+        //this.averageWalkingTime /= this.numberOfTrips;
+        //this.stopsDistanceVariance = this.itinerary.getStopsDistanceVariance();
     }
 }

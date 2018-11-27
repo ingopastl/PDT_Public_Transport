@@ -89,11 +89,11 @@ public class Itinerary {
     public JSONArray requestRouteInfo() throws Exception {
         ItineraryBusStopRepository itineraryBusStopRepository = ItineraryBusStopRepository.getInstance();
         if (this.stops.size() == 0) {
-            itineraryBusStopRepository.readStopSequence("src\\main\\resources\\data\\itineraries\\stopSequence\\" + this.itineraryId + ".txt");
+            itineraryBusStopRepository.readStopSequence("src\\main\\resources\\busData\\itineraries\\stopSequence\\" + this.itineraryId + ".txt");
         }
 
         JSONArray jsonArray;
-        File f = new File("src\\main\\resources\\data\\itineraries\\itinerariesJSON\\" + this.itineraryId + ".json");
+        File f = new File("src\\main\\resources\\busData\\itineraries\\itinerariesJSON\\" + this.itineraryId + ".json");
         if (!f.exists()) {
             GoogleRouteAPIRequester apiRequester = new GoogleRouteAPIRequester();
             jsonArray = apiRequester.requestRoute(turnIntoBusStopList(this.stops));
@@ -143,7 +143,7 @@ public class Itinerary {
     public double[] getBoudaries() throws Exception {
         ItineraryBusStopRepository itineraryBusStopRepository = ItineraryBusStopRepository.getInstance();
         if (this.stops.size() == 0) {
-            itineraryBusStopRepository.readStopSequence("src\\main\\resources\\data\\itineraries\\stopSequence\\" + this.itineraryId + ".txt");
+            itineraryBusStopRepository.readStopSequence("src\\main\\resources\\busData\\itineraries\\stopSequence\\" + this.itineraryId + ".txt");
         }
 
         double highestLat, lowestLat, highestLong, lowestLong;
@@ -201,7 +201,7 @@ public class Itinerary {
     public List<ItineraryBusStop> getStops() throws Exception {
         ItineraryBusStopRepository itineraryBusStopRepository = ItineraryBusStopRepository.getInstance();
         if (this.stops.size() == 0) {
-            itineraryBusStopRepository.readStopSequence("src\\main\\resources\\data\\itineraries\\stopSequence\\" + this.itineraryId + ".txt");
+            itineraryBusStopRepository.readStopSequence("src\\main\\resources\\busData\\itineraries\\stopSequence\\" + this.itineraryId + ".txt");
         }
         return stops;
     }

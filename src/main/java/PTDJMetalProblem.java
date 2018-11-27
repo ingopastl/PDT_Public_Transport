@@ -4,16 +4,18 @@ import org.uma.jmetal.problem.impl.AbstractDoubleProblem;
 import org.uma.jmetal.solution.DoubleSolution;
 import org.uma.jmetal.solution.impl.DefaultDoubleSolution;
 
-import services.TCsimulator;
+import services.GoogleTCsimulator;
 
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class PTDJMetalProblem extends AbstractDoubleProblem {
-	private TCsimulator tc;
+	private GoogleTCsimulator tc;
+	private int radius;
 
 	public PTDJMetalProblem(Itinerary itinerary, int numberOfTrips, int radius) throws Exception {
-		this.tc = new TCsimulator(itinerary, numberOfTrips, radius);
+		this.tc = new GoogleTCsimulator(itinerary, numberOfTrips, radius);
+		this.radius = radius;
 	}
 
 	@Override
@@ -36,13 +38,14 @@ public class PTDJMetalProblem extends AbstractDoubleProblem {
 
 	@Override
 	public DoubleSolution createSolution() {
+		double coef = radius * 0.0000089;
 		DefaultDoubleSolution sol = new DefaultDoubleSolution(this);
 		try {
 			List<ItineraryBusStop> l = tc.getItinerary().getStops();
 			int stopsCount = 0;
 			for (int i = 0; i < getNumberOfVariables(); i++) {
-				double random1 = ThreadLocalRandom.current().nextDouble(-0.05, 0.05);
-				double random2 = ThreadLocalRandom.current().nextDouble(-0.05, 0.05);
+				double random1 = ThreadLocalRandom.current().nextDouble(-coef, coef);
+				double random2 = ThreadLocalRandom.current().nextDouble(-coef, coef);
 				sol.setVariableValue(i ,l.get(stopsCount).getBusStop().getLatitude() + random1);
 				++i;
 				sol.setVariableValue(i ,l.get(stopsCount).getBusStop().getLongitude() + random2);
@@ -66,13 +69,11 @@ public class PTDJMetalProblem extends AbstractDoubleProblem {
 
 	@Override
 	public Double getLowerBound(int index) {
-		//todo
-		return 5.0;
+		return tc.getLowerLimitVariableAt(index);
 	}
 
 	@Override
 	public Double getUpperBound(int index) {
-		//todo
-		return 5.0;
+		return tc.getUpperLimitVariableAt(index);
 	}
 }

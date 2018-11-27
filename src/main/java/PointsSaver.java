@@ -2,7 +2,8 @@ import beans.Itinerary;
 import repositories.BusLineRepository;
 import repositories.BusStopRepository;
 import repositories.ItineraryRepository;
-import services.TCsimulator;
+import services.BingAPIRequester;
+import services.BingTCsimulator;
 
 public class PointsSaver {
     public static void main(String[] args) throws Exception {
@@ -15,10 +16,14 @@ public class PointsSaver {
         itineraryRepository.readCSV("src\\main\\resources\\busData\\itineraries\\itineraries.txt");
 
         Itinerary it = busLineRepository.getByID("423032").getItineraries().get(0);
-        TCsimulator tCsimulator = new TCsimulator(it, 10, 800);
 
-        for (int i = 0; i < 1400; i++) {
-            tCsimulator.simulateWalk(i);
-        }
+        BingTCsimulator tCsimulator = new BingTCsimulator(it, 10, 800);
+        tCsimulator.simulate();
+
+        //GoogleTCsimulator tCsimulator = new GoogleTCsimulator(it, 10, 800);
+
+        //for (int i = 0; i < 1400; i++) {
+            //tCsimulator.simulateWalk(i);
+        //}
     }
 }
