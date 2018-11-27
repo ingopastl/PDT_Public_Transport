@@ -5,25 +5,26 @@ import repositories.ItineraryRepository;
 import services.BingAPIRequester;
 import services.BingTCsimulator;
 
+import java.io.File;
+
 public class PointsSaver {
     public static void main(String[] args) throws Exception {
         BusStopRepository busStopRepository = BusStopRepository.getInstance();
         BusLineRepository busLineRepository = BusLineRepository.getInstance();
         ItineraryRepository itineraryRepository = ItineraryRepository.getInstance();
 
-        busStopRepository.readCSV("src\\main\\resources\\busData\\stops.txt");
-        busLineRepository.readCSV("src\\main\\resources\\busData\\routes.txt");
-        itineraryRepository.readCSV("src\\main\\resources\\busData\\itineraries\\itineraries.txt");
+        busStopRepository.readCSV("src" + File.separatorChar + File.separatorChar + "main" + File.separatorChar
+                        + "resources" + File.separatorChar + "busData" + File.separatorChar + "stops.txt");
+        busLineRepository.readCSV("src" + File.separatorChar + File.separatorChar + "main" + File.separatorChar
+                + "resources" + File.separatorChar + "busData" + File.separatorChar + "routes.txt");
+        itineraryRepository.readCSV("src" + File.separatorChar + File.separatorChar + "main" + File.separatorChar
+                + "resources" + File.separatorChar + "busData" + File.separatorChar + "itineraries" + File.separatorChar
+                + "itineraries.txt");
 
         Itinerary it = busLineRepository.getByID("423032").getItineraries().get(0);
+        it.requestRouteInfo();
+        //BingTCsimulator tCsimulator = new BingTCsimulator(it, 10, 800);
+        //tCsimulator.simulate();
 
-        BingTCsimulator tCsimulator = new BingTCsimulator(it, 10, 800);
-        tCsimulator.simulate();
-
-        //GoogleTCsimulator tCsimulator = new GoogleTCsimulator(it, 10, 800);
-
-        //for (int i = 0; i < 1400; i++) {
-            //tCsimulator.simulateWalk(i);
-        //}
     }
 }

@@ -98,7 +98,7 @@ public class Main {
      * @param population
      * @param paretoFrontFile
      * @throws Exception
-     */
+     *
     public static void printQualityIndicators(List<? extends Solution<?>> population, String paretoFrontFile) throws Exception {
             Front referenceFront = new ArrayFront(paretoFrontFile);
             FrontNormalizer frontNormalizer = new FrontNormalizer(referenceFront);
@@ -152,4 +152,5 @@ public class Main {
 
             JMetalLogger.logger.info(outputString);
     }
+    */
 }

@@ -30,32 +30,57 @@ public class BingAPIRequester {
         url.append(DEFAULTURL);
         url.append("?");
 
-        int count = 0, urlCount = 0;
-        while (count < route.size()) {
-            while (urlCount < 25 && count < route.size()) {
+        int count;
+        while (route.size() > 1) {
+            count = 0;
+            if (route.size() >= 25) {
+                for (int i = 0; i < 24; i++) {
+                    BusStop r = route.remove(0);
+                    url.append("wp.");
+                    url.append(count);
+                    url.append("=");
+                    url.append(r.getLatitude());
+                    url.append(",");
+                    url.append(r.getLongitude());
+                    url.append("&");
+                    count++;
+                }
                 url.append("wp.");
                 url.append(count);
                 url.append("=");
-                url.append(route.get(count).getLatitude());
+                url.append(route.get(0).getLatitude());
                 url.append(",");
-                url.append(route.get(count).getLongitude());
+                url.append(route.get(0).getLongitude());
                 url.append("&");
                 count++;
-                urlCount++;
+
+            } else {
+                int routeSize = route.size();
+                for (int j = 0; j < routeSize; j++) {
+                    BusStop r = route.remove(0);
+                    url.append("wp.");
+                    url.append(count);
+                    url.append("=");
+                    url.append(r.getLatitude());
+                    url.append(",");
+                    url.append(r.getLongitude());
+                    url.append("&");
+                    count++;
+                }
             }
             url.append("key=");
             url.append(APIKEY);
             System.out.print(url.toString() + '\n');
 
-            HttpPost postRequest = new HttpPost(url.toString());
-            HttpResponse response = client.execute(postRequest);
+            HttpGet getRequest = new HttpGet(url.toString());
+            HttpResponse response = client.execute(getRequest);
             String json = EntityUtils.toString(response.getEntity(), "UTF-8");
 
             jsonArray.put(new JSONObject(json));
 
-            urlCount = 0;
             url.delete(0, url.length());
             url.append(DEFAULTURL);
+            url.append("?");
         }
 
         return jsonArray;
@@ -66,14 +91,12 @@ public class BingAPIRequester {
         String destinationCoodinate = destinationLat + "," + destinationLong;
 
         String url = DEFAULTURL + "/Walking?wp.0=" + originCoordinate + "&wp.1=" + destinationCoodinate + "&key=" + APIKEY;
-        System.out.print(url + '\n');
+        //System.out.print(url + '\n');
 
         HttpClient client = HttpClientBuilder.create().build();
         HttpGet getRequest = new HttpGet(url);
         HttpResponse response = client.execute(getRequest);
         String json = EntityUtils.toString(response.getEntity(), "UTF-8");
-
-        System.out.print(json + "\n");
 
         return new JSONObject(json);
     }
