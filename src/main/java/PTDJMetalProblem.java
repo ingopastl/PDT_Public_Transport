@@ -11,11 +11,11 @@ import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class PTDJMetalProblem extends AbstractDoubleProblem {
-	private GoogleTCsimulator tc;
+	private BingTCsimulator tc;
 	private int radius;
 
 	public PTDJMetalProblem(Itinerary itinerary, int numberOfTrips, int radius) throws Exception {
-		this.tc = new GoogleTCsimulator(itinerary, numberOfTrips, radius);
+		this.tc = new BingTCsimulator(itinerary, numberOfTrips, radius);
 		this.radius = radius;
 	}
 

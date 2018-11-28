@@ -22,9 +22,5 @@ public class PointsSaver {
                 + "itineraries.txt");
 
         Itinerary it = busLineRepository.getByID("423032").getItineraries().get(0);
-        it.requestRouteInfo();
-        //BingTCsimulator tCsimulator = new BingTCsimulator(it, 10, 800);
-        //tCsimulator.simulate();
-
     }
 }

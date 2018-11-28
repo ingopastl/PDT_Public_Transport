@@ -1,7 +1,6 @@
 package beans;
 
 import services.BingAPIRequester;
-import services.GoogleRouteAPIRequester;
 import org.apache.commons.io.FileUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -24,7 +23,6 @@ public class Itinerary {
 
     private Double totalTravelTime = null;
     private Double totalTravelDistance = null;
-    private Double stopsDistanceVariance = null;
 
     public Itinerary(BusLine busLine, char serviceId, String itineraryId, String itineraryHeadsign) {
         this.busLine = busLine;
@@ -68,31 +66,21 @@ public class Itinerary {
 
     public Double getTotalTravelTime() throws Exception {
         if (this.totalTravelTime == null) {
-            requestRouteInfo();
+            getRouteInfo();
         }
         return this.totalTravelTime;
     }
 
     public Double getTotalTravelDistance() throws Exception {
         if (this.totalTravelDistance == null) {
-            requestRouteInfo();
+            getRouteInfo();
         }
         return this.totalTravelDistance;
-    }
-
-    public Double getStopsDistanceVariance() throws Exception {
-        if (this.stopsDistanceVariance == null) {
-            requestRouteInfo();
-        }
-        return this.stopsDistanceVariance;
     }
 
     private void processBingJson(JSONArray jsonArray) {
         //Distance in meters; Time in seconds.
         double totalDistance = 0, totalTime = 0;
-        //Distance average
-        ArrayList<Double> x = new ArrayList<>();
-        double distanceAverage = 0;
 
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject jsonObject = (JSONObject) jsonArray.get(i);
@@ -100,35 +88,22 @@ public class Itinerary {
             JSONArray resources = resourceSets.getJSONObject(0).getJSONArray("resources");
             JSONArray legs = resources.getJSONObject(0). getJSONArray("routeLegs");
 
-            System.out.print("Quantidade de pernas: " + legs.length() + "\n");
+            //System.out.print("Quantidade de pernas: " + legs.length() + "\n");
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
             for (int j = 0; j < legs.length(); j++) {
                 double distance = (double) legs.getJSONObject(j).get("travelDistance") * 1000;
                 int duration = (int) legs.getJSONObject(j).get("travelDuration");
                 totalTime += duration;
                 totalDistance += distance;
-
-                x.add( distance);
-                distanceAverage += distance;
             }
         }
-        distanceAverage = distanceAverage/x.size();
-        double variance = 0;
-        for (int i = 0; i < x.size(); i++) {
-            variance += Math.pow(x.get(i) - distanceAverage, 2);
-        }
-
         this.totalTravelDistance = totalDistance;
         this.totalTravelTime = totalTime;
-        this.stopsDistanceVariance = variance;
     }
 
     private void processGoogleJson(JSONArray jsonArray) {
         //Distance in meters; Time in seconds.
         double totalDistance = 0, totalTime = 0;
-        //Distance average
-        ArrayList<Double> x = new ArrayList<>();
-        double distanceAverage = 0;
 
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject jsonObject = (JSONObject) jsonArray.get(i);
@@ -142,23 +117,13 @@ public class Itinerary {
                 int duration = (int) legs.getJSONObject(j).getJSONObject("duration").get("value");
                 totalTime += duration;
                 totalDistance += distance;
-
-                x.add((double) distance);
-                distanceAverage += distance;
             }
         }
-        distanceAverage = distanceAverage/x.size();
-        double variance = 0;
-        for (int i = 0; i < x.size(); i++) {
-            variance += Math.pow(x.get(i) - distanceAverage, 2);
-        }
-
         this.totalTravelDistance = totalDistance;
         this.totalTravelTime = totalTime;
-        this.stopsDistanceVariance = variance;
     }
 
-    public JSONArray requestRouteInfo() throws Exception {
+    public JSONArray getRouteInfo() throws Exception {
         ItineraryBusStopRepository itineraryBusStopRepository = ItineraryBusStopRepository.getInstance();
         if (this.stops.size() == 0) {
             itineraryBusStopRepository.readStopSequence("src" + File.separatorChar + "main" + File.separatorChar
@@ -171,7 +136,6 @@ public class Itinerary {
                 + File.separatorChar + "busData" + File.separatorChar + "itineraries" + File.separatorChar
                 + "itinerariesJSON" + File.separatorChar + this.itineraryId + ".json");
         if (!f.exists()) {
-            //GoogleRouteAPIRequester apiRequester = new GoogleRouteAPIRequester();
             BingAPIRequester apiRequester = new BingAPIRequester();
             jsonArray = apiRequester.requestRoute(turnIntoBusStopList(this.stops));
             BufferedWriter bw = new BufferedWriter(new FileWriter(f));
@@ -182,15 +146,6 @@ public class Itinerary {
         }
 
         processBingJson(jsonArray);
-        System.out.print(this.stopsDistanceVariance + "\n" + this.totalTravelTime + "\n" + totalTravelDistance + "\n");
-
-        this.stopsDistanceVariance = 0.0;
-        this.totalTravelDistance = 0.0;
-        this.totalTravelTime = 0.0;
-        System.out.print("\n\n");
-        JSONArray googleJson = new GoogleRouteAPIRequester().requestRoute(turnIntoBusStopList(this.stops));
-        processGoogleJson(googleJson);
-        System.out.print(this.stopsDistanceVariance + "\n" + this.totalTravelTime + "\n" + totalTravelDistance + "\n");
 
         return jsonArray;
     }

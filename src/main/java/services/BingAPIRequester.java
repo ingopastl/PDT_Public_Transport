@@ -4,14 +4,11 @@ import beans.BusStop;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 public class BingAPIRequester {
@@ -52,8 +49,6 @@ public class BingAPIRequester {
                 url.append(",");
                 url.append(route.get(0).getLongitude());
                 url.append("&");
-                count++;
-
             } else {
                 int routeSize = route.size();
                 for (int j = 0; j < routeSize; j++) {
@@ -74,8 +69,8 @@ public class BingAPIRequester {
 
             HttpGet getRequest = new HttpGet(url.toString());
             HttpResponse response = client.execute(getRequest);
-            String json = EntityUtils.toString(response.getEntity(), "UTF-8");
 
+            String json = EntityUtils.toString(response.getEntity(), "UTF-8");
             jsonArray.put(new JSONObject(json));
 
             url.delete(0, url.length());
@@ -91,7 +86,7 @@ public class BingAPIRequester {
         String destinationCoodinate = destinationLat + "," + destinationLong;
 
         String url = DEFAULTURL + "/Walking?wp.0=" + originCoordinate + "&wp.1=" + destinationCoodinate + "&key=" + APIKEY;
-        //System.out.print(url + '\n');
+        System.out.print(url + '\n');
 
         HttpClient client = HttpClientBuilder.create().build();
         HttpGet getRequest = new HttpGet(url);

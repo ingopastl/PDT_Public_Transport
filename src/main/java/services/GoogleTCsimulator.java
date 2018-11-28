@@ -197,7 +197,7 @@ public class GoogleTCsimulator {
             itinerary.addItineraryBusStop(ibs);
         }
 
-        JSONArray jsonArray = itinerary.requestRouteInfo();
+        JSONArray jsonArray = itinerary.getRouteInfo();
 
         double averageWalkingTime = 0;
         double averageTripTime = 0;
@@ -275,7 +275,7 @@ public class GoogleTCsimulator {
         }
         averageTripTime /= this.numberOfTrips;
         averageWalkingTime /= this.numberOfTrips;
-        stopsDistanceVariance = itinerary.getStopsDistanceVariance();
+        //stopsDistanceVariance = itinerary.getStopsDistanceVariance();
 
         Double[] objectives = new Double[3];
         objectives[0] = averageTripTime;
@@ -383,6 +383,6 @@ public class GoogleTCsimulator {
         }
         this.averageTripTime /= this.numberOfTrips;
         this.averageWalkingTime /= this.numberOfTrips;
-        this.stopsDistanceVariance = this.itinerary.getStopsDistanceVariance();
+        //this.stopsDistanceVariance = this.itinerary.getStopsDistanceVariance();
     }
 }
