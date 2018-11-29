@@ -1,4 +1,5 @@
 import beans.Itinerary;
+import org.uma.jmetal.util.pseudorandom.JMetalRandom;
 import repositories.BusLineRepository;
 import repositories.BusStopRepository;
 import repositories.ItineraryRepository;
@@ -22,5 +23,14 @@ public class PointsSaver {
                 + "itineraries.txt");
 
         Itinerary it = busLineRepository.getByID("423032").getItineraries().get(0);
+        JMetalRandom random = JMetalRandom.getInstance();
+
+        System.out.print(random.nextInt(-1, 1) + "\n");
+        System.out.print(random.nextInt(-1, 1) + "\n");
+        System.out.print(random.nextInt(-1, 1) + "\n");
+        System.out.print(random.nextInt(-1, 1) + "\n");
+        System.out.print(random.nextInt(-1, 1) + "\n");
+        System.out.print(random.nextInt(-1, 1) + "\n");
+
     }
 }

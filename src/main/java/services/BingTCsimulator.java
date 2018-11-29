@@ -274,6 +274,9 @@ public class BingTCsimulator {
             distanceAverage += d;
         }
         distanceAverage = distanceAverage/x.size();
+
+        System.out.print("Média: " + distanceAverage + "\n");
+
         double variance = 0;
         for (int k = 0; k < x.size(); k++) {
             variance += Math.pow(x.get(i) - distanceAverage, 2);

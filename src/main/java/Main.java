@@ -1,5 +1,6 @@
 import beans.Itinerary;
 
+import org.uma.jmetal.operator.impl.mutation.SimpleRandomMutation;
 import org.uma.jmetal.util.fileoutput.SolutionListOutput;
 import org.uma.jmetal.qualityindicator.impl.*;
 import org.uma.jmetal.algorithm.Algorithm;
@@ -26,6 +27,7 @@ import repositories.BusLineRepository;
 import repositories.BusStopRepository;
 import repositories.ItineraryRepository;
 
+import java.io.File;
 import java.util.List;
 
 public class Main {
@@ -34,9 +36,13 @@ public class Main {
         BusLineRepository busLineRepository = BusLineRepository.getInstance();
         ItineraryRepository itineraryRepository = ItineraryRepository.getInstance();
         try{
-            busStopRepository.readCSV("src\\main\\resources\\busData\\stops.txt");
-            busLineRepository.readCSV("src\\main\\resources\\busData\\routes.txt");
-            itineraryRepository.readCSV("src\\main\\resources\\busData\\itineraries\\itineraries.txt");
+            busStopRepository.readCSV("src" + File.separatorChar + File.separatorChar + "main" + File.separatorChar
+                    + "resources" + File.separatorChar + "busData" + File.separatorChar + "stops.txt");
+            busLineRepository.readCSV("src" + File.separatorChar + File.separatorChar + "main" + File.separatorChar
+                    + "resources" + File.separatorChar + "busData" + File.separatorChar + "routes.txt");
+            itineraryRepository.readCSV("src" + File.separatorChar + File.separatorChar + "main" + File.separatorChar
+                    + "resources" + File.separatorChar + "busData" + File.separatorChar + "itineraries" + File.separatorChar
+                    + "itineraries.txt");
 
             Problem<DoubleSolution> problem;
             Algorithm<List<DoubleSolution>> algorithm;
@@ -52,7 +58,7 @@ public class Main {
             crossover = new SBXCrossover(crossoverProbability, 1);
 
             double mutationProbability = 1.0 / problem.getNumberOfVariables();
-            mutation = new PolynomialMutation(mutationProbability, 1);
+            mutation = new PublicTransportNetworkMutation(mutationProbability);
 
             selection = new BinaryTournamentSelection<DoubleSolution>();
 
