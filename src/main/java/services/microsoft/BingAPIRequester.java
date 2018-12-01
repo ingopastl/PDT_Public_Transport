@@ -1,4 +1,4 @@
-package services;
+package services.microsoft;
 
 import beans.BusStop;
 import org.apache.http.HttpResponse;
@@ -8,10 +8,11 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import services.APIRequesterInterface;
 
 import java.util.List;
 
-public class BingAPIRequester {
+public class BingAPIRequester implements APIRequesterInterface {
     private static final String DEFAULTURL = "http://dev.virtualearth.net/REST/V1/Routes";
     private static final String APIKEY = "AoJv1xw1Uep6vS66y74KiTEzsOsWIH3AG_IALi0M4G6WTEBPVRyPhM9IsDxCI7KZ";
 

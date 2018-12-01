@@ -3,8 +3,6 @@ import org.uma.jmetal.util.pseudorandom.JMetalRandom;
 import repositories.BusLineRepository;
 import repositories.BusStopRepository;
 import repositories.ItineraryRepository;
-import services.BingAPIRequester;
-import services.BingTCsimulator;
 
 import java.io.File;
 

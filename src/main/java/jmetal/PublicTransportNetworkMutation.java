@@ -1,12 +1,10 @@
+package jmetal;
+
 import org.uma.jmetal.operator.MutationOperator;
 import org.uma.jmetal.problem.DoubleProblem;
-import org.uma.jmetal.problem.IntegerProblem;
 import org.uma.jmetal.solution.DoubleSolution;
-import org.uma.jmetal.solution.IntegerSolution;
 import org.uma.jmetal.util.JMetalException;
 import org.uma.jmetal.util.pseudorandom.JMetalRandom;
-
-import java.util.concurrent.ThreadLocalRandom;
 
 public class PublicTransportNetworkMutation implements MutationOperator<DoubleSolution> {
 	private static final double DEFAULT_PROBABILITY = 0.01;
@@ -76,15 +74,20 @@ public class PublicTransportNetworkMutation implements MutationOperator<DoubleSo
 			double p1Longi = solution.getVariableValue(index + 3);
 
 			return distance(indexPointLat, indexPointLongi, p1Lat, p1Longi);
-		} else if (index == solution.getNumberOfVariables()) {
-			//todo
+		} else if (index == solution.getNumberOfVariables() - 2) {
+			double indexPointLat = solution.getVariableValue(index);
+			double indexPointLongi = solution.getVariableValue(index + 1);
+			double p1Lat = solution.getVariableValue(index -2);
+			double p1Longi = solution.getVariableValue(index -1);
+
+			return distance(indexPointLat, indexPointLongi, p1Lat, p1Longi);
 		} else {
 			double indexPointLat = solution.getVariableValue(index);
 			double indexPointLongi = solution.getVariableValue(index + 1);
 			double p1Lat = solution.getVariableValue(index + 2);
 			double p1Longi = solution.getVariableValue(index + 3);
-			double p2Lat = solution.getVariableValue(index - 1);
-			double p2Longi = solution.getVariableValue(index - 2);
+			double p2Lat = solution.getVariableValue(index - 2);
+			double p2Longi = solution.getVariableValue(index - 1);
 
 			double distance1 = distance(indexPointLat,indexPointLongi, p1Lat, p1Longi);
 			double distance2 = distance(indexPointLat, indexPointLongi, p2Lat, p2Longi);

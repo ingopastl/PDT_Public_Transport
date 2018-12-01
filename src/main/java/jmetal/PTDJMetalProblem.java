@@ -1,3 +1,5 @@
+package jmetal;
+
 import beans.Itinerary;
 import beans.ItineraryBusStop;
 
@@ -6,18 +8,19 @@ import org.uma.jmetal.solution.DoubleSolution;
 import org.uma.jmetal.solution.impl.DefaultDoubleSolution;
 
 import org.uma.jmetal.util.JMetalException;
-import services.BingTCsimulator;
+import services.TripSimulator;
+import services.microsoft.BingTripSimulator;
 
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class PTDJMetalProblem extends AbstractDoubleProblem {
-	private BingTCsimulator tc;
+	private TripSimulator tc;
 	private int radius;
 
 	public PTDJMetalProblem(Itinerary itinerary, int numberOfTrips, int radius) throws Exception {
 		if (numberOfTrips <= 0) {
-			throw new JMetalException("Number of trips can't be less than or equals to zero");
+			throw new JMetalException("Number of trips can't be less than or equal to zero");
 		}
 		if (radius < 0) {
 			throw new JMetalException("Radius value can't be less than zero");
@@ -26,7 +29,7 @@ public class PTDJMetalProblem extends AbstractDoubleProblem {
 			throw new JMetalException("Null itinerary object");
 		}
 
-		this.tc = new BingTCsimulator(itinerary, numberOfTrips, radius);
+		this.tc = new BingTripSimulator(itinerary, numberOfTrips, radius);
 		this.radius = radius;
 	}
 
@@ -68,6 +71,23 @@ public class PTDJMetalProblem extends AbstractDoubleProblem {
 		}
 		return sol;
 	}
+
+	protected DoubleSolution getOriginalItinerarySolution() {
+        DefaultDoubleSolution sol = new DefaultDoubleSolution(this);
+        try {
+            List<ItineraryBusStop> l = tc.getItinerary().getStops();
+            int stopsCount = 0;
+            for (int i = 0; i < getNumberOfVariables(); i++) {
+                sol.setVariableValue(i ,l.get(stopsCount).getBusStop().getLatitude());
+                ++i;
+                sol.setVariableValue(i ,l.get(stopsCount).getBusStop().getLongitude());
+                stopsCount++;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return sol;
+    }
 	
 	@Override
 	public int getNumberOfObjectives() {

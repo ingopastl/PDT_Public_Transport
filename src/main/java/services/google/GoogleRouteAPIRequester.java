@@ -1,4 +1,4 @@
-package services;
+package services.google;
 
 import beans.BusStop;
 
@@ -9,13 +9,14 @@ import org.apache.http.HttpResponse;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import services.APIRequesterInterface;
 
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GoogleRouteAPIRequester {
+public class GoogleRouteAPIRequester implements APIRequesterInterface {
     private static final String DEFAULTURL = "https://maps.googleapis.com/maps/api/directions/json?";
     private static final String APIKEY = "AIzaSyAOfkS5vP9_OGo52BcFEg5uvPXiqX0cq9o";
 

@@ -1,8 +1,11 @@
 import beans.Itinerary;
 
+import jmetal.NSGAIIIBuilder;
+import jmetal.PTDJMetalProblem;
+import jmetal.PublicTransportNetworkMutation;
+
 import org.uma.jmetal.util.fileoutput.SolutionListOutput;
 import org.uma.jmetal.algorithm.Algorithm;
-import org.uma.jmetal.algorithm.multiobjective.nsgaiii.NSGAIIIBuilder;
 import org.uma.jmetal.operator.CrossoverOperator;
 import org.uma.jmetal.operator.MutationOperator;
 import org.uma.jmetal.operator.SelectionOperator;
@@ -48,14 +51,14 @@ public class Main {
             problem = new PTDJMetalProblem(i, 1, 800);
 
             double crossoverProbability = 1.0;
-            crossover = new SBXCrossover(crossoverProbability, 0);
+            crossover = new SBXCrossover(crossoverProbability, 2);
 
             double mutationProbability = 1.0 / problem.getNumberOfVariables();
             mutation = new PublicTransportNetworkMutation(1);
 
             selection = new BinaryTournamentSelection<DoubleSolution>();
 
-            algorithm = new NSGAIIIBuilder<>(problem).setPopulationSize(1).setMaxIterations(2).setCrossoverOperator(crossover).setMutationOperator(mutation)
+            algorithm = new NSGAIIIBuilder<DoubleSolution>(problem).setPopulationSize(91).setMaxIterations(54).setCrossoverOperator(crossover).setMutationOperator(mutation)
                     .setSelectionOperator(selection).build();
             AlgorithmRunner algorithmRunner = new AlgorithmRunner.Executor(algorithm).execute();
 
