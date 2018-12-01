@@ -45,18 +45,18 @@ public class Main {
             String referenceParetoFront = "";
 
             Itinerary i = busLineRepository.getByID("423032").getItineraries().get(0);
-            problem = new PTDJMetalProblem(i, 10, 800);
+            problem = new PTDJMetalProblem(i, 1, 800);
 
             double crossoverProbability = 1.0;
-            crossover = new SBXCrossover(crossoverProbability, 1);
+            crossover = new SBXCrossover(crossoverProbability, 0);
 
             double mutationProbability = 1.0 / problem.getNumberOfVariables();
-            mutation = new PublicTransportNetworkMutation(mutationProbability);
+            mutation = new PublicTransportNetworkMutation(1);
 
             selection = new BinaryTournamentSelection<DoubleSolution>();
 
-            algorithm = new NSGAIIIBuilder<>(problem).setCrossoverOperator(crossover).setMutationOperator(mutation)
-                    .setSelectionOperator(selection).setPopulationSize(10).setMaxIterations(1).build();
+            algorithm = new NSGAIIIBuilder<>(problem).setPopulationSize(1).setMaxIterations(2).setCrossoverOperator(crossover).setMutationOperator(mutation)
+                    .setSelectionOperator(selection).build();
             AlgorithmRunner algorithmRunner = new AlgorithmRunner.Executor(algorithm).execute();
 
             List<DoubleSolution> population = algorithm.getResult();

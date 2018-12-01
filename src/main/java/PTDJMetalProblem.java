@@ -5,6 +5,7 @@ import org.uma.jmetal.problem.impl.AbstractDoubleProblem;
 import org.uma.jmetal.solution.DoubleSolution;
 import org.uma.jmetal.solution.impl.DefaultDoubleSolution;
 
+import org.uma.jmetal.util.JMetalException;
 import services.BingTCsimulator;
 
 import java.util.List;
@@ -15,6 +16,16 @@ public class PTDJMetalProblem extends AbstractDoubleProblem {
 	private int radius;
 
 	public PTDJMetalProblem(Itinerary itinerary, int numberOfTrips, int radius) throws Exception {
+		if (numberOfTrips <= 0) {
+			throw new JMetalException("Number of trips can't be less than or equals to zero");
+		}
+		if (radius < 0) {
+			throw new JMetalException("Radius value can't be less than zero");
+		}
+		if (itinerary == null) {
+			throw new JMetalException("Null itinerary object");
+		}
+
 		this.tc = new BingTCsimulator(itinerary, numberOfTrips, radius);
 		this.radius = radius;
 	}

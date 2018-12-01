@@ -55,7 +55,6 @@ public class PublicTransportNetworkMutation implements MutationOperator<DoubleSo
 		int i = 0;
 		while (i < solution.getNumberOfVariables()) {
 			if (randomGenerator.nextDouble() <= probability) {
-				System.out.print("\n\nRandomProb: " + randomGenerator.nextDouble()+ "\n\n");
 				double sd = smallerDistance(solution, i);
 				System.out.print("Smaller Distance: " + sd + "\n");
 
@@ -77,6 +76,8 @@ public class PublicTransportNetworkMutation implements MutationOperator<DoubleSo
 			double p1Longi = solution.getVariableValue(index + 3);
 
 			return distance(indexPointLat, indexPointLongi, p1Lat, p1Longi);
+		} else if (index == solution.getNumberOfVariables()) {
+			//todo
 		} else {
 			double indexPointLat = solution.getVariableValue(index);
 			double indexPointLongi = solution.getVariableValue(index + 1);
@@ -101,8 +102,8 @@ public class PublicTransportNetworkMutation implements MutationOperator<DoubleSo
 	}
 
 	private int getOneOrNegativeOne() {
-		int n = randomGenerator.nextInt(0, 1);
-		if (n == 0) {
+		double n = randomGenerator.nextDouble();
+		if (n < 0.5) {
 			return -1;
 		} else {
 			return 1;
