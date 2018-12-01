@@ -165,7 +165,6 @@ public class Itinerary {
         lowestLat = stops.get(0).getBusStop().getLatitude();
         highestLong = stops.get(0).getBusStop().getLongitude();
         lowestLong = stops.get(0).getBusStop().getLongitude();
-
         for (int i = 1; i < stops.size(); i++) {
             double currentLat = stops.get(i).getBusStop().getLatitude();
             double currentLong = stops.get(i).getBusStop().getLongitude();

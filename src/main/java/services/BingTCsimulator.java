@@ -32,11 +32,11 @@ public class BingTCsimulator {
         this.upperLimit = new ArrayList<>(this.numberOfVariables);
         for (int i = 0; i < this.numberOfVariables; i++) {
             if (i % 2 == 0) {
-                lowerLimit.add(boudaries[0]);
-                upperLimit.add(boudaries[1]);
+                upperLimit.add(boudaries[0]);
+                lowerLimit.add(boudaries[1]);
             } else {
-                lowerLimit.add(boudaries[2]);
-                upperLimit.add(boudaries[3]);
+                upperLimit.add(boudaries[2]);
+                lowerLimit.add(boudaries[3]);
             }
         }
     }
@@ -252,8 +252,8 @@ public class BingTCsimulator {
                         totalTravelDistance += distance;
                     }
 
-                    System.out.print("Tempo andando até a parada/Distancia até a parada/Tempo no onibus/Distancia percorrida no onibus/Tempo andando até o destino/Dsitancia andada até o destino\n");
-                    System.out.print(startWalkDuration/60 + " minutos / " + startWalkDistance + " KM / " + totalTravelTime/60 + " minutos / " + totalTravelDistance + " KM / " + endWalkDuration/60 + " minutos / " + endWalkDistance + " KM\n");
+                    //System.out.print("Tempo andando até a parada/Distancia até a parada/Tempo no onibus/Distancia percorrida no onibus/Tempo andando até o destino/Dsitancia andada até o destino\n");
+                    //System.out.print(startWalkDuration/60 + " minutos / " + startWalkDistance + " KM / " + totalTravelTime/60 + " minutos / " + totalTravelDistance + " KM / " + endWalkDuration/60 + " minutos / " + endWalkDistance + " KM\n");
 
                     averageTripTime += totalTravelTime;
                     averageWalkingTime += startWalkDuration + endWalkDuration;
@@ -263,7 +263,8 @@ public class BingTCsimulator {
 
         ArrayList<Double> x = new ArrayList<>();
         double distanceAverage = 0, d;
-        for (int j = 0; j < allLegs.length(); j++) {
+        System.out.print("Legs size: " + allLegs.length() + "\n");
+        for (i = 0; i < allLegs.length(); i++) {
             try {
                 d = (double) allLegs.getJSONObject(i).get("travelDistance");
             } catch (ClassCastException e) {
@@ -278,7 +279,7 @@ public class BingTCsimulator {
         System.out.print("Média: " + distanceAverage + "\n");
 
         double variance = 0;
-        for (int k = 0; k < x.size(); k++) {
+        for (i = 0; i < x.size(); i++) {
             variance += Math.pow(x.get(i) - distanceAverage, 2);
         }
 
