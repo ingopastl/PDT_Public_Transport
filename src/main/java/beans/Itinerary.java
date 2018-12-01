@@ -79,7 +79,11 @@ public class Itinerary {
     }
 
     private void processBingJson(JSONArray jsonArray) {
-        //Distance in meters; Time in seconds.
+        if (jsonArray == null) {
+            throw new NullPointerException();
+        }
+
+        //Distance in KM; Time in seconds.
         double totalDistance = 0, totalTime = 0;
 
         for (int i = 0; i < jsonArray.length(); i++) {
@@ -102,6 +106,10 @@ public class Itinerary {
     }
 
     private void processGoogleJson(JSONArray jsonArray) {
+        if (jsonArray == null) {
+            throw new NullPointerException();
+        }
+
         //Distance in meters; Time in seconds.
         double totalDistance = 0, totalTime = 0;
 
@@ -193,17 +201,19 @@ public class Itinerary {
         return  boundaryArray;
     }
 
-    public void addItineraryBusStop(ItineraryBusStop ibs) throws NullPointerException {
-        if (ibs != null) {
-            this.stops.add(ibs);
-        } else {
+    public void addItineraryBusStop(ItineraryBusStop ibs) {
+        if (ibs == null) {
             throw new NullPointerException();
         }
+        this.stops.add(ibs);
     }
 
     public List<BusStop> turnIntoBusStopList(List<ItineraryBusStop> l) {
-        List<BusStop> list = new ArrayList<>();
+        if (l == null) {
+            throw new NullPointerException();
+        }
 
+        List<BusStop> list = new ArrayList<>();
         for (int i = 0; i < l.size(); i++) {
             list.add(l.get(i).getBusStop());
         }

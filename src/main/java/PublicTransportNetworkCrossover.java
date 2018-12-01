@@ -8,7 +8,6 @@ import org.uma.jmetal.util.pseudorandom.JMetalRandom;
 
 public class PublicTransportNetworkCrossover implements CrossoverOperator<IntegerSolution>{
 
-
 	private double crossoverProbability;
 
 	private JMetalRandom randomGenerator;

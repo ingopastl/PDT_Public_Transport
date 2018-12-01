@@ -1,11 +1,11 @@
 import beans.Itinerary;
 import beans.ItineraryBusStop;
+
 import org.uma.jmetal.problem.impl.AbstractDoubleProblem;
 import org.uma.jmetal.solution.DoubleSolution;
 import org.uma.jmetal.solution.impl.DefaultDoubleSolution;
 
 import services.BingTCsimulator;
-import services.GoogleTCsimulator;
 
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
