@@ -3,8 +3,6 @@ package services;
 import beans.BusStop;
 import beans.Itinerary;
 import beans.ItineraryBusStop;
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -109,12 +107,11 @@ public abstract class TripSimulator {
     protected double[] randomLocationBeta(Itinerary itinerary) throws Exception {
         double[] boundaries = itinerary.getBoudaries();
 
-        double meters = this.radius;
         // number of km per degree = ~111km (111.32 in google maps, but range varies
         // between 110.567km at the equator and 111.699km at the poles)
         // 1km in degree = 1 / 111.32km = 0.0089
         // 1m in degree = 0.0089 / 1000 = 0.0000089
-        double coef = meters * 0.0000089;
+        double coef = this.radius * 0.0000089;
 
         double highestLat = boundaries[0] + coef;
         double lowestLat = boundaries[1] - coef;

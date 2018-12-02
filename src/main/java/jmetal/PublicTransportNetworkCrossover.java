@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.uma.jmetal.operator.CrossoverOperator;
-import org.uma.jmetal.solution.IntegerSolution;
+import org.uma.jmetal.solution.DoubleSolution;
 import org.uma.jmetal.util.JMetalException;
 import org.uma.jmetal.util.pseudorandom.JMetalRandom;
 
-public class PublicTransportNetworkCrossover implements CrossoverOperator<IntegerSolution>{
+public class PublicTransportNetworkCrossover implements CrossoverOperator<DoubleSolution>{
 
 	private double crossoverProbability;
 
@@ -31,7 +31,7 @@ public class PublicTransportNetworkCrossover implements CrossoverOperator<Intege
 
 	/** Execute() method */
 	@Override
-	public List<IntegerSolution> execute(List<IntegerSolution> solutions) {
+	public List<DoubleSolution> execute(List<DoubleSolution> solutions) {
 		if (null == solutions) {
 			throw new JMetalException("Null parameter");
 		} else if (solutions.size() != 2) {
@@ -42,14 +42,14 @@ public class PublicTransportNetworkCrossover implements CrossoverOperator<Intege
 	}
 
 	/** doCrossover method */
-	public List<IntegerSolution> doCrossover(double probability, IntegerSolution parent1, IntegerSolution parent2) {
-		List<IntegerSolution> offspring = new ArrayList<IntegerSolution>(2);
+	public List<DoubleSolution> doCrossover(double probability, DoubleSolution parent1, DoubleSolution parent2) {
+		List<DoubleSolution> offspring = new ArrayList<DoubleSolution>(2);
 
-		offspring.add((IntegerSolution) parent1.copy());
-		offspring.add((IntegerSolution) parent2.copy());
+		offspring.add((DoubleSolution) parent1.copy());
+		offspring.add((DoubleSolution) parent2.copy());
 
 		int i;
-		int valueX1, valueX2;
+		double valueX1, valueX2;
 
 		if (randomGenerator.nextDouble() <= probability) {
 			for (i = 0; i < parent1.getNumberOfVariables(); i++) {

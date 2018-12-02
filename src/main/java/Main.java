@@ -2,6 +2,7 @@ import beans.Itinerary;
 
 import jmetal.NSGAIIIBuilder;
 import jmetal.PTDJMetalProblem;
+import jmetal.PublicTransportNetworkCrossover;
 import jmetal.PublicTransportNetworkMutation;
 
 import org.uma.jmetal.util.fileoutput.SolutionListOutput;
@@ -48,17 +49,17 @@ public class Main {
             String referenceParetoFront = "";
 
             Itinerary i = busLineRepository.getByID("423032").getItineraries().get(0);
-            problem = new PTDJMetalProblem(i, 1, 800);
+            problem = new PTDJMetalProblem(i, 10, 800);
 
             double crossoverProbability = 1.0;
-            crossover = new SBXCrossover(crossoverProbability, 2);
+            crossover = new PublicTransportNetworkCrossover(crossoverProbability);
 
             double mutationProbability = 1.0 / problem.getNumberOfVariables();
-            mutation = new PublicTransportNetworkMutation(1);
+            mutation = new PublicTransportNetworkMutation(mutationProbability);
 
             selection = new BinaryTournamentSelection<DoubleSolution>();
 
-            algorithm = new NSGAIIIBuilder<DoubleSolution>(problem).setPopulationSize(91).setMaxIterations(54).setCrossoverOperator(crossover).setMutationOperator(mutation)
+            algorithm = new NSGAIIIBuilder<DoubleSolution>(problem).setPopulationSize(91).setMaxIterations(20).setCrossoverOperator(crossover).setMutationOperator(mutation)
                     .setSelectionOperator(selection).build();
             AlgorithmRunner algorithmRunner = new AlgorithmRunner.Executor(algorithm).execute();
 
