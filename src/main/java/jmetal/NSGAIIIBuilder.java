@@ -16,6 +16,7 @@ import java.util.List;
 public class NSGAIIIBuilder<S extends Solution<?>> implements AlgorithmBuilder<NSGAIII<S>>{
     // no access modifier means access from classes within the same package
     private Problem<S> problem ;
+    private List<S> initialPopulation;
     private int maxIterations ;
     private int populationSize ;
     private CrossoverOperator<S> crossoverOperator ;
@@ -30,6 +31,12 @@ public class NSGAIIIBuilder<S extends Solution<?>> implements AlgorithmBuilder<N
         maxIterations = 250 ;
         populationSize = 100 ;
         evaluator = new SequentialSolutionListEvaluator<S>() ;
+    }
+
+    public NSGAIIIBuilder<S> setInitialPopulation(List<S> initialPopulation) {
+        this.initialPopulation = initialPopulation;
+
+        return this;
     }
 
     public NSGAIIIBuilder<S> setMaxIterations(int maxIterations) {
@@ -66,6 +73,10 @@ public class NSGAIIIBuilder<S extends Solution<?>> implements AlgorithmBuilder<N
         this.evaluator = evaluator ;
 
         return this ;
+    }
+
+    public List<S> getInitialPopulation() {
+        return initialPopulation;
     }
 
     public SolutionListEvaluator<S> getEvaluator() {

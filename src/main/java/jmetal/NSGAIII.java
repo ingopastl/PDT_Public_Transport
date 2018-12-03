@@ -4,6 +4,7 @@ import org.uma.jmetal.algorithm.impl.AbstractGeneticAlgorithm;
 import org.uma.jmetal.algorithm.multiobjective.nsgaiii.util.EnvironmentalSelection;
 import org.uma.jmetal.algorithm.multiobjective.nsgaiii.util.ReferencePoint;
 import org.uma.jmetal.solution.Solution;
+import org.uma.jmetal.util.JMetalException;
 import org.uma.jmetal.util.JMetalLogger;
 import org.uma.jmetal.util.SolutionListUtils;
 import org.uma.jmetal.util.evaluator.SolutionListEvaluator;
@@ -23,13 +24,14 @@ import java.util.Vector;
  */
 @SuppressWarnings("serial")
 public class NSGAIII<S extends Solution<?>> extends AbstractGeneticAlgorithm<S, List<S>> {
-    protected int iterations ;
-    protected int maxIterations ;
+    private int iterations ;
+    private int maxIterations ;
+    private List<S> initialPopulation;
 
-    protected SolutionListEvaluator<S> evaluator ;
+    private SolutionListEvaluator<S> evaluator ;
 
-    protected Vector<Integer> numberOfDivisions  ;
-    protected List<ReferencePoint<S>> referencePoints = new Vector<>() ;
+    private Vector<Integer> numberOfDivisions  ;
+    private List<ReferencePoint<S>> referencePoints = new Vector<>() ;
 
     /** Constructor */
     public NSGAIII(NSGAIIIBuilder<S> builder) { // can be created from the NSGAIIIBuilder within the same package
@@ -54,6 +56,8 @@ public class NSGAIII<S extends Solution<?>> extends AbstractGeneticAlgorithm<S, 
         }
 
         setMaxPopulationSize(populationSize);
+
+        initialPopulation = builder.getInitialPopulation();
 
         JMetalLogger.logger.info("rpssize: " + referencePoints.size());
     }
@@ -188,6 +192,32 @@ public class NSGAIII<S extends Solution<?>> extends AbstractGeneticAlgorithm<S, 
 
     protected List<S> getNonDominatedSolutions(List<S> solutionList) {
         return SolutionListUtils.getNondominatedSolutions(solutionList) ;
+    }
+
+    @Override
+    public void run() {
+        List<S> offspringPopulation;
+        List<S> matingPopulation;
+
+        if (this.initialPopulation == null) {
+            population = createInitialPopulation();
+        } else {
+            if (this.initialPopulation.size() != maxPopulationSize) {
+                throw new JMetalException("The initial population has the wrong size");
+            } else {
+                population = this.initialPopulation;
+            }
+        }
+
+        population = evaluatePopulation(population);
+        initProgress();
+        while (!isStoppingConditionReached()) {
+            matingPopulation = selection(population);
+            offspringPopulation = reproduction(matingPopulation);
+            offspringPopulation = evaluatePopulation(offspringPopulation);
+            population = replacement(population, offspringPopulation);
+            updateProgress();
+        }
     }
 
     @Override public String getName() {
