@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2018-12-02T16:52:13.993610Z</date>
+  <millis>1543769533993</millis>
+  <nanos>610000</nanos>
+  <sequence>0</sequence>
+  <logger>org.uma.jmetal.util.JMetalLogger</logger>
+  <level>INFO</level>
+  <class>org.uma.jmetal.util.JMetalLogger</class>
+  <method>configureLoggers</method>
+  <thread>1</thread>
+  <message>Loggers configured with null</message>
+</record>
+<record>
+  <date>2018-12-02T16:52:14.297007Z</date>
+  <millis>1543769534297</millis>
+  <nanos>7000</nanos>
+  <sequence>1</sequence>
+  <logger>org.uma.jmetal.util.JMetalLogger</logger>
+  <level>INFO</level>
+  <class>jmetal.NSGAIII</class>
+  <method>&lt;init&gt;</method>
+  <thread>1</thread>
+  <message>rpssize: 91</message>
+</record>
+<record>
+  <date>2018-12-03T00:54:03.495697Z</date>
+  <millis>1543798443495</millis>
+  <nanos>697000</nanos>
+  <sequence>2</sequence>
+  <logger>org.apache.http.impl.execchain.RetryExec</logger>
+  <level>INFO</level>
+  <class>org.apache.http.impl.execchain.RetryExec</class>
+  <method>execute</method>
+  <thread>13</thread>
+  <message>I/O exception (java.net.SocketException) caught when processing request to {}-&gt;http://dev.virtualearth.net:80: Connection timed out (Read failed)</message>
+</record>
+<record>
+  <date>2018-12-03T00:54:03.501411Z</date>
+  <millis>1543798443501</millis>
+  <nanos>411000</nanos>
+  <sequence>3</sequence>
+  <logger>org.apache.http.impl.execchain.RetryExec</logger>
+  <level>INFO</level>
+  <class>org.apache.http.impl.execchain.RetryExec</class>
+  <method>execute</method>
+  <thread>13</thread>
+  <message>Retrying request to {}-&gt;http://dev.virtualearth.net:80</message>
+</record>
+<record>
+  <date>2018-12-03T01:25:30.339753Z</date>
+  <millis>1543800330339</millis>
+  <nanos>753000</nanos>
+  <sequence>4</sequence>
+  <logger>org.uma.jmetal.util.JMetalLogger</logger>
+  <level>INFO</level>
+  <class>Main</class>
+  <method>main</method>
+  <thread>1</thread>
+  <message>Total execution time: 30796024ms</message>
+</record>
+<record>
+  <date>2018-12-03T01:25:30.354368Z</date>
+  <millis>1543800330354</millis>
+  <nanos>368000</nanos>
+  <sequence>5</sequence>
+  <logger>org.uma.jmetal.util.JMetalLogger</logger>
+  <level>INFO</level>
+  <class>Main</class>
+  <method>printFinalSolutionSet</method>
+  <thread>1</thread>
+  <message>Random seed: 1543769533860</message>
+</record>
+<record>
+  <date>2018-12-03T01:25:30.355209Z</date>
+  <millis>1543800330355</millis>
+  <nanos>209000</nanos>
+  <sequence>6</sequence>
+  <logger>org.uma.jmetal.util.JMetalLogger</logger>
+  <level>INFO</level>
+  <class>Main</class>
+  <method>printFinalSolutionSet</method>
+  <thread>1</thread>
+  <message>Objectives values have been written to file FUN.tsv</message>
+</record>
+<record>
+  <date>2018-12-03T01:25:30.355853Z</date>
+  <millis>1543800330355</millis>
+  <nanos>853000</nanos>
+  <sequence>7</sequence>
+  <logger>org.uma.jmetal.util.JMetalLogger</logger>
+  <level>INFO</level>
+  <class>Main</class>
+  <method>printFinalSolutionSet</method>
+  <thread>1</thread>
+  <message>Variables values have been written to file VAR.tsv</message>
+</record>
+</log>
