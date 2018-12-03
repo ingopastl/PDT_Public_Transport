@@ -18,7 +18,7 @@ import java.util.List;
 
 public class GoogleRouteAPIRequester implements APIRequesterInterface {
     private static final String DEFAULTURL = "https://maps.googleapis.com/maps/api/directions/json?";
-    private static final String APIKEY = "AIzaSyAOfkS5vP9_OGo52BcFEg5uvPXiqX0cq9o";
+    private static final String APIKEY = "";
 
     //Encode a double value to the Google's Encoded Polyline Algorithm Format
     private String polylineEncode(double value) {
