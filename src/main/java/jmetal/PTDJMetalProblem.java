@@ -48,6 +48,7 @@ public class PTDJMetalProblem extends AbstractDoubleProblem {
 			solution.setObjective(2, objectives[2]);
 		} catch (Exception e) {
 			e.printStackTrace();
+			System.exit(0);
 		}
 	}
 

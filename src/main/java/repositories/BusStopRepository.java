@@ -108,6 +108,7 @@ public class BusStopRepository {
             BusStop stop = new BusStop(stopId.toString(), Double.parseDouble(latitudeString.toString()), Double.parseDouble(longitudeString.toString()));
             addBusStop(stop);
         }
+        br.close();
     }
 
     public void addBusStop(BusStop stop) throws NullPointerException {

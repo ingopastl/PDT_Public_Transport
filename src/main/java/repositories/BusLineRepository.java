@@ -64,6 +64,7 @@ public class BusLineRepository {
             BusLine bl = new BusLine(busLineID.toString(), busLineShortName.toString(), busLineLongName.toString());
             addBusLine(bl);
         }
+        br.close();
     }
 
     public void addBusLine(BusLine line) throws NullPointerException {

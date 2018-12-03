@@ -73,6 +73,7 @@ public class ItineraryRepository {
             bl.addItinerary(it);
             addItinerary(it);
         }
+        br.close();
     }
 
     public void addItinerary(Itinerary it) throws NullPointerException {

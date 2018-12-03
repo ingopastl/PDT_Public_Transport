@@ -110,6 +110,7 @@ public class ItineraryBusStopRepository {
             iti.addItineraryBusStop(ibs);
             addItineraryBusStop(ibs);
         }
+        br.close();
     }
 
     public void addItineraryBusStop(ItineraryBusStop relation) throws NullPointerException {
