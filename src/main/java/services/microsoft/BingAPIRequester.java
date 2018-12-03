@@ -14,7 +14,7 @@ import java.util.List;
 
 public class BingAPIRequester implements APIRequesterInterface {
     private static final String DEFAULTURL = "http://dev.virtualearth.net/REST/V1/Routes";
-    private static final String APIKEY = "AoJv1xw1Uep6vS66y74KiTEzsOsWIH3AG_IALi0M4G6WTEBPVRyPhM9IsDxCI7KZ";
+    private static final String APIKEY = "";
 
     public JSONArray requestRoute(List<BusStop> route) throws Exception {
         if (route == null) {
