@@ -23,6 +23,8 @@ public class Itinerary {
 
     private Double totalTravelTime = null;
     private Double totalTravelDistance = null;
+    private Double stopsDistanceAverage = null;
+    private Double stopsDistanceVariance = null;
 
     public Itinerary(BusLine busLine, char serviceId, String itineraryId, String itineraryHeadsign) {
         this.busLine = busLine;
@@ -78,6 +80,20 @@ public class Itinerary {
         return this.totalTravelDistance;
     }
 
+    public Double getStopsDistanceAverage() throws Exception {
+        if (this.stopsDistanceAverage == null) {
+            getRouteInfo();
+        }
+        return this.stopsDistanceAverage;
+    }
+
+    public Double getStopsDistanceVariance() throws Exception {
+        if (this.stopsDistanceVariance == null) {
+            getRouteInfo();
+        }
+        return this.stopsDistanceVariance;
+    }
+
     private void processBingJson(JSONArray jsonArray) {
         if (jsonArray == null) {
             throw new NullPointerException();
@@ -86,21 +102,42 @@ public class Itinerary {
         //Distance in KM; Time in seconds.
         double totalDistance = 0, totalTime = 0;
 
+        JSONArray allLegs = new JSONArray();
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject jsonObject = (JSONObject) jsonArray.get(i);
-            JSONArray resourceSets = jsonObject.getJSONArray("resourceSets");
-            JSONArray resources = resourceSets.getJSONObject(0).getJSONArray("resources");
-            JSONArray legs = resources.getJSONObject(0). getJSONArray("routeLegs");
-
-            //System.out.print("Quantidade de pernas: " + legs.length() + "\n");
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
+            JSONArray legs = jsonObject.getJSONArray("resourceSets").getJSONObject(0).getJSONArray("resources").getJSONObject(0).getJSONArray("routeLegs");
             for (int j = 0; j < legs.length(); j++) {
-                double distance = (double) legs.getJSONObject(j).get("travelDistance") * 1000;
-                int duration = (int) legs.getJSONObject(j).get("travelDuration");
-                totalTime += duration;
-                totalDistance += distance;
+                allLegs.put(legs.get(j));
             }
         }
+
+        for (int i = 0; i < allLegs.length(); i++) {
+            int duration = (int) allLegs.getJSONObject(i).get("travelDuration");
+            double distance;
+            try {
+                distance = ((double) allLegs.getJSONObject(i).get("travelDistance")) * 1000; //Multiply by 1000 to convert into meters
+            } catch (ClassCastException e) {
+                distance = ((int) allLegs.getJSONObject(i).get("travelDistance")) * 1000;
+            }
+            totalTime += duration;
+            totalDistance += ((int) distance);
+        }
+
+        this.stopsDistanceAverage = totalDistance/allLegs.length();
+
+        double variance = 0;
+        for (int i = 0; i < allLegs.length(); i++) {
+            double distance;
+            try {
+                distance = ((double) allLegs.getJSONObject(i).get("travelDistance")) * 1000; //Multiply by 1000 to convert into meters
+            } catch (ClassCastException e) {
+                distance = ((int) allLegs.getJSONObject(i).get("travelDistance")) * 1000;
+            }
+            variance += Math.pow( ((int)distance) - this.stopsDistanceAverage, 2);
+        }
+        variance = variance/allLegs.length();
+
+        this.stopsDistanceVariance = variance;
         this.totalTravelDistance = totalDistance;
         this.totalTravelTime = totalTime;
     }
@@ -113,20 +150,35 @@ public class Itinerary {
         //Distance in meters; Time in seconds.
         double totalDistance = 0, totalTime = 0;
 
+        JSONArray allLegs = new JSONArray();
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject jsonObject = (JSONObject) jsonArray.get(i);
             JSONArray routes = jsonObject.getJSONArray("routes");
             JSONArray legs = routes.getJSONObject(0).getJSONArray("legs");
-
-            System.out.print("Quantidade de pernas: " + legs.length() + "\n");
-
             for (int j = 0; j < legs.length(); j++) {
-                int distance = (int) legs.getJSONObject(j).getJSONObject("distance").get("value");
-                int duration = (int) legs.getJSONObject(j).getJSONObject("duration").get("value");
-                totalTime += duration;
-                totalDistance += distance;
+                allLegs.put(legs.get(j));
             }
         }
+        System.out.print("Legs: " + allLegs.length() + "\n");
+        for (int i = 0; i < allLegs.length(); i++) {
+            int duration = (int) allLegs.getJSONObject(i).getJSONObject("duration").get("value");
+            int distance = (int) allLegs.getJSONObject(i).getJSONObject("distance").get("value");
+            totalTime += duration;
+            totalDistance += distance;
+        }
+
+        this.stopsDistanceAverage = totalDistance/allLegs.length();
+
+        double variance = 0;
+        int d;
+        for (int i = 0; i < allLegs.length(); i++) {
+            d = (int) allLegs.getJSONObject(i).getJSONObject("distance").get("value");
+            double xMinusAverage = ((double) d) - this.stopsDistanceAverage;
+            variance = variance + Math.pow(xMinusAverage, 2);
+        }
+        variance = variance/allLegs.length();
+
+        this.stopsDistanceVariance = variance;
         this.totalTravelDistance = totalDistance;
         this.totalTravelTime = totalTime;
     }
@@ -231,6 +283,13 @@ public class Itinerary {
 
     public void setStops(List<ItineraryBusStop> stops) {
         this.stops = stops;
+    }
+
+    public void printInfo() throws Exception {
+        System.out.print("Total travel time: " + getTotalTravelTime() + "\n"
+        + "Total travel distance: " + getTotalTravelDistance() + "\n"
+        + "Stops distance average: " + getStopsDistanceAverage() + "\n"
+        + "Stops distance variance: " + getStopsDistanceVariance() + "\n");
     }
 
     @Override

@@ -16,9 +16,9 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GoogleRouteAPIRequester implements APIRequesterInterface {
+public class GoogleAPIRequester implements APIRequesterInterface {
     private static final String DEFAULTURL = "https://maps.googleapis.com/maps/api/directions/json?";
-    private static final String APIKEY = "";
+    private static final String APIKEY = "AIzaSyAOfkS5vP9_OGo52BcFEg5uvPXiqX0cq9o";
 
     //Encode a double value to the Google's Encoded Polyline Algorithm Format
     private String polylineEncode(double value) {

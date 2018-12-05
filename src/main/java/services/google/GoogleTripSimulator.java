@@ -61,7 +61,7 @@ public class GoogleTripSimulator extends TripSimulator {
                 endP[1] = p1[1];
             }
 
-            GoogleRouteAPIRequester googleRouteAPIRequester = new GoogleRouteAPIRequester();
+            GoogleAPIRequester googleRouteAPIRequester = new GoogleAPIRequester();
 
             if (start.equals(end)) {
                 --t;
@@ -121,7 +121,7 @@ public class GoogleTripSimulator extends TripSimulator {
         double[] loc1 = randomLocationBeta(getItinerary());
         double[] loc2 = randomLocationBeta(getItinerary());
 
-        JSONObject jsonObject = new GoogleRouteAPIRequester().walkingRoute(loc1[0], loc1[1], loc2[0], loc2[1]);
+        JSONObject jsonObject = new GoogleAPIRequester().walkingRoute(loc1[0], loc1[1], loc2[0], loc2[1]);
 
         if (!jsonObject.getString("status").equals("OK")) {
             return;

@@ -1,9 +1,6 @@
 import beans.Itinerary;
 
-import jmetal.NSGAIIIBuilder;
-import jmetal.PTDJMetalProblem;
-import jmetal.PublicTransportNetworkCrossover;
-import jmetal.PublicTransportNetworkMutation;
+import jmetal.*;
 
 import org.uma.jmetal.util.fileoutput.SolutionListOutput;
 import org.uma.jmetal.algorithm.Algorithm;
@@ -23,7 +20,7 @@ import repositories.BusLineRepository;
 import repositories.BusStopRepository;
 import repositories.ItineraryRepository;
 
-import java.io.File;
+import java.io.*;
 import java.util.List;
 
 public class Main {
@@ -32,13 +29,13 @@ public class Main {
         BusLineRepository busLineRepository = BusLineRepository.getInstance();
         ItineraryRepository itineraryRepository = ItineraryRepository.getInstance();
         try{
-            busStopRepository.readCSV("src" + File.separatorChar + File.separatorChar + "main" + File.separatorChar
+            busStopRepository.readCSV("src" + File.separatorChar + "main" + File.separatorChar
                     + "resources" + File.separatorChar + "busData" + File.separatorChar + "stops.txt");
-            busLineRepository.readCSV("src" + File.separatorChar + File.separatorChar + "main" + File.separatorChar
+            busLineRepository.readCSV("src" + File.separatorChar + "main" + File.separatorChar
                     + "resources" + File.separatorChar + "busData" + File.separatorChar + "routes.txt");
-            itineraryRepository.readCSV("src" + File.separatorChar + File.separatorChar + "main" + File.separatorChar
-                    + "resources" + File.separatorChar + "busData" + File.separatorChar + "itineraries" + File.separatorChar
-                    + "itineraries.txt");
+            itineraryRepository.readCSV("src" + File.separatorChar + "main" + File.separatorChar
+                    + "resources" + File.separatorChar + "busData" + File.separatorChar + "itineraries"
+                    + File.separatorChar + "itineraries.txt");
 
             Problem<DoubleSolution> problem;
             Algorithm<List<DoubleSolution>> algorithm;
@@ -48,7 +45,7 @@ public class Main {
             String referenceParetoFront = "";
 
             Itinerary i = busLineRepository.getByID("423032").getItineraries().get(0);
-            problem = new PTDJMetalProblem(i, 10, 2000);
+            problem = new PTDJMetalProblem(i, 20, 1500);
 
             double crossoverProbability = 1.0;
             crossover = new PublicTransportNetworkCrossover(crossoverProbability);
@@ -58,21 +55,21 @@ public class Main {
 
             selection = new BinaryTournamentSelection<DoubleSolution>();
 
-            algorithm = new NSGAIIIBuilder<DoubleSolution>(problem).setPopulationSize(91).setMaxIterations(20).setCrossoverOperator(crossover).setMutationOperator(mutation)
+            algorithm = new NSGAIIIBuilder<DoubleSolution>(problem).setPopulationSize(91).setMaxIterations(12).setCrossoverOperator(crossover).setMutationOperator(mutation)
                     .setSelectionOperator(selection).build();
             AlgorithmRunner algorithmRunner = new AlgorithmRunner.Executor(algorithm).execute();
 
-            List<DoubleSolution> population = algorithm.getResult();
+            List<DoubleSolution> result = algorithm.getResult();
             long computingTime = algorithmRunner.getComputingTime();
 
             JMetalLogger.logger.info("Total execution time: " + computingTime + "ms");
 
+            saveLastPopulation(((NSGAIII<DoubleSolution>) algorithm).getPopulation());
 
-            printFinalSolutionSet(population);
-            if (!referenceParetoFront.equals("")) {
+            printFinalSolutionSet(result);
+            //if (!referenceParetoFront.equals("")) {
                 //printQualityIndicators(population, referenceParetoFront);
-            }
-
+            //}
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -81,11 +78,11 @@ public class Main {
     /**
      * Write the population into two files and prints some data on screen
      *
-     * @param population
+     * @param result
      */
-    public static void printFinalSolutionSet(List<? extends Solution<?>> population) {
+    public static void printFinalSolutionSet(List<? extends Solution<?>> result) {
 
-        new SolutionListOutput(population).setSeparator("\t")
+        new SolutionListOutput(result).setSeparator("\t")
                 .setVarFileOutputContext(new DefaultFileOutputContext("VAR.tsv"))
                 .setFunFileOutputContext(new DefaultFileOutputContext("FUN.tsv")).print();
 
@@ -94,65 +91,20 @@ public class Main {
         JMetalLogger.logger.info("Variables values have been written to file VAR.tsv");
     }
 
-    /**
-     * Print all the available quality indicators
-     *
-     * @param population
-     * @param paretoFrontFile
-     * @throws Exception
-     *
-    public static void printQualityIndicators(List<? extends Solution<?>> population, String paretoFrontFile) throws Exception {
-            Front referenceFront = new ArrayFront(paretoFrontFile);
-            FrontNormalizer frontNormalizer = new FrontNormalizer(referenceFront);
-
-            Front normalizedReferenceFront = frontNormalizer.normalize(referenceFront);
-            Front normalizedFront = frontNormalizer.normalize(new ArrayFront(population));
-            List<DoubleSolution> normalizedPopulation = FrontUtils.convertFrontToSolutionList(normalizedFront);
-
-            String outputString = "\n";
-            outputString += "Hypervolume (N) : "
-                    + new Hypervolume<List<? extends Solution<?>>>(normalizedReferenceFront).evaluate(normalizedPopulation)
-                    + "\n";
-            outputString += "Hypervolume     : "
-                    + new Hypervolume<List<? extends Solution<?>>>(referenceFront).evaluate(population) + "\n";
-            outputString += "Epsilon (N)     : "
-                    + new Epsilon<List<? extends Solution<?>>>(normalizedReferenceFront).evaluate(normalizedPopulation)
-                    + "\n";
-            outputString += "Epsilon         : "
-                    + new Epsilon<List<? extends Solution<?>>>(referenceFront).evaluate(population) + "\n";
-            outputString += "GD (N)          : "
-                    + new GenerationalDistance<List<? extends Solution<?>>>(normalizedReferenceFront)
-                    .evaluate(normalizedPopulation)
-                    + "\n";
-            outputString += "GD              : "
-                    + new GenerationalDistance<List<? extends Solution<?>>>(referenceFront).evaluate(population) + "\n";
-            outputString += "IGD (N)         : "
-                    + new InvertedGenerationalDistance<List<? extends Solution<?>>>(normalizedReferenceFront)
-                    .evaluate(normalizedPopulation)
-                    + "\n";
-            outputString += "IGD             : "
-                    + new InvertedGenerationalDistance<List<? extends Solution<?>>>(referenceFront).evaluate(population)
-                    + "\n";
-            outputString += "IGD+ (N)        : "
-                    + new InvertedGenerationalDistancePlus<List<? extends Solution<?>>>(normalizedReferenceFront)
-                    .evaluate(normalizedPopulation)
-                    + "\n";
-            outputString += "IGD+            : "
-                    + new InvertedGenerationalDistancePlus<List<? extends Solution<?>>>(referenceFront).evaluate(population)
-                    + "\n";
-            outputString += "Spread (N)      : "
-                    + new Spread<List<? extends Solution<?>>>(normalizedReferenceFront).evaluate(normalizedPopulation)
-                    + "\n";
-            outputString += "Spread          : "
-                    + new Spread<List<? extends Solution<?>>>(referenceFront).evaluate(population) + "\n";
-            outputString += "R2 (N)          : "
-                    + new R2<List<DoubleSolution>>(normalizedReferenceFront).evaluate(normalizedPopulation) + "\n";
-            outputString += "R2              : "
-                    + new R2<List<? extends Solution<?>>>(referenceFront).evaluate(population) + "\n";
-            outputString += "Error ratio     : "
-                    + new ErrorRatio<List<? extends Solution<?>>>(referenceFront).evaluate(population) + "\n";
-
-            JMetalLogger.logger.info(outputString);
+    public static void saveLastPopulation(List<DoubleSolution> p) throws Exception {
+        FileOutputStream fos = new FileOutputStream("src" + File.separatorChar + "main" + File.separatorChar
+                + "resources" + File.separatorChar + "lastPopulation.ser");
+        ObjectOutputStream oos = new ObjectOutputStream(fos);
+        oos.writeObject(p);
+        oos.close();
     }
-    */
+
+    public static List<DoubleSolution> loadLastPopulation() throws Exception {
+        FileInputStream fis = new FileInputStream("src" + File.separatorChar + "main" + File.separatorChar
+                + "resources" + File.separatorChar + "lastPopulation.ser");
+        ObjectInputStream ois = new ObjectInputStream(fis);
+        List<DoubleSolution> p = (List<DoubleSolution>) ois.readObject();
+        ois.close();
+        return p;
+    }
 }

@@ -16,7 +16,6 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class PTDJMetalProblem extends AbstractDoubleProblem {
 	private TripSimulator tc;
-	private int radius;
 
 	public PTDJMetalProblem(Itinerary itinerary, int numberOfTrips, int radius) throws Exception {
 		if (numberOfTrips <= 0) {
@@ -30,7 +29,6 @@ public class PTDJMetalProblem extends AbstractDoubleProblem {
 		}
 
 		this.tc = new BingTripSimulator(itinerary, numberOfTrips, radius);
-		this.radius = radius;
 	}
 
 	@Override
@@ -54,7 +52,7 @@ public class PTDJMetalProblem extends AbstractDoubleProblem {
 
 	@Override
 	public DoubleSolution createSolution() {
-		double coef = radius * 0.0000089;
+		double coef = tc.getRadius() * 0.0000089;
 		DefaultDoubleSolution sol = new DefaultDoubleSolution(this);
 		try {
 			List<ItineraryBusStop> l = tc.getItinerary().getStops();
@@ -73,7 +71,7 @@ public class PTDJMetalProblem extends AbstractDoubleProblem {
 		return sol;
 	}
 
-	protected DoubleSolution getOriginalItinerarySolution() {
+	DoubleSolution getOriginalItinerarySolution() {
         DefaultDoubleSolution sol = new DefaultDoubleSolution(this);
         try {
             List<ItineraryBusStop> l = tc.getItinerary().getStops();

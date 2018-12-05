@@ -21,14 +21,6 @@ public class PointsSaver {
                 + "itineraries.txt");
 
         Itinerary it = busLineRepository.getByID("423032").getItineraries().get(0);
-        JMetalRandom random = JMetalRandom.getInstance();
-
-        System.out.print(random.nextInt(-1, 1) + "\n");
-        System.out.print(random.nextInt(-1, 1) + "\n");
-        System.out.print(random.nextInt(-1, 1) + "\n");
-        System.out.print(random.nextInt(-1, 1) + "\n");
-        System.out.print(random.nextInt(-1, 1) + "\n");
-        System.out.print(random.nextInt(-1, 1) + "\n");
-
+        it.printInfo();
     }
 }
