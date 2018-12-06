@@ -1,11 +1,11 @@
-package services.google;
+package services.osrm;
 
 import beans.BusStop;
-
+import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.HttpClientBuilder;
-import org.apache.http.HttpResponse;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -16,9 +16,8 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GoogleAPIRequester implements APIRequesterInterface {
-    private static final String DEFAULTURL = "https://maps.googleapis.com/maps/api/directions/json?";
-    private static final String APIKEY = "AIzaSyAOfkS5vP9_OGo52BcFEg5uvPXiqX0cq9o";
+public class OsrmAPIRequester implements APIRequesterInterface {
+    private static final String DEFAULTURL = "http://router.project-osrm.org/route/v1/";
 
     public JSONArray requestRoute(List<BusStop> route) throws Exception {
         if (route == null) {
@@ -26,66 +25,39 @@ public class GoogleAPIRequester implements APIRequesterInterface {
         }
 
         JSONArray jsonArray = new JSONArray();
+        HttpClient client = HttpClientBuilder.create().build();
 
-        List<BusStop> routeWaypoints = new ArrayList<>();
-        BusStop start, end;
-        while (route.size() > 1) {
-            routeWaypoints.clear();
-            if (route.size() >= 25) {
-                start = route.remove(0);
-                for (int i = 0; i < 23; i++) {
-                    routeWaypoints.add(route.remove(0));
-                }
-                end = route.get(0);
-            } else {
-                if (route.size() > 2) {
-                    int routeSize = route.size();
-                    start = route.remove(0);
-                    for (int j = 0; j < routeSize - 2; j++) {
-                        routeWaypoints.add(route.remove(0));
-                    }
-                    end = route.get(0);
-                } else {
-                    start = route.remove(0);
-                    end = route.get(0);
-                }
-            }
+        StringBuilder url = new StringBuilder();
+        url.append(DEFAULTURL);
+        url.append("driving/");
+        url.append("polyline(");
+        url.append(URLEncoder.encode(getWaypointsPolyline(route), StandardCharsets.UTF_8));
+        url.append(")");
+        url.append("?overview=false");
 
-            String originCoordinate = start.getLatitude() + "," + start.getLongitude();
-            String destinationCoodinate = end.getLatitude() + "," + end.getLongitude();
+        System.out.print(url.toString() + '\n');
 
-            String routePoly;
-            if (routeWaypoints.size() > 0) {
-                routePoly = getWaypointsPolyline(routeWaypoints);
-            } else {
-                routePoly = "";
-            }
-
-            String url = DEFAULTURL + "origin=" + URLEncoder.encode(originCoordinate, StandardCharsets.UTF_8) + "&destination=" + URLEncoder.encode(destinationCoodinate, StandardCharsets.UTF_8) + "&waypoints=enc:" + URLEncoder.encode(routePoly, StandardCharsets.UTF_8) + ":&key=" + APIKEY;
-            //String url2 = DEFAULTURL + "origin=" + originCoordinate + "&destination=" + destinationCoodinate + "&waypoints=enc:" + routePoly + ":&key=" + APIKEY;
-            //System.out.print(url2 + '\n');
-
-            HttpClient client = HttpClientBuilder.create().build();
-            HttpPost postRequest = new HttpPost(url);
-            HttpResponse response = client.execute(postRequest);
-            String json = EntityUtils.toString(response.getEntity(), "UTF-8");
-
-            jsonArray.put(new JSONObject(json));
-        }
+        HttpGet getRequest = new HttpGet(url.toString());
+        HttpResponse response = client.execute(getRequest);
+        String json = EntityUtils.toString(response.getEntity(), "UTF-8");
+        jsonArray.put(new JSONObject(json));
 
         return jsonArray;
     }
 
     public JSONObject walkingRoute(double originLat, double originLong, double destinationLat, double destinationLong) throws Exception {
-        String originCoordinate = originLat + "," + originLong;
-        String destinationCoodinate = destinationLat + "," + destinationLong;
+        List<BusStop> stops = new ArrayList<>();
+        stops.add(new BusStop("start", originLat, originLong));
+        stops.add(new BusStop("destination", destinationLat, destinationLong));
 
-        String url = DEFAULTURL + "origin=" + originCoordinate + "&destination=" + destinationCoodinate + "&mode=walking&key=" + APIKEY;
+        String poly = URLEncoder.encode(getWaypointsPolyline(stops), StandardCharsets.UTF_8);
+
+        String url = DEFAULTURL + "foot/polyline(" + poly + ")?overview=false";
         System.out.print(url + '\n');
 
         HttpClient client = HttpClientBuilder.create().build();
-        HttpPost postRequest = new HttpPost(url);
-        HttpResponse response = client.execute(postRequest);
+        HttpGet getRequest = new HttpGet(url);
+        HttpResponse response = client.execute(getRequest);
         String json = EntityUtils.toString(response.getEntity(), "UTF-8");
 
         return new JSONObject(json);

@@ -3,6 +3,7 @@ import org.uma.jmetal.util.pseudorandom.JMetalRandom;
 import repositories.BusLineRepository;
 import repositories.BusStopRepository;
 import repositories.ItineraryRepository;
+import services.osrm.OsrmAPIRequester;
 
 import java.io.File;
 
@@ -21,6 +22,7 @@ public class PointsSaver {
                 + "itineraries.txt");
 
         Itinerary it = busLineRepository.getByID("423032").getItineraries().get(0);
-        it.printInfo();
+        OsrmAPIRequester api = new OsrmAPIRequester();
+        api.requestRoute(it.turnIntoBusStopList(it.getStops()));
     }
 }

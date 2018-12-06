@@ -10,6 +10,7 @@ import org.uma.jmetal.solution.impl.DefaultDoubleSolution;
 import org.uma.jmetal.util.JMetalException;
 import services.TripSimulator;
 import services.microsoft.BingTripSimulator;
+import services.osrm.OsrmTripSimulator;
 
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
@@ -28,7 +29,7 @@ public class PTDJMetalProblem extends AbstractDoubleProblem {
 			throw new JMetalException("Null itinerary object");
 		}
 
-		this.tc = new BingTripSimulator(itinerary, numberOfTrips, radius);
+		this.tc = new OsrmTripSimulator(itinerary, numberOfTrips, radius);
 	}
 
 	@Override
