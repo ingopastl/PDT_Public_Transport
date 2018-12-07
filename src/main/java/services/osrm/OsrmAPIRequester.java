@@ -4,20 +4,20 @@ import beans.BusStop;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import services.APIRequesterInterface;
+import services.APIRequester;
 
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OsrmAPIRequester implements APIRequesterInterface {
+public class OsrmAPIRequester extends APIRequester {
     private static final String DEFAULTURL = "http://router.project-osrm.org/route/v1/";
+    private static final String OWNSERVER = "http://10.246.180.146:5000/route/v1/";
 
     public JSONArray requestRoute(List<BusStop> route) throws Exception {
         if (route == null) {
@@ -28,7 +28,7 @@ public class OsrmAPIRequester implements APIRequesterInterface {
         HttpClient client = HttpClientBuilder.create().build();
 
         StringBuilder url = new StringBuilder();
-        url.append(DEFAULTURL);
+        url.append(OWNSERVER);
         url.append("driving/");
         url.append("polyline(");
         url.append(URLEncoder.encode(getWaypointsPolyline(route), StandardCharsets.UTF_8));
@@ -52,7 +52,7 @@ public class OsrmAPIRequester implements APIRequesterInterface {
 
         String poly = URLEncoder.encode(getWaypointsPolyline(stops), StandardCharsets.UTF_8);
 
-        String url = DEFAULTURL + "foot/polyline(" + poly + ")?overview=false";
+        String url = OWNSERVER + "foot/polyline(" + poly + ")?overview=false";
         System.out.print(url + '\n');
 
         HttpClient client = HttpClientBuilder.create().build();

@@ -22,7 +22,6 @@ public class PointsSaver {
                 + "itineraries.txt");
 
         Itinerary it = busLineRepository.getByID("423032").getItineraries().get(0);
-        OsrmAPIRequester api = new OsrmAPIRequester();
-        api.requestRoute(it.turnIntoBusStopList(it.getStops()));
+        it.printInfo();
     }
 }

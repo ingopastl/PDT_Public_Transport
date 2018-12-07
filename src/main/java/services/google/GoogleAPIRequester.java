@@ -9,14 +9,14 @@ import org.apache.http.HttpResponse;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import services.APIRequesterInterface;
+import services.APIRequester;
 
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GoogleAPIRequester implements APIRequesterInterface {
+public class GoogleAPIRequester extends APIRequester {
     private static final String DEFAULTURL = "https://maps.googleapis.com/maps/api/directions/json?";
     private static final String APIKEY = "AIzaSyAOfkS5vP9_OGo52BcFEg5uvPXiqX0cq9o";
 

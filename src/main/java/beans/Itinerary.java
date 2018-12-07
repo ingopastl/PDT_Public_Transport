@@ -1,11 +1,12 @@
 package beans;
 
+import services.APIRequester;
 import services.google.GoogleAPIRequester;
-import services.microsoft.BingAPIRequester;
 import org.apache.commons.io.FileUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import repositories.ItineraryBusStopRepository;
+import services.osrm.OsrmAPIRequester;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -162,8 +163,8 @@ public class Itinerary {
         }
         System.out.print("Legs: " + allLegs.length() + "\n");
         for (int i = 0; i < allLegs.length(); i++) {
-            int duration = (int) allLegs.getJSONObject(i).getJSONObject("duration").get("value");
-            int distance = (int) allLegs.getJSONObject(i).getJSONObject("distance").get("value");
+            double duration = allLegs.getJSONObject(i).getJSONObject("duration").getDouble("value");
+            double distance = allLegs.getJSONObject(i).getJSONObject("distance").getDouble("value");
             totalTime += duration;
             totalDistance += distance;
         }
@@ -174,10 +175,47 @@ public class Itinerary {
         int d;
         for (int i = 0; i < allLegs.length(); i++) {
             d = (int) allLegs.getJSONObject(i).getJSONObject("distance").get("value");
-            double xMinusAverage = ((double) d) - this.stopsDistanceAverage;
+            double xMinusAverage = d - this.stopsDistanceAverage;
             variance = variance + Math.pow(xMinusAverage, 2);
         }
         variance = variance/allLegs.length();
+
+        this.stopsDistanceVariance = variance;
+        this.totalTravelDistance = totalDistance;
+        this.totalTravelTime = totalTime;
+    }
+
+    public void processOsrmJason(JSONArray jsonArray) {
+        if (jsonArray == null) {
+            throw new NullPointerException();
+        }
+
+        //Distance in meters; Time in seconds.
+        double totalDistance = 0, totalTime = 0;
+
+        JSONObject jsonObject = (JSONObject) jsonArray.get(0);
+        JSONArray routes = jsonObject.getJSONArray("routes");
+        JSONArray legs = routes.getJSONObject(0).getJSONArray("legs");
+
+        System.out.print("Legs: " + legs.length() + "\n");
+
+        for (int i = 0; i < legs.length(); i++) {
+            double duration = legs.getJSONObject(i).getDouble("duration");
+            double distance = legs.getJSONObject(i).getDouble("distance");
+            totalTime += duration;
+            totalDistance += distance;
+        }
+
+        this.stopsDistanceAverage = totalDistance/legs.length();
+
+        double variance = 0;
+        double d;
+        for (int i = 0; i < legs.length(); i++) {
+            d = legs.getJSONObject(i).getDouble("distance");
+            double xMinusAverage = d - this.stopsDistanceAverage;
+            variance = variance + Math.pow(xMinusAverage, 2);
+        }
+        variance = variance/legs.length();
 
         this.stopsDistanceVariance = variance;
         this.totalTravelDistance = totalDistance;
