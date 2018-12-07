@@ -9,6 +9,7 @@ import org.uma.jmetal.solution.impl.DefaultDoubleSolution;
 
 import org.uma.jmetal.util.JMetalException;
 import services.TripSimulator;
+import services.google.GoogleTripSimulator;
 import services.microsoft.BingTripSimulator;
 import services.osrm.OsrmTripSimulator;
 
@@ -29,7 +30,7 @@ public class PTDJMetalProblem extends AbstractDoubleProblem {
 			throw new JMetalException("Null itinerary object");
 		}
 
-		this.tc = new OsrmTripSimulator(itinerary, numberOfTrips, radius);
+		this.tc = new GoogleTripSimulator(itinerary, numberOfTrips, radius);
 	}
 
 	@Override

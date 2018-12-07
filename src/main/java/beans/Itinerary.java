@@ -1,5 +1,6 @@
 package beans;
 
+import services.google.GoogleAPIRequester;
 import services.microsoft.BingAPIRequester;
 import org.apache.commons.io.FileUtils;
 import org.json.JSONArray;
@@ -196,7 +197,7 @@ public class Itinerary {
                 + File.separatorChar + "busData" + File.separatorChar + "itineraries" + File.separatorChar
                 + "itinerariesJSON" + File.separatorChar + this.itineraryId + ".json");
         if (!f.exists()) {
-            BingAPIRequester apiRequester = new BingAPIRequester();
+            GoogleAPIRequester apiRequester = new GoogleAPIRequester();
             jsonArray = apiRequester.requestRoute(turnIntoBusStopList(this.stops));
             BufferedWriter bw = new BufferedWriter(new FileWriter(f));
             bw.write(jsonArray.toString());
@@ -205,7 +206,7 @@ public class Itinerary {
             jsonArray = new JSONArray(FileUtils.readFileToString(f, StandardCharsets.UTF_8));
         }
 
-        processBingJson(jsonArray);
+        processGoogleJson(jsonArray);
 
         return jsonArray;
     }

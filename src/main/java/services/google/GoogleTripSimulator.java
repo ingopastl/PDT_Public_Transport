@@ -1,12 +1,13 @@
 package services.google;
 
+import services.TripSimulator;
+
 import beans.BusStop;
 import beans.Itinerary;
 import beans.ItineraryBusStop;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-import services.TripSimulator;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -29,12 +30,22 @@ public class GoogleTripSimulator extends TripSimulator {
             itinerary.addItineraryBusStop(ibs);
         }
 
-        JSONArray jsonArray = itinerary.getRouteInfo();
+        GoogleAPIRequester googleRouteAPIRequester = new GoogleAPIRequester();
+
+        JSONArray jsonArray = googleRouteAPIRequester.requestRoute(itinerary.turnIntoBusStopList(itinerary.getStops()));
+
+        JSONArray allLegs = new JSONArray();
+        for (i = 0; i < jsonArray.length(); i++) {
+            JSONObject jsonObject = (JSONObject) jsonArray.get(i);
+            JSONArray routes = jsonObject.getJSONArray("routes");
+            JSONArray legs = routes.getJSONObject(0).getJSONArray("legs");
+            for (int j = 0; j < legs.length(); j++) {
+                allLegs.put(legs.get(j));
+            }
+        }
 
         double averageWalkingTime = 0;
         double averageTripTime = 0;
-        double stopsDistanceVariance = 0;
-
         for (int t = 0; t < getNumberOfTrips(); t++) {
             double[] p1 = randomLocationBeta(itinerary);
             double[] p2 = randomLocationBeta(itinerary);
@@ -61,8 +72,6 @@ public class GoogleTripSimulator extends TripSimulator {
                 endP[1] = p1[1];
             }
 
-            GoogleAPIRequester googleRouteAPIRequester = new GoogleAPIRequester();
-
             if (start.equals(end)) {
                 --t;
             } else {
@@ -73,32 +82,14 @@ public class GoogleTripSimulator extends TripSimulator {
                     --t;
                 } else {
                     double startWalkDuration = (int) startWalkJson.getJSONArray("routes").getJSONObject(0).getJSONArray("legs").getJSONObject(0).getJSONObject("duration").get("value");
-                    double startWalkDistance = (int) startWalkJson.getJSONArray("routes").getJSONObject(0).getJSONArray("legs").getJSONObject(0).getJSONObject("distance").get("value");
                     double endWalkDuration = (int) endWalkJson.getJSONArray("routes").getJSONObject(0).getJSONArray("legs").getJSONObject(0).getJSONObject("duration").get("value");
-                    double endWalkDistance = (int) endWalkJson.getJSONArray("routes").getJSONObject(0).getJSONArray("legs").getJSONObject(0).getJSONObject("distance").get("value");
 
-                    double totalTravelDistance = 0;
                     double totalTravelTime = 0;
-
-                    JSONArray allLegs = new JSONArray();
-                    for (i = 0; i < jsonArray.length(); i++) {
-                        JSONObject jsonObject = (JSONObject) jsonArray.get(i);
-                        JSONArray routes = jsonObject.getJSONArray("routes");
-                        JSONArray legs = routes.getJSONObject(0).getJSONArray("legs");
-                        for (int j = 0; j < legs.length(); j++) {
-                            allLegs.put(legs.get(j));
-                        }
-                    }
 
                     for (i = start.getSequenceValue(); i < end.getSequenceValue(); i++) {
                         int duration = (int) allLegs.getJSONObject(i).getJSONObject("duration").get("value");
-                        int distance = (int) allLegs.getJSONObject(i).getJSONObject("distance").get("value");
                         totalTravelTime += duration;
-                        totalTravelDistance += distance;
                     }
-
-                    System.out.print("Tempo andando até a parada/Distancia até a parada/Tempo no onibus/Distancia percorrida no onibus/Tempo andando até o destino/Dsitancia andada até o destino\n");
-                    System.out.print(startWalkDuration/60 + " minutos / " + startWalkDistance + " metros / " + totalTravelTime/60 + " minutos / " + totalTravelDistance + " metros / " + endWalkDuration/60 + " minutos / " + endWalkDistance + " metros\n");
 
                     averageTripTime += totalTravelTime;
                     averageWalkingTime += startWalkDuration + endWalkDuration;
@@ -107,7 +98,20 @@ public class GoogleTripSimulator extends TripSimulator {
         }
         averageTripTime /= getNumberOfTrips();
         averageWalkingTime /= getNumberOfTrips();
-        //stopsDistanceVariance = itinerary.getStopsDistanceVariance();
+
+        double distanceAverage = 0, d;
+        for (i = 0; i < allLegs.length(); i++) {
+            d = (int) allLegs.getJSONObject(i).getJSONObject("distance").get("value");
+            distanceAverage += (int) d;
+        }
+        distanceAverage = distanceAverage/allLegs.length();
+
+        double stopsDistanceVariance = 0;
+        for (i = 0; i < allLegs.length(); i++) {
+            d = (int) allLegs.getJSONObject(i).getJSONObject("distance").get("value");
+            stopsDistanceVariance += Math.pow( ((int) d) - distanceAverage, 2);
+        }
+        stopsDistanceVariance = stopsDistanceVariance/allLegs.length();
 
         Double[] objectives = new Double[3];
         objectives[0] = averageTripTime;

@@ -45,7 +45,7 @@ public class Main {
             String referenceParetoFront = "";
 
             Itinerary i = busLineRepository.getByID("423032").getItineraries().get(0);
-            problem = new PTDJMetalProblem(i, 1, 1500);
+            problem = new PTDJMetalProblem(i, 1, 800);
 
             double crossoverProbability = 1.0;
             crossover = new PublicTransportNetworkCrossover(crossoverProbability);
@@ -55,7 +55,7 @@ public class Main {
 
             selection = new BinaryTournamentSelection<DoubleSolution>();
 
-            algorithm = new NSGAIIIBuilder<DoubleSolution>(problem).setPopulationSize(91).setMaxIterations(1).setCrossoverOperator(crossover).setMutationOperator(mutation)
+            algorithm = new NSGAIIIBuilder<DoubleSolution>(problem).setPopulationSize(92).setMaxIterations(1).setCrossoverOperator(crossover).setMutationOperator(mutation)
                     .setSelectionOperator(selection).build();
             AlgorithmRunner algorithmRunner = new AlgorithmRunner.Executor(algorithm).execute();
 
@@ -64,12 +64,11 @@ public class Main {
 
             JMetalLogger.logger.info("Total execution time: " + computingTime + "ms");
 
-            saveLastPopulation(((NSGAIII<DoubleSolution>) algorithm).getPopulation());
-
             printFinalSolutionSet(result);
             //if (!referenceParetoFront.equals("")) {
                 //printQualityIndicators(population, referenceParetoFront);
             //}
+            saveLastPopulation(((NSGAIII<DoubleSolution>) algorithm).getPopulation());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -91,7 +90,7 @@ public class Main {
         JMetalLogger.logger.info("Variables values have been written to file VAR.tsv");
     }
 
-    public static void saveLastPopulation(List<DoubleSolution> p) throws Exception {
+    public static void saveLastPopulation(List<? extends Solution<?>> p) throws Exception {
         FileOutputStream fos = new FileOutputStream("src" + File.separatorChar + "main" + File.separatorChar
                 + "resources" + File.separatorChar + "lastPopulation.ser");
         ObjectOutputStream oos = new ObjectOutputStream(fos);
@@ -99,11 +98,11 @@ public class Main {
         oos.close();
     }
 
-    public static List<DoubleSolution> loadLastPopulation() throws Exception {
+    public static List<? extends Solution<?>> loadLastPopulation() throws Exception {
         FileInputStream fis = new FileInputStream("src" + File.separatorChar + "main" + File.separatorChar
                 + "resources" + File.separatorChar + "lastPopulation.ser");
         ObjectInputStream ois = new ObjectInputStream(fis);
-        List<DoubleSolution> p = (List<DoubleSolution>) ois.readObject();
+        List<? extends Solution<?>> p = (List<? extends Solution<?>>) ois.readObject();
         ois.close();
         return p;
     }

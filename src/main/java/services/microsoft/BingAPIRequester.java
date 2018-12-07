@@ -66,7 +66,7 @@ public class BingAPIRequester implements APIRequesterInterface {
             }
             url.append("key=");
             url.append(APIKEY);
-            //System.out.print(url.toString() + '\n');
+            System.out.print(url.toString() + '\n');
 
             HttpGet getRequest = new HttpGet(url.toString());
             HttpResponse response = client.execute(getRequest);
@@ -87,7 +87,7 @@ public class BingAPIRequester implements APIRequesterInterface {
         String destinationCoodinate = destinationLat + "," + destinationLong;
 
         String url = DEFAULTURL + "/Walking?wp.0=" + originCoordinate + "&wp.1=" + destinationCoodinate + "&key=" + APIKEY;
-        //System.out.print(url + '\n');
+        System.out.print(url + '\n');
 
         HttpClient client = HttpClientBuilder.create().build();
         HttpGet getRequest = new HttpGet(url);

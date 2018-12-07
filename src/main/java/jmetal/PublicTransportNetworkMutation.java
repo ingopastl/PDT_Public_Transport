@@ -54,7 +54,7 @@ public class PublicTransportNetworkMutation implements MutationOperator<DoubleSo
 		while (i < solution.getNumberOfVariables()) {
 			if (randomGenerator.nextDouble() <= probability) {
 				double sd = smallerDistance(solution, i);
-				System.out.print("Smaller Distance: " + sd + "\n");
+				//System.out.print("Smaller Distance: " + sd + "\n");
 
 				double lat = solution.getVariableValue(i);
 				double longi = solution.getVariableValue(i + 1);
