@@ -8,7 +8,7 @@ import org.json.JSONObject;
 import services.TripSimulator;
 
 public class OsrmTripSimulator extends TripSimulator {
-    
+
     public OsrmTripSimulator(Itinerary itinerary, int numberOfTrips, int radius) throws Exception{
         super(itinerary, numberOfTrips, radius);
     }

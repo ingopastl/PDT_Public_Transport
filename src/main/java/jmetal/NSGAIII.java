@@ -11,6 +11,8 @@ import org.uma.jmetal.util.evaluator.SolutionListEvaluator;
 import org.uma.jmetal.util.solutionattribute.Ranking;
 import org.uma.jmetal.util.solutionattribute.impl.DominanceRanking;
 
+import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
@@ -217,6 +219,37 @@ public class NSGAIII<S extends Solution<?>> extends AbstractGeneticAlgorithm<S, 
             offspringPopulation = evaluatePopulation(offspringPopulation);
             population = replacement(population, offspringPopulation);
             updateProgress();
+            saveProgress();
+        }
+    }
+
+    private void saveProgress() {
+        try {
+            File f = new File("src" + File.separatorChar + "main" + File.separatorChar + "resources" + File.separatorChar + "progress.txt");
+            FileWriter fw = new FileWriter(f);
+            BufferedWriter bw = new BufferedWriter(fw);
+
+            bw.write(iterations + "\n");
+
+            StringBuilder line = new StringBuilder();
+            for (int i = 0; i < population.size(); i++) {
+                for (int j = 0; j < population.get(i).getNumberOfVariables(); j++) {
+                    if (j%2 == 0) {
+                        line.append(population.get(i).getVariableValue(j));
+                        line.append(",");
+                    } else {
+                        line.append(population.get(i).getVariableValue(j));
+                        line.append("\n");
+                    }
+                }
+                bw.write(line.toString());
+                line.delete(0, line.length());
+            }
+
+            bw.close();
+            fw.close();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
