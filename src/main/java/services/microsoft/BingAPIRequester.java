@@ -9,6 +9,7 @@ import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import services.APIRequester;
+import services.HttpManager;
 
 import java.util.List;
 
@@ -22,7 +23,6 @@ public class BingAPIRequester extends APIRequester {
         }
 
         JSONArray jsonArray = new JSONArray();
-        HttpClient client = HttpClientBuilder.create().build();
 
         StringBuilder url = new StringBuilder();
         url.append(DEFAULTURL);
@@ -68,10 +68,8 @@ public class BingAPIRequester extends APIRequester {
             url.append(APIKEY);
             System.out.print(url.toString() + '\n');
 
-            HttpGet getRequest = new HttpGet(url.toString());
-            HttpResponse response = client.execute(getRequest);
+            String json = HttpManager.getInstance().requestGet(url.toString());
 
-            String json = EntityUtils.toString(response.getEntity(), "UTF-8");
             jsonArray.put(new JSONObject(json));
 
             url.delete(0, url.length());
@@ -82,17 +80,14 @@ public class BingAPIRequester extends APIRequester {
         return jsonArray;
     }
 
-    public JSONObject walkingRoute(double originLat, double originLong, double destinationLat, double destinationLong) throws Exception {
+    public JSONObject requestWalkingRoute(double originLat, double originLong, double destinationLat, double destinationLong) throws Exception {
         String originCoordinate = originLat + "," + originLong;
         String destinationCoodinate = destinationLat + "," + destinationLong;
 
         String url = DEFAULTURL + "/Walking?wp.0=" + originCoordinate + "&wp.1=" + destinationCoodinate + "&key=" + APIKEY;
         System.out.print(url + '\n');
 
-        HttpClient client = HttpClientBuilder.create().build();
-        HttpGet getRequest = new HttpGet(url);
-        HttpResponse response = client.execute(getRequest);
-        String json = EntityUtils.toString(response.getEntity(), "UTF-8");
+        String json = HttpManager.getInstance().requestGet(url);
 
         return new JSONObject(json);
     }

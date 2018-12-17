@@ -13,6 +13,10 @@ import services.google.GoogleTripSimulator;
 import services.microsoft.BingTripSimulator;
 import services.osrm.OsrmTripSimulator;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -30,7 +34,7 @@ public class PTDJMetalProblem extends AbstractDoubleProblem {
 			throw new JMetalException("Null itinerary object");
 		}
 
-		this.tc = new GoogleTripSimulator(itinerary, numberOfTrips, radius);
+		this.tc = new OsrmTripSimulator(itinerary, numberOfTrips, radius);
 	}
 
 	@Override

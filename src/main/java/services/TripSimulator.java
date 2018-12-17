@@ -25,16 +25,16 @@ public abstract class TripSimulator {
         this.numberOfTrips = numberOfTrips;
         this.radius = radius;
 
-        double[] boudaries = itinerary.getBoudaries();
+        double[] boundaries = itinerary.getBoundaries();
         this.lowerLimit = new ArrayList<>(this.numberOfVariables);
         this.upperLimit = new ArrayList<>(this.numberOfVariables);
         for (int i = 0; i < this.numberOfVariables; i++) {
             if (i % 2 == 0) {
-                upperLimit.add(boudaries[0]);
-                lowerLimit.add(boudaries[1]);
+                upperLimit.add(boundaries[0]);
+                lowerLimit.add(boundaries[1]);
             } else {
-                upperLimit.add(boudaries[2]);
-                lowerLimit.add(boudaries[3]);
+                upperLimit.add(boundaries[2]);
+                lowerLimit.add(boundaries[3]);
             }
         }
     }
@@ -96,16 +96,14 @@ public abstract class TripSimulator {
         double lowestLong = stop.getLongitude() - coef;
 
         double[] randomLocation = new double[2];
-
         Random r = new Random();
         randomLocation[0] = lowestLat + (highestLat - lowestLat) * r.nextDouble();
         randomLocation[1] = lowestLong + (highestLong - lowestLong) * r.nextDouble();
-
         return randomLocation;
     }
 
     protected double[] randomLocationBeta(Itinerary itinerary) throws Exception {
-        double[] boundaries = itinerary.getBoudaries();
+        double[] boundaries = itinerary.getBoundaries();
 
         // number of km per degree = ~111km (111.32 in google maps, but range varies
         // between 110.567km at the equator and 111.699km at the poles)
@@ -119,16 +117,14 @@ public abstract class TripSimulator {
         double lowestLong = boundaries[3] - coef;
 
         double[] randomLocation = new double[2];
-
         Random r = new Random();
         randomLocation[0] = lowestLat + (highestLat - lowestLat) * r.nextDouble();
         randomLocation[1] = lowestLong + (highestLong - lowestLong) * r.nextDouble();
-
         return randomLocation;
     }
 
     public double[] getBoundariesBeta() throws Exception {
-        return itinerary.getBoudaries();
+        return itinerary.getBoundaries();
     }
 
     protected ItineraryBusStop findNearestStop(double[] point, Itinerary itinerary) throws Exception {
@@ -150,6 +146,20 @@ public abstract class TripSimulator {
         //System.out.print(point[0] + "\n" + point[1] + "\n\n");
         //System.out.print(closestStop.getLatitude() + "\n" + closestStop.getLongitude() + "\n\n");
         return closestStop;
+    }
+
+    protected static Itinerary turnIntoItinerary(Double[] vars) {
+        Itinerary itinerary = new Itinerary(null, '1', "1", "Solution");
+        BusStop v;
+        int i = 0, order = 0;
+        while (i < vars.length) {
+            v = new BusStop(Integer.toString(i), vars[i], vars[i+1]);
+            ItineraryBusStop ibs = new ItineraryBusStop(v, itinerary, order);
+            itinerary.addItineraryBusStop(ibs);
+            order++;
+            i += 2;
+        }
+        return itinerary;
     }
 
     public abstract Double[] evaluate(Double[] vars) throws Exception;

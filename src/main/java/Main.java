@@ -2,6 +2,7 @@ import beans.Itinerary;
 
 import jmetal.*;
 
+import org.uma.jmetal.solution.impl.DefaultDoubleSolution;
 import org.uma.jmetal.util.fileoutput.SolutionListOutput;
 import org.uma.jmetal.algorithm.Algorithm;
 import org.uma.jmetal.operator.CrossoverOperator;
@@ -21,6 +22,7 @@ import repositories.BusStopRepository;
 import repositories.ItineraryRepository;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
@@ -45,7 +47,7 @@ public class Main {
             String referenceParetoFront = "";
 
             Itinerary i = busLineRepository.getByID("423032").getItineraries().get(0);
-            problem = new PTDJMetalProblem(i, 1, 800);
+            problem = new PTDJMetalProblem(i, 30, 800);
 
             double crossoverProbability = 1.0;
             crossover = new PublicTransportNetworkCrossover(crossoverProbability);
@@ -53,9 +55,9 @@ public class Main {
             double mutationProbability = 1.0 / problem.getNumberOfVariables();
             mutation = new PublicTransportNetworkMutation(mutationProbability);
 
-            selection = new BinaryTournamentSelection<DoubleSolution>();
+            selection = new BinaryTournamentSelection<>();
 
-            algorithm = new NSGAIIIBuilder<DoubleSolution>(problem).setPopulationSize(92).setMaxIterations(1).setCrossoverOperator(crossover).setMutationOperator(mutation)
+            algorithm = new NSGAIIIBuilder<>(problem).setPopulationSize(92).setMaxIterations(100).setCrossoverOperator(crossover).setMutationOperator(mutation)
                     .setSelectionOperator(selection).build();
             AlgorithmRunner algorithmRunner = new AlgorithmRunner.Executor(algorithm).execute();
 
@@ -68,7 +70,6 @@ public class Main {
             //if (!referenceParetoFront.equals("")) {
                 //printQualityIndicators(population, referenceParetoFront);
             //}
-            saveLastPopulation(((NSGAIII<DoubleSolution>) algorithm).getPopulation());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -79,7 +80,7 @@ public class Main {
      *
      * @param result
      */
-    public static void printFinalSolutionSet(List<? extends Solution<?>> result) {
+    private static void printFinalSolutionSet(List<? extends Solution<?>> result) {
 
         new SolutionListOutput(result).setSeparator("\t")
                 .setVarFileOutputContext(new DefaultFileOutputContext("VAR.tsv"))
@@ -90,20 +91,44 @@ public class Main {
         JMetalLogger.logger.info("Variables values have been written to file VAR.tsv");
     }
 
-    public static void saveLastPopulation(List<? extends Solution<?>> p) throws Exception {
-        FileOutputStream fos = new FileOutputStream("src" + File.separatorChar + "main" + File.separatorChar
-                + "resources" + File.separatorChar + "lastPopulation.ser");
-        ObjectOutputStream oos = new ObjectOutputStream(fos);
-        oos.writeObject(p);
-        oos.close();
-    }
+    private static List<DoubleSolution> loadPopulation(PTDJMetalProblem problem) throws Exception {
+        File f = new File("src" + File.separatorChar + "main" + File.separatorChar + "resources" + File.separatorChar + "progress.txt");
+        FileReader fr = new FileReader(f);
+        BufferedReader br = new BufferedReader(fr);
+        br.readLine();
 
-    public static List<? extends Solution<?>> loadLastPopulation() throws Exception {
-        FileInputStream fis = new FileInputStream("src" + File.separatorChar + "main" + File.separatorChar
-                + "resources" + File.separatorChar + "lastPopulation.ser");
-        ObjectInputStream ois = new ObjectInputStream(fis);
-        List<? extends Solution<?>> p = (List<? extends Solution<?>>) ois.readObject();
-        ois.close();
-        return p;
+        List<DoubleSolution> list = new ArrayList<>();
+
+        String line;
+        while ((line = br.readLine()) != null) {
+            DoubleSolution solution = new DefaultDoubleSolution(problem);
+            StringBuilder lat = new StringBuilder(), longi = new StringBuilder();
+
+            int evenOdd = 0, solutionIndex = 0;
+            for (int i = 0; i < line.length(); i++) {
+                char currentChar = line.charAt(i);
+                if (currentChar == ',') {
+                    evenOdd++;
+                } else if (currentChar == ';') {
+                    evenOdd++;
+                    solution.setVariableValue(solutionIndex, Double.parseDouble(lat.toString()));
+                    ++solutionIndex;
+                    solution.setVariableValue(solutionIndex, Double.parseDouble(longi.toString()));
+                    ++solutionIndex;
+
+                    lat.delete(0, lat.length());
+                    longi.delete(0, longi.length());
+                } else {
+                    if (evenOdd%2 == 0) {
+                        lat.append(currentChar);
+                    } else {
+                        longi.append(currentChar);
+                    }
+                }
+            }
+            list.add(solution);
+        }
+
+        return list;
     }
 }

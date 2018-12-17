@@ -1,11 +1,12 @@
 import beans.Itinerary;
-import org.uma.jmetal.util.pseudorandom.JMetalRandom;
+import beans.ItineraryBusStop;
 import repositories.BusLineRepository;
 import repositories.BusStopRepository;
 import repositories.ItineraryRepository;
 import services.osrm.OsrmAPIRequester;
 
 import java.io.File;
+import java.util.List;
 
 public class PointsSaver {
     public static void main(String[] args) throws Exception {

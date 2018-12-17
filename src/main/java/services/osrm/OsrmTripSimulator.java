@@ -1,35 +1,30 @@
 package services.osrm;
 
-import beans.BusStop;
 import beans.Itinerary;
 import beans.ItineraryBusStop;
+import org.apache.http.client.HttpClient;
+import org.apache.http.impl.client.HttpClientBuilder;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import services.TripSimulator;
 
 public class OsrmTripSimulator extends TripSimulator {
 
+    private HttpClient client;
+
     public OsrmTripSimulator(Itinerary itinerary, int numberOfTrips, int radius) throws Exception{
         super(itinerary, numberOfTrips, radius);
+        this.client = HttpClientBuilder.create().build();
     }
 
     public Double[] evaluate(Double[] vars) throws Exception {
-        Itinerary itinerary = new Itinerary(null, '1', "1", "Solution");
-        BusStop v;
-        int i = 0, order = 0;
-        while (i < vars.length) {
-            v = new BusStop(Integer.toString(i), vars[i], vars[i+1]);
-            ItineraryBusStop ibs = new ItineraryBusStop(v, itinerary, order);
-            itinerary.addItineraryBusStop(ibs);
-            order++;
-            i += 2;
-        }
+        Itinerary itinerary = turnIntoItinerary(vars);
 
         OsrmAPIRequester apiRequester = new OsrmAPIRequester();
-        JSONArray jsonArray = apiRequester.requestRoute(itinerary.turnIntoBusStopList(itinerary.getStops()));
+        JSONArray jsonArray = apiRequester.requestRoute(Itinerary.turnIntoBusStopList(itinerary.getStops()));
 
         JSONArray allLegs = new JSONArray();
-        for (i = 0; i < jsonArray.length(); i++) {
+        for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject jsonObject = (JSONObject) jsonArray.get(i);
             JSONArray legs = jsonObject.getJSONArray("routes").getJSONObject(0).getJSONArray("legs");
             for (int j = 0; j < legs.length(); j++) {
@@ -68,17 +63,17 @@ public class OsrmTripSimulator extends TripSimulator {
             if (start.equals(end)) {
                 --t;
             } else {
-                startWalkJson = apiRequester.walkingRoute(startP[0], startP[1], start.getBusStop().getLatitude(), start.getBusStop().getLongitude());
-                endWalkJson = apiRequester.walkingRoute(end.getBusStop().getLatitude(), end.getBusStop().getLongitude(), endP[0], endP[1]);
+                startWalkJson = apiRequester.requestWalkingRoute(startP[0], startP[1], start.getBusStop().getLatitude(), start.getBusStop().getLongitude());
+                endWalkJson = apiRequester.requestWalkingRoute(end.getBusStop().getLatitude(), end.getBusStop().getLongitude(), endP[0], endP[1]);
 
-                if (!startWalkJson.getString("code").equals("OK") || !endWalkJson.getString("code").equals("OK")) {
+                if (!startWalkJson.getString("code").equals("Ok") || !endWalkJson.getString("code").equals("Ok")) {
                     --t;
                 } else {
                     double startWalkDuration = startWalkJson.getJSONArray("routes").getJSONObject(0).getDouble("duration");
                     double endWalkDuration = endWalkJson.getJSONArray("routes").getJSONObject(0).getDouble("duration");
 
                     double totalTravelTime = 0;
-                    for (i = start.getSequenceValue(); i < end.getSequenceValue(); i++) {
+                    for (int i = start.getSequenceValue(); i < end.getSequenceValue(); i++) {
                         double duration = allLegs.getJSONObject(i).getDouble("duration");
                         totalTravelTime += duration;
                     }
@@ -92,28 +87,26 @@ public class OsrmTripSimulator extends TripSimulator {
         averageWalkingTime /= getNumberOfTrips();
 
         double distanceAverage = 0, d;
-        for (i = 0; i < allLegs.length(); i++) {
+        for (int i = 0; i < allLegs.length(); i++) {
             d = allLegs.getJSONObject(i).getDouble("distance");
             distanceAverage += d;
         }
         distanceAverage = distanceAverage/allLegs.length();
 
         double stopsDistanceVariance = 0;
-        for (i = 0; i < allLegs.length(); i++) {
+        for (int i = 0; i < allLegs.length(); i++) {
             d = allLegs.getJSONObject(i).getDouble("distance");
-            stopsDistanceVariance += Math.pow( ((int) d) - distanceAverage, 2);
+            stopsDistanceVariance += Math.pow(d - distanceAverage, 2);
         }
         stopsDistanceVariance = stopsDistanceVariance/allLegs.length();
+
+        //System.out.print("averageTripTime: " + averageTripTime + "\naverageWalkingTime: " + averageWalkingTime + "\nstopsDistanceVariance: " + stopsDistanceVariance + "\n");
+        //System.out.print("Distance average: " + distanceAverage + "\n");
 
         Double[] objectives = new Double[3];
         objectives[0] = averageTripTime;
         objectives[1] = averageWalkingTime;
         objectives[2] = stopsDistanceVariance;
-
-        //System.out.print("averageTripTime: " + averageTripTime + "\naverageWalkingTime: " + averageWalkingTime + "\nstopsDistanceVariance: " + stopsDistanceVariance + "\n");
-        //System.out.print("Legs size: " + allLegs.length() + "\n");
-        //System.out.print("Distance average: " + distanceAverage + "\n");
-
         return objectives;
     }
 

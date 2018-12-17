@@ -43,7 +43,7 @@ public class PublicTransportNetworkCrossover implements CrossoverOperator<Double
 
 	/** doCrossover method */
 	public List<DoubleSolution> doCrossover(double probability, DoubleSolution parent1, DoubleSolution parent2) {
-		List<DoubleSolution> offspring = new ArrayList<DoubleSolution>(2);
+		List<DoubleSolution> offspring = new ArrayList<>(2);
 
 		offspring.add((DoubleSolution) parent1.copy());
 		offspring.add((DoubleSolution) parent2.copy());

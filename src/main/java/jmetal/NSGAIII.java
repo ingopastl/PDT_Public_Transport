@@ -219,8 +219,8 @@ public class NSGAIII<S extends Solution<?>> extends AbstractGeneticAlgorithm<S, 
             offspringPopulation = evaluatePopulation(offspringPopulation);
             population = replacement(population, offspringPopulation);
             updateProgress();
-            saveProgress();
         }
+        saveProgress();
     }
 
     private void saveProgress() {
@@ -239,9 +239,10 @@ public class NSGAIII<S extends Solution<?>> extends AbstractGeneticAlgorithm<S, 
                         line.append(",");
                     } else {
                         line.append(population.get(i).getVariableValue(j));
-                        line.append("\n");
+                        line.append(";");
                     }
                 }
+                line.append("\n");
                 bw.write(line.toString());
                 line.delete(0, line.length());
             }

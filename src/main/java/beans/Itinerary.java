@@ -1,11 +1,11 @@
 package beans;
 
-import services.APIRequester;
-import services.google.GoogleAPIRequester;
 import org.apache.commons.io.FileUtils;
+import org.apache.http.impl.client.HttpClientBuilder;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import repositories.ItineraryBusStopRepository;
+import services.microsoft.BingAPIRequester;
 import services.osrm.OsrmAPIRequester;
 
 import java.io.BufferedWriter;
@@ -106,7 +106,7 @@ public class Itinerary {
 
         JSONArray allLegs = new JSONArray();
         for (int i = 0; i < jsonArray.length(); i++) {
-            JSONObject jsonObject = (JSONObject) jsonArray.get(i);
+            JSONObject jsonObject = jsonArray.getJSONObject(i);
             JSONArray legs = jsonObject.getJSONArray("resourceSets").getJSONObject(0).getJSONArray("resources").getJSONObject(0).getJSONArray("routeLegs");
             for (int j = 0; j < legs.length(); j++) {
                 allLegs.put(legs.get(j));
@@ -185,7 +185,7 @@ public class Itinerary {
         this.totalTravelTime = totalTime;
     }
 
-    public void processOsrmJason(JSONArray jsonArray) {
+    private void processOsrmJason(JSONArray jsonArray) {
         if (jsonArray == null) {
             throw new NullPointerException();
         }
@@ -196,8 +196,6 @@ public class Itinerary {
         JSONObject jsonObject = (JSONObject) jsonArray.get(0);
         JSONArray routes = jsonObject.getJSONArray("routes");
         JSONArray legs = routes.getJSONObject(0).getJSONArray("legs");
-
-        System.out.print("Legs: " + legs.length() + "\n");
 
         for (int i = 0; i < legs.length(); i++) {
             double duration = legs.getJSONObject(i).getDouble("duration");
@@ -212,8 +210,7 @@ public class Itinerary {
         double d;
         for (int i = 0; i < legs.length(); i++) {
             d = legs.getJSONObject(i).getDouble("distance");
-            double xMinusAverage = d - this.stopsDistanceAverage;
-            variance = variance + Math.pow(xMinusAverage, 2);
+            variance += Math.pow(d - this.stopsDistanceAverage, 2);
         }
         variance = variance/legs.length();
 
@@ -223,11 +220,8 @@ public class Itinerary {
     }
 
     public JSONArray getRouteInfo() throws Exception {
-        ItineraryBusStopRepository itineraryBusStopRepository = ItineraryBusStopRepository.getInstance();
         if (this.stops.size() == 0) {
-            itineraryBusStopRepository.readStopSequence("src" + File.separatorChar + "main" + File.separatorChar
-                    + "resources" + File.separatorChar + "busData" + File.separatorChar + "itineraries"
-                    + File.separatorChar + "stopSequence" + File.separatorChar + this.itineraryId + ".txt");
+            readStops();
         }
 
         JSONArray jsonArray;
@@ -235,7 +229,7 @@ public class Itinerary {
                 + File.separatorChar + "busData" + File.separatorChar + "itineraries" + File.separatorChar
                 + "itinerariesJSON" + File.separatorChar + this.itineraryId + ".json");
         if (!f.exists()) {
-            GoogleAPIRequester apiRequester = new GoogleAPIRequester();
+            OsrmAPIRequester apiRequester = new OsrmAPIRequester();
             jsonArray = apiRequester.requestRoute(turnIntoBusStopList(this.stops));
             BufferedWriter bw = new BufferedWriter(new FileWriter(f));
             bw.write(jsonArray.toString());
@@ -244,17 +238,14 @@ public class Itinerary {
             jsonArray = new JSONArray(FileUtils.readFileToString(f, StandardCharsets.UTF_8));
         }
 
-        processGoogleJson(jsonArray);
+        processOsrmJason(jsonArray);
 
         return jsonArray;
     }
 
-    public double[] getBoudaries() throws Exception {
-        ItineraryBusStopRepository itineraryBusStopRepository = ItineraryBusStopRepository.getInstance();
+    public double[] getBoundaries() throws Exception {
         if (this.stops.size() == 0) {
-            itineraryBusStopRepository.readStopSequence("src" + File.separatorChar + "main" + File.separatorChar
-                    + "resources" + File.separatorChar + "busData" + File.separatorChar + "itineraries"
-                    + File.separatorChar + "stopSequence" + File.separatorChar + this.itineraryId + ".txt");
+            readStops();
         }
 
         double highestLat, lowestLat, highestLong, lowestLong;
@@ -298,7 +289,7 @@ public class Itinerary {
         this.stops.add(ibs);
     }
 
-    public List<BusStop> turnIntoBusStopList(List<ItineraryBusStop> l) {
+    public static List<BusStop> turnIntoBusStopList(List<ItineraryBusStop> l) {
         if (l == null) {
             throw new NullPointerException();
         }
@@ -311,11 +302,8 @@ public class Itinerary {
     }
 
     public List<ItineraryBusStop> getStops() throws Exception {
-        ItineraryBusStopRepository itineraryBusStopRepository = ItineraryBusStopRepository.getInstance();
         if (this.stops.size() == 0) {
-            itineraryBusStopRepository.readStopSequence("src" + File.separatorChar + "main" + File.separatorChar
-                    + "resources" + File.separatorChar + "busData" + File.separatorChar + "itineraries"
-                    + File.separatorChar + "stopSequence" + File.separatorChar + this.itineraryId + ".txt");
+            readStops();
         }
         return stops;
     }
@@ -329,6 +317,13 @@ public class Itinerary {
         + "Total travel distance: " + getTotalTravelDistance() + "\n"
         + "Stops distance average: " + getStopsDistanceAverage() + "\n"
         + "Stops distance variance: " + getStopsDistanceVariance() + "\n");
+    }
+
+    private void readStops() throws Exception {
+        ItineraryBusStopRepository itineraryBusStopRepository = ItineraryBusStopRepository.getInstance();
+        itineraryBusStopRepository.readStopSequence("src" + File.separatorChar + "main" + File.separatorChar
+                + "resources" + File.separatorChar + "busData" + File.separatorChar + "itineraries"
+                + File.separatorChar + "stopSequence" + File.separatorChar + this.itineraryId + ".txt");
     }
 
     @Override

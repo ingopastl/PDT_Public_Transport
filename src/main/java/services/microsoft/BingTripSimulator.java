@@ -1,6 +1,5 @@
 package services.microsoft;
 
-import beans.BusStop;
 import beans.Itinerary;
 import beans.ItineraryBusStop;
 import org.json.JSONArray;
@@ -8,27 +7,19 @@ import org.json.JSONObject;
 import services.TripSimulator;
 
 public class BingTripSimulator extends TripSimulator {
+
     public BingTripSimulator(Itinerary itinerary, int numberOfTrips, int radius) throws Exception{
         super(itinerary, numberOfTrips, radius);
     }
 
     public Double[] evaluate(Double[] vars) throws Exception {
-        Itinerary itinerary = new Itinerary(null, '1', "1", "Solution");
-        BusStop v;
-        int i = 0, order = 0;
-        while (i < vars.length) {
-            v = new BusStop(Integer.toString(i), vars[i], vars[i+1]);
-            ItineraryBusStop ibs = new ItineraryBusStop(v, itinerary, order);
-            itinerary.addItineraryBusStop(ibs);
-            order++;
-            i += 2;
-        }
+        Itinerary itinerary = turnIntoItinerary(vars);
 
         BingAPIRequester apiRequester = new BingAPIRequester();
-        JSONArray jsonArray = apiRequester.requestRoute(itinerary.turnIntoBusStopList(itinerary.getStops()));
+        JSONArray jsonArray = apiRequester.requestRoute(Itinerary.turnIntoBusStopList(itinerary.getStops()));
 
         JSONArray allLegs = new JSONArray();
-        for (i = 0; i < jsonArray.length(); i++) {
+        for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject jsonObject = (JSONObject) jsonArray.get(i);
             JSONArray legs = jsonObject.getJSONArray("resourceSets").getJSONObject(0).getJSONArray("resources").getJSONObject(0).getJSONArray("routeLegs");
             for (int j = 0; j < legs.length(); j++) {
@@ -67,18 +58,18 @@ public class BingTripSimulator extends TripSimulator {
             if (start.equals(end)) {
                 --t;
             } else {
-                startWalkJson = apiRequester.walkingRoute(startP[0], startP[1], start.getBusStop().getLatitude(), start.getBusStop().getLongitude());
-                endWalkJson = apiRequester.walkingRoute(end.getBusStop().getLatitude(), end.getBusStop().getLongitude(), endP[0], endP[1]);
+                startWalkJson = apiRequester.requestWalkingRoute(startP[0], startP[1], start.getBusStop().getLatitude(), start.getBusStop().getLongitude());
+                endWalkJson = apiRequester.requestWalkingRoute(end.getBusStop().getLatitude(), end.getBusStop().getLongitude(), endP[0], endP[1]);
 
                 if (!startWalkJson.getString("statusDescription").equals("OK") || !endWalkJson.getString("statusDescription").equals("OK")) {
                     --t;
                 } else {
-                    int startWalkDuration = (int) startWalkJson.getJSONArray("resourceSets").getJSONObject(0).getJSONArray("resources").getJSONObject(0).get("travelDuration");
-                    int endWalkDuration = (int) endWalkJson.getJSONArray("resourceSets").getJSONObject(0).getJSONArray("resources").getJSONObject(0).get("travelDuration");
+                    int startWalkDuration = startWalkJson.getJSONArray("resourceSets").getJSONObject(0).getJSONArray("resources").getJSONObject(0).getInt("travelDuration");
+                    int endWalkDuration = endWalkJson.getJSONArray("resourceSets").getJSONObject(0).getJSONArray("resources").getJSONObject(0).getInt("travelDuration");
 
                     double totalTravelTime = 0;
-                    for (i = start.getSequenceValue(); i < end.getSequenceValue(); i++) {
-                        int duration = (int) allLegs.getJSONObject(i).get("travelDuration");
+                    for (int i = start.getSequenceValue(); i < end.getSequenceValue(); i++) {
+                        int duration = allLegs.getJSONObject(i).getInt("travelDuration");
                         totalTravelTime += duration;
                     }
 
@@ -91,36 +82,26 @@ public class BingTripSimulator extends TripSimulator {
         averageWalkingTime /= getNumberOfTrips();
 
         double distanceAverage = 0, d;
-        for (i = 0; i < allLegs.length(); i++) {
-            try {
-                d = (double) allLegs.getJSONObject(i).get("travelDistance");
-            } catch (ClassCastException e) {
-                d = (int) allLegs.getJSONObject(i).get("travelDistance");
-            }
-            distanceAverage += (int) d;
+        for (int i = 0; i < allLegs.length(); i++) {
+            d = allLegs.getJSONObject(i).getDouble("travelDistance") * 1000;
+            distanceAverage += d;
         }
         distanceAverage = distanceAverage/allLegs.length();
 
         double stopsDistanceVariance = 0;
-        for (i = 0; i < allLegs.length(); i++) {
-            try {
-                d = (double) allLegs.getJSONObject(i).get("travelDistance");
-            } catch (ClassCastException e) {
-                d = (int) allLegs.getJSONObject(i).get("travelDistance");
-            }
-            stopsDistanceVariance += Math.pow( ((int) d) - distanceAverage, 2);
+        for (int i = 0; i < allLegs.length(); i++) {
+            d = allLegs.getJSONObject(i).getDouble("travelDistance") * 1000;
+            stopsDistanceVariance += Math.pow(d - distanceAverage, 2);
         }
         stopsDistanceVariance = stopsDistanceVariance/allLegs.length();
+
+        //System.out.print("averageTripTime: " + averageTripTime + "\naverageWalkingTime: " + averageWalkingTime + "\nstopsDistanceVariance: " + stopsDistanceVariance + "\n");
+        //System.out.print("Distance average: " + distanceAverage + "\n");
 
         Double[] objectives = new Double[3];
         objectives[0] = averageTripTime;
         objectives[1] = averageWalkingTime;
         objectives[2] = stopsDistanceVariance;
-
-        //System.out.print("averageTripTime: " + averageTripTime + "\naverageWalkingTime: " + averageWalkingTime + "\nstopsDistanceVariance: " + stopsDistanceVariance + "\n");
-        //System.out.print("Legs size: " + allLegs.length() + "\n");
-        //System.out.print("Distance average: " + distanceAverage + "\n");
-
         return objectives;
     }
 }
