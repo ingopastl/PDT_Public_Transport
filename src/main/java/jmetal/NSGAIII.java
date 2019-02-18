@@ -28,6 +28,8 @@ import java.util.Vector;
 public class NSGAIII<S extends Solution<?>> extends AbstractGeneticAlgorithm<S, List<S>> {
     private int iterations ;
     private int maxIterations ;
+
+    private int initialProgress;
     private List<S> initialPopulation;
 
     private SolutionListEvaluator<S> evaluator ;
@@ -39,6 +41,8 @@ public class NSGAIII<S extends Solution<?>> extends AbstractGeneticAlgorithm<S, 
     public NSGAIII(NSGAIIIBuilder<S> builder) { // can be created from the NSGAIIIBuilder within the same package
         super(builder.getProblem()) ;
         maxIterations = builder.getMaxIterations() ;
+
+        initialPopulation = builder.getInitialPopulation();
 
         crossoverOperator =  builder.getCrossoverOperator() ;
         mutationOperator  =  builder.getMutationOperator() ;
@@ -58,8 +62,6 @@ public class NSGAIII<S extends Solution<?>> extends AbstractGeneticAlgorithm<S, 
         }
 
         setMaxPopulationSize(populationSize);
-
-        initialPopulation = builder.getInitialPopulation();
 
         JMetalLogger.logger.info("rpssize: " + referencePoints.size());
     }
@@ -203,22 +205,28 @@ public class NSGAIII<S extends Solution<?>> extends AbstractGeneticAlgorithm<S, 
 
         if (this.initialPopulation == null) {
             population = createInitialPopulation();
+            initProgress();
+
         } else {
             if (this.initialPopulation.size() != maxPopulationSize) {
                 throw new JMetalException("The initial population has the wrong size");
             } else {
                 population = this.initialPopulation;
             }
+            this.iterations = 0;
         }
 
+        System.out.print("Iterations = " + this.iterations + "\n");
+
         population = evaluatePopulation(population);
-        initProgress();
+
         while (!isStoppingConditionReached()) {
             matingPopulation = selection(population);
             offspringPopulation = reproduction(matingPopulation);
             offspringPopulation = evaluatePopulation(offspringPopulation);
             population = replacement(population, offspringPopulation);
             updateProgress();
+            System.out.print("Iterations = " + this.iterations + "\n");
         }
         saveProgress();
     }
