@@ -2,7 +2,6 @@ package services;
 
 import beans.BusStop;
 
-import org.apache.http.client.HttpClient;
 import org.json.JSONArray;
 import org.json.JSONObject;
 

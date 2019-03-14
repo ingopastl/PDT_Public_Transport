@@ -9,14 +9,8 @@ import org.uma.jmetal.solution.impl.DefaultDoubleSolution;
 
 import org.uma.jmetal.util.JMetalException;
 import services.TripSimulator;
-import services.google.GoogleTripSimulator;
-import services.microsoft.BingTripSimulator;
 import services.osrm.OsrmTripSimulator;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 

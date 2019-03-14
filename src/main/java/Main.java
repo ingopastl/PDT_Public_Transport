@@ -2,8 +2,6 @@ import beans.Itinerary;
 
 import jmetal.*;
 
-import org.uma.jmetal.qualityindicator.impl.*;
-import org.uma.jmetal.qualityindicator.impl.hypervolume.WFGHypervolume;
 import org.uma.jmetal.solution.impl.DefaultDoubleSolution;
 import org.uma.jmetal.util.fileoutput.SolutionListOutput;
 import org.uma.jmetal.algorithm.Algorithm;
@@ -21,7 +19,9 @@ import org.uma.jmetal.util.front.Front;
 import org.uma.jmetal.util.front.imp.ArrayFront;
 import org.uma.jmetal.util.front.util.FrontNormalizer;
 import org.uma.jmetal.util.front.util.FrontUtils;
+import org.uma.jmetal.util.point.Point;
 import org.uma.jmetal.util.point.PointSolution;
+import org.uma.jmetal.util.point.impl.ArrayPoint;
 import org.uma.jmetal.util.pseudorandom.JMetalRandom;
 
 import repositories.BusLineRepository;
@@ -54,7 +54,6 @@ public class Main {
             CrossoverOperator<DoubleSolution> crossover;
             MutationOperator<DoubleSolution> mutation;
             SelectionOperator<List<DoubleSolution>, DoubleSolution> selection;
-            String referenceParetoFront = "referenceParetoFront.pf";
 
             Itinerary iti = busLineRepository.getByID("423032").getItineraries().get(0);
             problem = new PTDJMetalProblem(iti, 30, 800);
@@ -68,7 +67,7 @@ public class Main {
             List<DoubleSolution> initialPopulation;
 
             long computingTime = 0;
-            for (int i = 0; i < 40; i++) {
+            for (int i = 51; i < 100; i++) {
                 initialPopulation = loadInitialPopulation((PTDJMetalProblem) problem);
 
                 algorithm = new NSGAIIIBuilder<>(problem).setPopulationSize(92).setMaxIterations(10).setCrossoverOperator(crossover).setMutationOperator(mutation)
@@ -78,11 +77,8 @@ public class Main {
 
                 computingTime += algorithmRunner.getComputingTime();
 
-                printFinalSolutionSet(population);
-                ReferenceParetoFrontGenerator.run();
-                if (!referenceParetoFront.equals("")) {
-                    printQualityIndicators(population, referenceParetoFront, (i + 1) * 10);
-                }
+                printFinalSolutionSet(population, (i + 1) * 10);
+                printQualityIndicators(population, (i + 1) * 10);
             }
             JMetalLogger.logger.info("Total execution time: " + computingTime + "ms");
         } catch (Exception e) {
@@ -90,45 +86,36 @@ public class Main {
         }
     }
 
-    /**
-     * Write the population into two files and prints some data on screen
-     *
-     * @param population
-     */
-    private static void printFinalSolutionSet(List<? extends Solution<?>> population) {
+    private static void printFinalSolutionSet(List<? extends Solution<?>> population, int totalProgress) {
+        new File("results" + File.separatorChar + totalProgress).mkdirs();
 
         new SolutionListOutput(population).setSeparator("\t")
-                .setVarFileOutputContext(new DefaultFileOutputContext("VAR.tsv"))
-                .setFunFileOutputContext(new DefaultFileOutputContext("FUN.tsv")).print();
+                .setVarFileOutputContext(new DefaultFileOutputContext("results" + File.separatorChar + totalProgress + File.separatorChar + "VAR.tsv"))
+                .setFunFileOutputContext(new DefaultFileOutputContext("results" + File.separatorChar + totalProgress + File.separatorChar + "FUN.tsv")).print();
 
         JMetalLogger.logger.info("Random seed: " + JMetalRandom.getInstance().getSeed());
         JMetalLogger.logger.info("Objectives values have been written to file FUN.tsv");
         JMetalLogger.logger.info("Variables values have been written to file VAR.tsv");
     }
 
-    /**
-     * Print all the available quality indicators
-     *
-     * @param population
-     * @param paretoFrontFile
-     * @throws Exception
-     */
-    private static void printQualityIndicators(List<DoubleSolution> population, String paretoFrontFile, int totalProgress) throws Exception {
-        Front referenceFront = new ArrayFront(paretoFrontFile);
-        FrontNormalizer frontNormalizer = new FrontNormalizer(referenceFront);
+    private static void printQualityIndicators(List<DoubleSolution> population, int totalProgress) throws Exception {
+        Front frontRef = new ArrayFront(1, 3);
+        Point point = new ArrayPoint(3);
+        point.setValue(0, 0);
+        point.setValue(1, 0);
+        point.setValue(2, 0);
 
-        Front normalizedReferenceFront = frontNormalizer.normalize(referenceFront);
-        Front normalizedFront = frontNormalizer.normalize(new ArrayFront(population));
+        Front front = new ArrayFront(population);
+        FrontNormalizer frontNormalizer = new FrontNormalizer(front);
+        Front normalizedFront = frontNormalizer.normalize(front);
         List<PointSolution> normalizedPopulation = FrontUtils.convertFrontToSolutionList(normalizedFront);
 
+        Hypervolume<List<? extends Solution<?>>> hypervolume = new Hypervolume<>(frontRef);
+
         String outputString = "\n";
-        outputString += "Progress        : " + totalProgress + "\n";
-        outputString += "Hypervolume (N) : "
-                + new WFGHypervolume<PointSolution>(normalizedReferenceFront).evaluate(normalizedPopulation) + "\n";
-        outputString += "Hypervolume     : "
-                + new WFGHypervolume<DoubleSolution>(referenceFront).evaluate(population) + "\n";
-        outputString += "Error ratio     : "
-                + new ErrorRatio<>(referenceFront).evaluate(population) + "\n";
+        outputString += totalProgress + "\n";
+        outputString += hypervolume.evaluate(normalizedPopulation);
+        //outputString += "Error ratio     : " + new ErrorRatio<>(frontRef).evaluate(population) + "\n";
 
         File f = new File("QualityIndicatorsProgress.txt");
         if (!f.exists()) {
@@ -141,7 +128,7 @@ public class Main {
 
     private static List<DoubleSolution> loadInitialPopulation(PTDJMetalProblem problem) throws Exception {
         List<DoubleSolution> initialPopulation = new ArrayList<>();
-        File f = new File("src" + File.separatorChar + "main" + File.separatorChar + "resources" + File.separatorChar + "progress.txt");
+        File f = new File("src" + File.separatorChar + "main" + File.separatorChar + "resources" + File.separatorChar + "lastPopulation.txt");
 
         if (f.exists()) {
             FileReader fr = new FileReader(f);

@@ -7,14 +7,15 @@ import org.uma.jmetal.util.front.imp.ArrayFront;
 import org.uma.jmetal.util.front.util.FrontUtils;
 import org.uma.jmetal.util.point.PointSolution;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
 public class ReferenceParetoFrontGenerator {
-    public static void run() throws IOException {
-        String frontFileName = "FUN.tsv";
-        String referenceSetFileName = "referenceParetoSet.ps";
-        String referenceFrontFileName = "referenceParetoFront.pf";
+    public static void run(int totalProgress) throws IOException {
+        String frontFileName = "results" + File.separatorChar + totalProgress + File.separatorChar + "FUN.tsv";
+        String referenceSetFileName = "results" + File.separatorChar + totalProgress + File.separatorChar + "referenceParetoSet.ps";
+        String referenceFrontFileName = "results" + File.separatorChar + totalProgress + File.separatorChar + "referenceParetoFront.pf";
 
         NonDominatedSolutionListArchive<PointSolution> nonDominatedSolutionArchive = new NonDominatedSolutionListArchive<>();
 

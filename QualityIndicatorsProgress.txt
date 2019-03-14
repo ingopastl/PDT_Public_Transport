@@ -1,200 +1,103 @@
 
-Progress        : 10
-Hypervolume (N) : -1.2176721610440433
-Hypervolume     : -1.1356002650544812E13
-Error ratio     : 0.0
-
-Progress        : 20
-Hypervolume (N) : -0.17351978509890642
-Hypervolume     : -7.057930011143928E11
-Error ratio     : 0.0
-
-Progress        : 30
-Hypervolume (N) : -0.7120137123336118
-Hypervolume     : -6.887564505857297E11
-Error ratio     : 0.0
-
-Progress        : 40
-Hypervolume (N) : -0.5646114948235365
-Hypervolume     : -5.719950669647632E11
-Error ratio     : 0.0
-
-Progress        : 50
-Hypervolume (N) : -0.3634198448927864
-Hypervolume     : -3.624286727067041E11
-Error ratio     : 0.0
-
-Progress        : 60
-Hypervolume (N) : -0.2348246946039359
-Hypervolume     : -3.2137148229688293E11
-Error ratio     : 0.0
-
-Progress        : 70
-Hypervolume (N) : -0.11298289291748406
-Hypervolume     : -2.1495671561959265E11
-Error ratio     : 0.0
-
-Progress        : 80
-Hypervolume (N) : -0.9794216976594662
-Hypervolume     : -1.3090684277339737E10
-Error ratio     : 0.0
-
-Progress        : 90
-Hypervolume (N) : -0.13247488853879955
-Hypervolume     : -3.6802878459292366E10
-Error ratio     : 0.0
-
-Progress        : 100
-Hypervolume (N) : -0.29601024507741186
-Hypervolume     : -1.4714257381131065E10
-Error ratio     : 0.0
-
-Progress        : 110
-Hypervolume (N) : -0.14496673854504064
-Hypervolume     : -1.6398199301565756E11
-Error ratio     : 0.0
-
-Progress        : 120
-Hypervolume (N) : -0.1499564230935889
-Hypervolume     : -1.1565523986389581E11
-Error ratio     : 0.0
-
-Progress        : 130
-Hypervolume (N) : -0.34162852897693224
-Hypervolume     : -3.1519246802778004E10
-Error ratio     : 0.0
-
-Progress        : 140
-Hypervolume (N) : -0.2806261104944999
-Hypervolume     : -2.3120787607158493E10
-Error ratio     : 0.0
-
-Progress        : 150
-Hypervolume (N) : -0.02530551089244666
-Hypervolume     : -3.822418325968842E10
-Error ratio     : 0.0
-
-Progress        : 160
-Hypervolume (N) : -0.29615954306240766
-Hypervolume     : -1.258029470856634E10
-Error ratio     : 0.0
-
-Progress        : 170
-Hypervolume (N) : -0.21655315350095156
-Hypervolume     : -5.4231553718863434E10
-Error ratio     : 0.0
-
-Progress        : 180
-Hypervolume (N) : -0.029896262799101125
-Hypervolume     : -3.7503316228724304E10
-Error ratio     : 0.0
-
-Progress        : 190
-Hypervolume (N) : -0.018062619879148825
-Hypervolume     : -5.033446860403361E10
-Error ratio     : 0.0
-
-Progress        : 200
-Hypervolume (N) : -0.6084978571961265
-Hypervolume     : -2.9446933300349796E10
-Error ratio     : 0.0
-
-Progress        : 210
-Hypervolume (N) : -1.4792613499878582
-Hypervolume     : -4.795567429192876E10
-Error ratio     : 0.0
-
-Progress        : 220
-Hypervolume (N) : -0.13997556588128296
-Hypervolume     : -2.9138453596307964E10
-Error ratio     : 0.0
-
-Progress        : 230
-Hypervolume (N) : -0.07846232998971565
-Hypervolume     : -1.2325130647245842E10
-Error ratio     : 0.0
-
-Progress        : 240
-Hypervolume (N) : -0.5243375961272241
-Hypervolume     : -2.710187663657637E10
-Error ratio     : 0.0
-
-Progress        : 250
-Hypervolume (N) : -0.3912538858287807
-Hypervolume     : -3.0804781222713352E10
-Error ratio     : 0.0
-
-Progress        : 260
-Hypervolume (N) : -0.30076945875704597
-Hypervolume     : -2.4001397005546207E10
-Error ratio     : 0.0
-
-Progress        : 270
-Hypervolume (N) : -0.31980502986023185
-Hypervolume     : -2.0168657255186222E10
-Error ratio     : 0.0
-
-Progress        : 280
-Hypervolume (N) : -1.5218963172656021
-Hypervolume     : -2.466696596847187E10
-Error ratio     : 0.0
-
-Progress        : 290
-Hypervolume (N) : -0.19552371607235988
-Hypervolume     : -2.1004795032932713E10
-Error ratio     : 0.0
-
-Progress        : 300
-Hypervolume (N) : -0.38284063884209296
-Hypervolume     : -1.9709656045570786E10
-Error ratio     : 0.0
-
-Progress        : 310
-Hypervolume (N) : -0.2018329317006618
-Hypervolume     : -1.2869538269062786E10
-Error ratio     : 0.0
-
-Progress        : 320
-Hypervolume (N) : -0.2706340254004729
-Hypervolume     : -1.9020723822663002E10
-Error ratio     : 0.0
-
-Progress        : 330
-Hypervolume (N) : -0.26853234072713816
-Hypervolume     : -2.4933936710549572E10
-Error ratio     : 0.0
-
-Progress        : 340
-Hypervolume (N) : -0.7230364288870906
-Hypervolume     : -2.7534110709245903E10
-Error ratio     : 0.0
-
-Progress        : 350
-Hypervolume (N) : -0.12464834385011499
-Hypervolume     : -1.3857707850580917E11
-Error ratio     : 0.0
-
-Progress        : 360
-Hypervolume (N) : -0.7953381238333923
-Hypervolume     : -1.2739575021745783E10
-Error ratio     : 0.0
-
-Progress        : 370
-Hypervolume (N) : -0.2975539893821988
-Hypervolume     : -1.0985610916700075E10
-Error ratio     : 0.0
-
-Progress        : 380
-Hypervolume (N) : -0.026832603043704
-Hypervolume     : -4.8850958609030716E10
-Error ratio     : 0.0
-
-Progress        : 390
-Hypervolume (N) : -0.5269385277271588
-Hypervolume     : -1.1352787284553064E10
-Error ratio     : 0.0
-
-Progress        : 400
-Hypervolume (N) : -0.14579196586933613
-Hypervolume     : -9.442198246626976E9
-Error ratio     : 0.0
+10
+0.6695973477833865
+20
+0.7334120726643901
+30
+0.6859637301057552
+40
+0.87688410761214
+50
+0.7530118542010801
+60
+0.923016911274602
+70
+0.8486968043872991
+80
+0.6055099285536704
+90
+0.7574192947980941
+100
+0.767620908662852
+110
+0.6905925320176802
+120
+0.6704662548672146
+130
+0.739165816361979
+140
+0.49431583988920275
+150
+0.6184654077323473
+160
+0.7506270280650673
+170
+0.7172819700718358
+180
+0.6999341649701113
+190
+0.7563714472969967
+200
+0.6318396586030286
+210
+0.6384924448950385
+220
+0.7630542368222261
+230
+0.7735037659308313
+240
+0.779158477715559
+250
+0.8710913670560471
+260
+0.7091885191339307
+270
+0.5553514818229408
+280
+0.6185429823631734
+290
+0.6048257191330895
+300
+0.7396623514304232
+310
+0.8034439071488348
+320
+0.7614729106127914
+330
+0.8264496152299642
+340
+0.7413505505273422
+350
+0.8001243711252531
+360
+0.7056023983118794
+370
+0.8784405790735614
+380
+0.5571823338996366
+390
+0.8322814487372642
+400
+0.8178194683500555
+410
+0.3284710179466489
+420
+0.6502587972618855
+430
+0.6996494051636253
+440
+0.6994815452208567
+450
+0.8193471137983477
+460
+0.7097255263246298
+470
+0.8381442740751179
+480
+0.7998091275322788
+490
+0.7409637958157181
+500
+0.6922380898624835
+510
+0.8736672628636568
