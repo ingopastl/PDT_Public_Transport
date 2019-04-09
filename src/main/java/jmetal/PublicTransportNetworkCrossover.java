@@ -49,18 +49,24 @@ public class PublicTransportNetworkCrossover implements CrossoverOperator<Double
 		offspring.add((DoubleSolution) parent2.copy());
 
 		int i;
-		double valueX1, valueX2;
+		double valueX1, valueX2, valueY1, valueY2;
 
 		if (randomGenerator.nextDouble() <= probability) {
-			for (i = 0; i < parent1.getNumberOfVariables(); i++) {
+			for (i = 0; i < parent1.getNumberOfVariables(); i += 2) {
 				valueX1 = parent1.getVariableValue(i);
 				valueX2 = parent2.getVariableValue(i);
+				valueY1 = parent1.getVariableValue(i+1);
+				valueY2 = parent2.getVariableValue(i+1);
 				if (randomGenerator.nextDouble() <= 0.25) {
 					offspring.get(0).setVariableValue(i, valueX2);
+					offspring.get(0).setVariableValue(i+1, valueY2);
 					offspring.get(1).setVariableValue(i, valueX1);
+					offspring.get(1).setVariableValue(i+1, valueY1);
 				} else {
 					offspring.get(0).setVariableValue(i, valueX1);
+					offspring.get(0).setVariableValue(i+1, valueY1);
 					offspring.get(1).setVariableValue(i, valueX2);
+					offspring.get(1).setVariableValue(i+1, valueY2);
 				}
 			}
 		}

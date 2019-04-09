@@ -41,8 +41,8 @@ public class GoogleTripSimulator extends TripSimulator {
         double averageWalkingTime = 0;
         double averageTripTime = 0;
         for (int t = 0; t < getNumberOfTrips(); t++) {
-            double[] p1 = randomLocationBeta(itinerary);
-            double[] p2 = randomLocationBeta(itinerary);
+            double[] p1 = randomLocationInsideBounds(itinerary);
+            double[] p2 = randomLocationInsideBounds(itinerary);
             ItineraryBusStop bs1 = findNearestStop(p1, itinerary);
             ItineraryBusStop bs2 = findNearestStop(p2, itinerary);
 
@@ -117,8 +117,8 @@ public class GoogleTripSimulator extends TripSimulator {
     }
 
     public void simulateWalk(int fileNumber) throws Exception {
-        double[] loc1 = randomLocationBeta(getItinerary());
-        double[] loc2 = randomLocationBeta(getItinerary());
+        double[] loc1 = randomLocationInsideBounds(getItinerary());
+        double[] loc2 = randomLocationInsideBounds(getItinerary());
 
         JSONObject jsonObject = new GoogleAPIRequester().requestWalkingRoute(loc1[0], loc1[1], loc2[0], loc2[1]);
 

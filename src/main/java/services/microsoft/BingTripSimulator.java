@@ -30,8 +30,8 @@ public class BingTripSimulator extends TripSimulator {
         double averageWalkingTime = 0;
         double averageTripTime = 0;
         for (int t = 0; t < getNumberOfTrips(); t++) {
-            double[] p1 = randomLocationBeta(itinerary);
-            double[] p2 = randomLocationBeta(itinerary);
+            double[] p1 = randomLocationInsideBounds(itinerary);
+            double[] p2 = randomLocationInsideBounds(itinerary);
             ItineraryBusStop bs1 = findNearestStop(p1, itinerary);
             ItineraryBusStop bs2 = findNearestStop(p2, itinerary);
 

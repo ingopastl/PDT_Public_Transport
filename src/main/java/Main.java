@@ -29,6 +29,7 @@ import repositories.BusStopRepository;
 import repositories.ItineraryRepository;
 
 import java.io.*;
+import java.net.SocketTimeoutException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
@@ -67,19 +68,29 @@ public class Main {
             List<DoubleSolution> initialPopulation;
 
             long computingTime = 0;
-            for (int i = 51; i < 100; i++) {
-                initialPopulation = loadInitialPopulation((PTDJMetalProblem) problem);
 
-                algorithm = new NSGAIIIBuilder<>(problem).setPopulationSize(92).setMaxIterations(10).setCrossoverOperator(crossover).setMutationOperator(mutation)
-                        .setSelectionOperator(selection).setInitialPopulation(initialPopulation).build();
-                AlgorithmRunner algorithmRunner = new AlgorithmRunner.Executor(algorithm).execute();
-                List<DoubleSolution> population = algorithm.getResult();
+            int i = 0, previousI = 18;
+            while (true) {
+                try {
+                    for (i = previousI; i < 40; i++) {
+                        initialPopulation = loadInitialPopulation((PTDJMetalProblem) problem);
 
-                computingTime += algorithmRunner.getComputingTime();
+                        algorithm = new NSGAIIIBuilder<>(problem).setPopulationSize(92).setMaxIterations(10).setCrossoverOperator(crossover).setMutationOperator(mutation)
+                                .setSelectionOperator(selection).setInitialPopulation(initialPopulation).build();
+                        AlgorithmRunner algorithmRunner = new AlgorithmRunner.Executor(algorithm).execute();
+                        List<DoubleSolution> population = algorithm.getResult();
 
-                printFinalSolutionSet(population, (i + 1) * 10);
-                printQualityIndicators(population, (i + 1) * 10);
+                        computingTime += algorithmRunner.getComputingTime();
+
+                        printFinalSolutionSet(population, (i + 1) * 10);
+                        printQualityIndicators(population, (i + 1) * 10);
+                    }
+                    break;
+                } catch (SocketTimeoutException ste) {
+                    previousI = i;
+                }
             }
+
             JMetalLogger.logger.info("Total execution time: " + computingTime + "ms");
         } catch (Exception e) {
             e.printStackTrace();

@@ -37,7 +37,7 @@ public abstract class APIRequester {
     }
 
     //Encode a double value to the Google's Encoded Polyline Algorithm Format
-    protected String polylineEncode(double value) {
+    private String polylineEncode(double value) {
         //Take the decimal value and multiply it by 1e5
         int round = (int) Math.round(value * 1e5);
 

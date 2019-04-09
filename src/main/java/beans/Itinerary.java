@@ -1,11 +1,9 @@
 package beans;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.http.impl.client.HttpClientBuilder;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import repositories.ItineraryBusStopRepository;
-import services.microsoft.BingAPIRequester;
 import services.osrm.OsrmAPIRequester;
 
 import java.io.BufferedWriter;
@@ -243,7 +241,7 @@ public class Itinerary {
         return jsonArray;
     }
 
-    public double[] getBoundaries() throws Exception {
+    public double[] getBounds() throws Exception {
         if (this.stops.size() == 0) {
             readStops();
         }
@@ -273,13 +271,13 @@ public class Itinerary {
             }
         }
 
-        double[] boundaryArray = new double[4];
-        boundaryArray[0] = highestLat;
-        boundaryArray[1] = lowestLat;
-        boundaryArray[2] = highestLong;
-        boundaryArray[3] = lowestLong;
+        double[] boundsArray = new double[4];
+        boundsArray[0] = highestLat;
+        boundsArray[1] = lowestLat;
+        boundsArray[2] = highestLong;
+        boundsArray[3] = lowestLong;
 
-        return  boundaryArray;
+        return  boundsArray;
     }
 
     public void addItineraryBusStop(ItineraryBusStop ibs) {

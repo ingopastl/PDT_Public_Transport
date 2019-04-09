@@ -30,9 +30,7 @@ public class HttpManager {
         return instance;
     }
 
-    public String requestGet(String url) throws Exception {
-        HttpGet getRequest = new HttpGet(url);
-        HttpResponse response = client.execute(getRequest);
+    private String handleResponse(HttpResponse response) throws Exception {
         HttpEntity entity = response.getEntity();
         String json = EntityUtils.toString(entity, "UTF-8");
         EntityUtils.consume(entity);
@@ -40,13 +38,13 @@ public class HttpManager {
         return json;
     }
 
+    public String requestGet(String url) throws Exception {
+        HttpGet getRequest = new HttpGet(url);
+        return handleResponse(client.execute(getRequest));
+    }
+
     public String requestPost(String url) throws Exception {
         HttpPost postRequest = new HttpPost(url);
-        HttpResponse response = client.execute(postRequest);
-        HttpEntity entity = response.getEntity();
-        String json = EntityUtils.toString(entity, "UTF-8");
-        EntityUtils.consume(entity);
-
-        return json;
+        return handleResponse(client.execute(postRequest));
     }
 }

@@ -12,7 +12,6 @@ import org.uma.jmetal.util.solutionattribute.Ranking;
 import org.uma.jmetal.util.solutionattribute.impl.DominanceRanking;
 
 import java.io.*;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
@@ -29,7 +28,6 @@ public class NSGAIII<S extends Solution<?>> extends AbstractGeneticAlgorithm<S, 
     private int iterations ;
     private int maxIterations ;
 
-    private int initialProgress;
     private List<S> initialPopulation;
 
     private SolutionListEvaluator<S> evaluator ;
@@ -177,14 +175,14 @@ public class NSGAIII<S extends Solution<?>> extends AbstractGeneticAlgorithm<S, 
         return getNonDominatedSolutions(getPopulation()) ;
     }
 
-    protected Ranking<S> computeRanking(List<S> solutionList) {
+    private Ranking<S> computeRanking(List<S> solutionList) {
         Ranking<S> ranking = new DominanceRanking<>() ;
         ranking.computeRanking(solutionList) ;
 
         return ranking ;
     }
 
-    protected void addRankedSolutionsToPopulation(Ranking<S> ranking, int rank, List<S> population) {
+    private void addRankedSolutionsToPopulation(Ranking<S> ranking, int rank, List<S> population) {
         List<S> front ;
 
         front = ranking.getSubfront(rank);
@@ -194,7 +192,7 @@ public class NSGAIII<S extends Solution<?>> extends AbstractGeneticAlgorithm<S, 
         }
     }
 
-    protected List<S> getNonDominatedSolutions(List<S> solutionList) {
+    private List<S> getNonDominatedSolutions(List<S> solutionList) {
         return SolutionListUtils.getNondominatedSolutions(solutionList) ;
     }
 

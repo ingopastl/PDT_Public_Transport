@@ -2,19 +2,14 @@ package services.osrm;
 
 import beans.Itinerary;
 import beans.ItineraryBusStop;
-import org.apache.http.client.HttpClient;
-import org.apache.http.impl.client.HttpClientBuilder;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import services.TripSimulator;
 
 public class OsrmTripSimulator extends TripSimulator {
 
-    private HttpClient client;
-
     public OsrmTripSimulator(Itinerary itinerary, int numberOfTrips, int radius) throws Exception{
         super(itinerary, numberOfTrips, radius);
-        this.client = HttpClientBuilder.create().build();
     }
 
     public Double[] evaluate(Double[] vars) throws Exception {
@@ -35,8 +30,8 @@ public class OsrmTripSimulator extends TripSimulator {
         double averageWalkingTime = 0;
         double averageTripTime = 0;
         for (int t = 0; t < getNumberOfTrips(); t++) {
-            double[] p1 = randomLocationBeta(itinerary);
-            double[] p2 = randomLocationBeta(itinerary);
+            double[] p1 = randomLocationInsideBounds(itinerary);
+            double[] p2 = randomLocationInsideBounds(itinerary);
             ItineraryBusStop bs1 = findNearestStop(p1, itinerary);
             ItineraryBusStop bs2 = findNearestStop(p2, itinerary);
 

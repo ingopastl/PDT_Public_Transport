@@ -7,7 +7,6 @@ import beans.ItineraryBusStop;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.concurrent.ThreadLocalRandom;
 
 public abstract class TripSimulator {
     private static final int NUMBER_OF_OBJECTIVES = 3;
@@ -25,7 +24,7 @@ public abstract class TripSimulator {
         this.numberOfTrips = numberOfTrips;
         this.radius = radius;
 
-        double[] boundaries = itinerary.getBoundaries();
+        double[] boundaries = itinerary.getBounds();
         this.lowerLimit = new ArrayList<>(this.numberOfVariables);
         this.upperLimit = new ArrayList<>(this.numberOfVariables);
         for (int i = 0; i < this.numberOfVariables; i++) {
@@ -79,31 +78,8 @@ public abstract class TripSimulator {
         this.radius = radius;
     }
 
-    protected double[] randomLocationAlpha(Itinerary itinerary) throws Exception {
-        int randomInt = ThreadLocalRandom.current().nextInt(0, itinerary.getStops().size());
-        BusStop stop = itinerary.getStops().get(randomInt).getBusStop();
-
-        double meters = this.radius;
-        // number of km per degree = ~111km (111.32 in google maps, but range varies
-        // between 110.567km at the equator and 111.699km at the poles)
-        // 1km in degree = 1 / 111.32km = 0.0089
-        // 1m in degree = 0.0089 / 1000 = 0.0000089
-        double coef = meters * 0.0000089;
-
-        double highestLat = stop.getLatitude() + coef;
-        double lowestLat = stop.getLatitude() - coef;
-        double highestLong = stop.getLongitude() + coef;
-        double lowestLong = stop.getLongitude() - coef;
-
-        double[] randomLocation = new double[2];
-        Random r = new Random();
-        randomLocation[0] = lowestLat + (highestLat - lowestLat) * r.nextDouble();
-        randomLocation[1] = lowestLong + (highestLong - lowestLong) * r.nextDouble();
-        return randomLocation;
-    }
-
-    protected double[] randomLocationBeta(Itinerary itinerary) throws Exception {
-        double[] boundaries = itinerary.getBoundaries();
+    protected double[] randomLocationInsideBounds(Itinerary itinerary) throws Exception {
+        double[] bounds = itinerary.getBounds();
 
         // number of km per degree = ~111km (111.32 in google maps, but range varies
         // between 110.567km at the equator and 111.699km at the poles)
@@ -111,10 +87,10 @@ public abstract class TripSimulator {
         // 1m in degree = 0.0089 / 1000 = 0.0000089
         double coef = this.radius * 0.0000089;
 
-        double highestLat = boundaries[0] + coef;
-        double lowestLat = boundaries[1] - coef;
-        double highestLong = boundaries[2] + coef;
-        double lowestLong = boundaries[3] - coef;
+        double highestLat = bounds[0] + coef;
+        double lowestLat = bounds[1] - coef;
+        double highestLong = bounds[2] + coef;
+        double lowestLong = bounds[3] - coef;
 
         double[] randomLocation = new double[2];
         Random r = new Random();
@@ -123,8 +99,8 @@ public abstract class TripSimulator {
         return randomLocation;
     }
 
-    public double[] getBoundariesBeta() throws Exception {
-        return itinerary.getBoundaries();
+    public double[] getBounds() throws Exception {
+        return itinerary.getBounds();
     }
 
     protected ItineraryBusStop findNearestStop(double[] point, Itinerary itinerary) throws Exception {
