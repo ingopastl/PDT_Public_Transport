@@ -5,6 +5,7 @@ import beans.Itinerary;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -25,7 +26,7 @@ public class ItineraryRepository {
         return instance;
     }
 
-    public void readCSV(String filePath) throws Exception {
+    public void readCSV(String filePath) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(filePath), StandardCharsets.ISO_8859_1));
 
         String currentLine = br.readLine(); //Pega o cabeçalho

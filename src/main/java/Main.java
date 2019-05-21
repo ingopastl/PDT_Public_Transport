@@ -2,6 +2,7 @@ import beans.Itinerary;
 
 import jmetal.*;
 
+import org.apache.http.conn.HttpHostConnectException;
 import org.uma.jmetal.solution.impl.DefaultDoubleSolution;
 import org.uma.jmetal.util.fileoutput.SolutionListOutput;
 import org.uma.jmetal.algorithm.Algorithm;
@@ -42,7 +43,7 @@ public class Main {
         BusLineRepository busLineRepository = BusLineRepository.getInstance();
         ItineraryRepository itineraryRepository = ItineraryRepository.getInstance();
         try{
-            busStopRepository.readCSV("src" + File.separatorChar + "main" + File.separatorChar
+            busStopRepository.readStopsCSV("src" + File.separatorChar + "main" + File.separatorChar
                     + "resources" + File.separatorChar + "busData" + File.separatorChar + "stops.txt");
             busLineRepository.readCSV("src" + File.separatorChar + "main" + File.separatorChar
                     + "resources" + File.separatorChar + "busData" + File.separatorChar + "routes.txt");
@@ -69,7 +70,7 @@ public class Main {
 
             long computingTime = 0;
 
-            int i = 0, previousI = 18;
+            int i = 0, previousI = 28;
             while (true) {
                 try {
                     for (i = previousI; i < 40; i++) {
@@ -86,13 +87,14 @@ public class Main {
                         printQualityIndicators(population, (i + 1) * 10);
                     }
                     break;
-                } catch (SocketTimeoutException ste) {
+                } catch (SocketTimeoutException | HttpHostConnectException e) {
                     previousI = i;
+                    System.out.println(e.toString());
                 }
             }
 
             JMetalLogger.logger.info("Total execution time: " + computingTime + "ms");
-        } catch (Exception e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -109,7 +111,7 @@ public class Main {
         JMetalLogger.logger.info("Variables values have been written to file VAR.tsv");
     }
 
-    private static void printQualityIndicators(List<DoubleSolution> population, int totalProgress) throws Exception {
+    private static void printQualityIndicators(List<DoubleSolution> population, int totalProgress) throws IOException {
         Front frontRef = new ArrayFront(1, 3);
         Point point = new ArrayPoint(3);
         point.setValue(0, 0);
@@ -123,21 +125,29 @@ public class Main {
 
         Hypervolume<List<? extends Solution<?>>> hypervolume = new Hypervolume<>(frontRef);
 
-        String outputString = "\n";
-        outputString += totalProgress + "\n";
-        outputString += hypervolume.evaluate(normalizedPopulation);
-        //outputString += "Error ratio     : " + new ErrorRatio<>(frontRef).evaluate(population) + "\n";
+        String qualityIndicator = "\n";
+        String progress = "\n";
+        qualityIndicator += totalProgress + "\n";
+        progress += hypervolume.evaluate(normalizedPopulation);
+        //qualityIndicator += "Error ratio     : " + new ErrorRatio<>(frontRef).evaluate(population) + "\n";
 
-        File f = new File("QualityIndicatorsProgress.txt");
+        File f = new File("QualityIndicators.txt");
         if (!f.exists()) {
             f.createNewFile();
         }
-        Files.write(Paths.get("QualityIndicatorsProgress.txt"), outputString.getBytes(), StandardOpenOption.APPEND);
 
-        JMetalLogger.logger.info(outputString);
+        File f2 = new File("Progress.txt");
+        if (!f2.exists()) {
+            f2.createNewFile();
+        }
+
+        Files.write(Paths.get("QualityIndicators.txt"), qualityIndicator.getBytes(), StandardOpenOption.APPEND);
+        Files.write(Paths.get("Progress.txt"), progress.getBytes(), StandardOpenOption.APPEND);
+
+        JMetalLogger.logger.info(qualityIndicator);
     }
 
-    private static List<DoubleSolution> loadInitialPopulation(PTDJMetalProblem problem) throws Exception {
+    private static List<DoubleSolution> loadInitialPopulation(PTDJMetalProblem problem) throws IOException {
         List<DoubleSolution> initialPopulation = new ArrayList<>();
         File f = new File("src" + File.separatorChar + "main" + File.separatorChar + "resources" + File.separatorChar + "lastPopulation.txt");
 

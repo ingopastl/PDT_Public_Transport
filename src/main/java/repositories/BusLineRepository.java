@@ -83,7 +83,7 @@ public class BusLineRepository {
         }
     }
 
-    public BusLine getByID(String id) throws Exception {
+    public BusLine getByID(String id) {
         BusLine bl = null;
         for (int i = 0; i < this.list.size(); i++) {
             if (id.equals(this.list.get(i).getId())) {

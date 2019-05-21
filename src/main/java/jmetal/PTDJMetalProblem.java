@@ -1,7 +1,7 @@
 package jmetal;
 
+import beans.BusStopRelation;
 import beans.Itinerary;
-import beans.ItineraryBusStop;
 
 import org.uma.jmetal.problem.impl.AbstractDoubleProblem;
 import org.uma.jmetal.solution.DoubleSolution;
@@ -11,13 +11,14 @@ import org.uma.jmetal.util.JMetalException;
 import services.TripSimulator;
 import services.osrm.OsrmTripSimulator;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class PTDJMetalProblem extends AbstractDoubleProblem {
 	private TripSimulator tc;
 
-	public PTDJMetalProblem(Itinerary itinerary, int numberOfTrips, int radius) throws Exception {
+	public PTDJMetalProblem(Itinerary itinerary, int numberOfTrips, int radius) throws IOException {
 		if (numberOfTrips <= 0) {
 			throw new JMetalException("Number of trips can't be less than or equal to zero");
 		}
@@ -55,7 +56,7 @@ public class PTDJMetalProblem extends AbstractDoubleProblem {
 		double coef = tc.getRadius() * 0.0000089;
 		DefaultDoubleSolution sol = new DefaultDoubleSolution(this);
 		try {
-			List<ItineraryBusStop> l = tc.getItinerary().getStops();
+			List<BusStopRelation> l = tc.getItinerary().getStops();
 			int stopsCount = 0;
 			for (int i = 0; i < getNumberOfVariables(); i++) {
 				double random1 = ThreadLocalRandom.current().nextDouble(-coef, coef);
@@ -74,7 +75,7 @@ public class PTDJMetalProblem extends AbstractDoubleProblem {
 	DoubleSolution getOriginalItinerarySolution() {
         DefaultDoubleSolution sol = new DefaultDoubleSolution(this);
         try {
-            List<ItineraryBusStop> l = tc.getItinerary().getStops();
+            List<BusStopRelation> l = tc.getItinerary().getStops();
             int stopsCount = 0;
             for (int i = 0; i < getNumberOfVariables(); i++) {
                 sol.setVariableValue(i ,l.get(stopsCount).getBusStop().getLatitude());

@@ -1,7 +1,7 @@
 package services.microsoft;
 
+import beans.BusStopRelation;
 import beans.Itinerary;
-import beans.ItineraryBusStop;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import services.TripSimulator;
@@ -32,10 +32,10 @@ public class BingTripSimulator extends TripSimulator {
         for (int t = 0; t < getNumberOfTrips(); t++) {
             double[] p1 = randomLocationInsideBounds(itinerary);
             double[] p2 = randomLocationInsideBounds(itinerary);
-            ItineraryBusStop bs1 = findNearestStop(p1, itinerary);
-            ItineraryBusStop bs2 = findNearestStop(p2, itinerary);
+            BusStopRelation bs1 = findNearestStop(p1, itinerary);
+            BusStopRelation bs2 = findNearestStop(p2, itinerary);
 
-            ItineraryBusStop start, end;
+            BusStopRelation start, end;
             double[] startP = new double[2];
             double[] endP = new double[2];
             JSONObject startWalkJson, endWalkJson;

@@ -1,9 +1,10 @@
 package services;
 
+import beans.BusStopRelation;
 import beans.BusStop;
 import beans.Itinerary;
-import beans.ItineraryBusStop;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -18,13 +19,17 @@ public abstract class TripSimulator {
     private int numberOfTrips;
     private int radius;
 
-    public TripSimulator(Itinerary itinerary, int numberOfTrips, int radius) throws Exception{
+    public TripSimulator(Itinerary itinerary, int numberOfTrips, int radius) throws IOException {
         this.itinerary = itinerary;
         this.numberOfVariables = itinerary.getStops().size() * 2;
         this.numberOfTrips = numberOfTrips;
         this.radius = radius;
 
         double[] boundaries = itinerary.getBounds();
+        System.out.println(boundaries[0]);
+        System.out.println(boundaries[1]);
+        System.out.println(boundaries[2]);
+        System.out.println(boundaries[3]);
         this.lowerLimit = new ArrayList<>(this.numberOfVariables);
         this.upperLimit = new ArrayList<>(this.numberOfVariables);
         for (int i = 0; i < this.numberOfVariables; i++) {
@@ -103,12 +108,12 @@ public abstract class TripSimulator {
         return itinerary.getBounds();
     }
 
-    protected ItineraryBusStop findNearestStop(double[] point, Itinerary itinerary) throws Exception {
-        List<ItineraryBusStop> stops = itinerary.getStops();
+    protected BusStopRelation findNearestStop(double[] point, Itinerary itinerary) throws Exception {
+        List<BusStopRelation> stops = itinerary.getStops();
         double stopLat;
         double stopLong;
         double closestStopEuclidianDistance = 100000000;
-        ItineraryBusStop closestStop = null;
+        BusStopRelation closestStop = null;
         for (int i = 0; i < stops.size(); i++) {
             stopLat = stops.get(i).getBusStop().getLatitude();
             stopLong = stops.get(i).getBusStop().getLongitude();
@@ -130,7 +135,7 @@ public abstract class TripSimulator {
         int i = 0, order = 0;
         while (i < vars.length) {
             v = new BusStop(Integer.toString(i), vars[i], vars[i+1]);
-            ItineraryBusStop ibs = new ItineraryBusStop(v, itinerary, order);
+            BusStopRelation ibs = new BusStopRelation(v, itinerary, order);
             itinerary.addItineraryBusStop(ibs);
             order++;
             i += 2;

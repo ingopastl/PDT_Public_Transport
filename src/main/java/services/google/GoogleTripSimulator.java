@@ -1,11 +1,11 @@
 package services.google;
 
+import beans.BusStopRelation;
 import org.apache.http.client.HttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import services.TripSimulator;
 
 import beans.Itinerary;
-import beans.ItineraryBusStop;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -43,10 +43,10 @@ public class GoogleTripSimulator extends TripSimulator {
         for (int t = 0; t < getNumberOfTrips(); t++) {
             double[] p1 = randomLocationInsideBounds(itinerary);
             double[] p2 = randomLocationInsideBounds(itinerary);
-            ItineraryBusStop bs1 = findNearestStop(p1, itinerary);
-            ItineraryBusStop bs2 = findNearestStop(p2, itinerary);
+            BusStopRelation bs1 = findNearestStop(p1, itinerary);
+            BusStopRelation bs2 = findNearestStop(p2, itinerary);
 
-            ItineraryBusStop start, end;
+            BusStopRelation start, end;
             double[] startP = new double[2];
             double[] endP = new double[2];
             JSONObject startWalkJson, endWalkJson;

@@ -1,6 +1,7 @@
 package repositories;
 
 import beans.BusStop;
+
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -24,7 +25,7 @@ public class BusStopRepository {
         return instance;
     }
 
-    public void readCSV(String filePath) throws IOException {
+    public void readStopsCSV(String filePath) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(filePath), StandardCharsets.ISO_8859_1));
 
         String currentLine = br.readLine(); //Pega o cabeçalho.
@@ -106,12 +107,12 @@ public class BusStopRepository {
             }
 
             BusStop stop = new BusStop(stopId.toString(), Double.parseDouble(latitudeString.toString()), Double.parseDouble(longitudeString.toString()));
-            addBusStop(stop);
+            addNode(stop);
         }
         br.close();
     }
 
-    public void addBusStop(BusStop stop) throws NullPointerException {
+    public void addNode(BusStop stop) throws NullPointerException {
         if (stop != null) {
             list.add(stop);
         } else {

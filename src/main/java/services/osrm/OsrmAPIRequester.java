@@ -55,6 +55,7 @@ public class OsrmAPIRequester extends APIRequester {
 
         //String ur2 = OWNSERVER + "foot/polyline(" + poly + ")?overview=false";
         System.out.print(url + '\n');
+        Thread.sleep(5);
 
         String json = HttpManager.getInstance().requestGet(url);
 

@@ -3,12 +3,13 @@ package beans;
 import org.apache.commons.io.FileUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import repositories.ItineraryBusStopRepository;
+import repositories.BusStopRelationRepository;
 import services.osrm.OsrmAPIRequester;
 
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +20,7 @@ public class Itinerary {
     private char serviceId;
     private String itineraryId;
     private String itineraryHeadsign;
-    private List<ItineraryBusStop> stops;
+    private List<BusStopRelation> stops;
 
     private Double totalTravelTime = null;
     private Double totalTravelDistance = null;
@@ -241,13 +242,13 @@ public class Itinerary {
         return jsonArray;
     }
 
-    public double[] getBounds() throws Exception {
+    public double[] getBounds() throws IOException {
         if (this.stops.size() == 0) {
             readStops();
         }
 
         double highestLat, lowestLat, highestLong, lowestLong;
-        List<ItineraryBusStop> stops = this.stops;
+        List<BusStopRelation> stops = this.stops;
 
         highestLat = stops.get(0).getBusStop().getLatitude();
         lowestLat = stops.get(0).getBusStop().getLatitude();
@@ -280,14 +281,14 @@ public class Itinerary {
         return  boundsArray;
     }
 
-    public void addItineraryBusStop(ItineraryBusStop ibs) {
+    public void addItineraryBusStop(BusStopRelation ibs) {
         if (ibs == null) {
             throw new NullPointerException();
         }
         this.stops.add(ibs);
     }
 
-    public static List<BusStop> turnIntoBusStopList(List<ItineraryBusStop> l) {
+    public static List<BusStop> turnIntoBusStopList(List<BusStopRelation> l) {
         if (l == null) {
             throw new NullPointerException();
         }
@@ -299,14 +300,14 @@ public class Itinerary {
         return list;
     }
 
-    public List<ItineraryBusStop> getStops() throws Exception {
+    public List<BusStopRelation> getStops() throws IOException {
         if (this.stops.size() == 0) {
             readStops();
         }
         return stops;
     }
 
-    public void setStops(List<ItineraryBusStop> stops) {
+    public void setStops(List<BusStopRelation> stops) {
         this.stops = stops;
     }
 
@@ -317,9 +318,9 @@ public class Itinerary {
         + "Stops distance variance: " + getStopsDistanceVariance() + "\n");
     }
 
-    private void readStops() throws Exception {
-        ItineraryBusStopRepository itineraryBusStopRepository = ItineraryBusStopRepository.getInstance();
-        itineraryBusStopRepository.readStopSequence("src" + File.separatorChar + "main" + File.separatorChar
+    private void readStops() throws IOException {
+        BusStopRelationRepository busStopRelationRepository = BusStopRelationRepository.getInstance();
+        busStopRelationRepository.readStopSequence("src" + File.separatorChar + "main" + File.separatorChar
                 + "resources" + File.separatorChar + "busData" + File.separatorChar + "itineraries"
                 + File.separatorChar + "stopSequence" + File.separatorChar + this.itineraryId + ".txt");
     }

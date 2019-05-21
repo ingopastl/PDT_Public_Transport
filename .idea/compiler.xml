@@ -20,7 +20,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="PTD_Public_Transport" target="10" />
+      <module name="PTD_Public_Transport" target="12" />
     </bytecodeTargetLevel>
   </component>
 </project>

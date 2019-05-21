@@ -10,6 +10,8 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 import org.apache.http.util.EntityUtils;
 
+import java.io.IOException;
+
 public class HttpManager {
     private static HttpManager instance;
 
@@ -30,7 +32,7 @@ public class HttpManager {
         return instance;
     }
 
-    private String handleResponse(HttpResponse response) throws Exception {
+    private String handleResponse(HttpResponse response) throws IOException {
         HttpEntity entity = response.getEntity();
         String json = EntityUtils.toString(entity, "UTF-8");
         EntityUtils.consume(entity);
@@ -38,13 +40,17 @@ public class HttpManager {
         return json;
     }
 
-    public String requestGet(String url) throws Exception {
+    public String requestGet(String url) throws IOException {
         HttpGet getRequest = new HttpGet(url);
-        return handleResponse(client.execute(getRequest));
+        String response = handleResponse(client.execute(getRequest));
+        getRequest.releaseConnection();
+        return response;
     }
 
-    public String requestPost(String url) throws Exception {
+    public String requestPost(String url) throws IOException {
         HttpPost postRequest = new HttpPost(url);
-        return handleResponse(client.execute(postRequest));
+        String response = handleResponse(client.execute(postRequest));
+        postRequest.releaseConnection();
+        return response;
     }
 }
