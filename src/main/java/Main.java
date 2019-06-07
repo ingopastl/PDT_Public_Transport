@@ -70,7 +70,7 @@ public class Main {
 
             long computingTime = 0;
 
-            int i = 0, previousI = 28;
+            int i = 0, previousI = 9;
             while (true) {
                 try {
                     for (i = previousI; i < 40; i++) {

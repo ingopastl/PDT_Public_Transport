@@ -37,6 +37,10 @@ public class BusStopRelation {
         this.order = order;
     }
 
+    public int getOrder() {
+        return this.order;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
