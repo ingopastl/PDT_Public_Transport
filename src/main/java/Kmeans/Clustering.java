@@ -23,6 +23,10 @@ public class Clustering {
             double[][] means = new double[k][3];
             List<Integer>[] clusters = new ArrayList[k];
 
+            for(int i = 0; i < clusters.length; i++) {
+                clusters[i] = new ArrayList<>();
+            }
+
             for (int i = 0; i < clusterData.size(); i++) {
                 int clusterIndex = Integer.parseInt(clusterData.get(i)[3]);
 

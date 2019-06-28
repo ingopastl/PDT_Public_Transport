@@ -26,7 +26,7 @@ public class Clusters {
     }
 
     //ClusterIndex = Order of the cluster in the array of clusters.
-    public double getPointFromCluster(int clusterIndex, int pointIndex) {
-        return clustersOfIndexes[clusterIndex].get(pointIndex);
+    public double[] getPointFromCluster(int clusterIndex, int positionInsideTheClusterArray) {
+        return points[clustersOfIndexes[clusterIndex].get(positionInsideTheClusterArray)];
     }
 }

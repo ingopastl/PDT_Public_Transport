@@ -14,6 +14,7 @@ import services.osrm.OsrmTripSimulator;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class PTDJMetalProblem extends AbstractDoubleProblem {
@@ -39,7 +40,7 @@ public class PTDJMetalProblem extends AbstractDoubleProblem {
 	}
 
 	private void findStopClusterRelations(Clusters clusters, List<BusStopRelation> stops) {
-		this.stopClusterRelation = new int[clusters.getNumberOfClusters()];
+		this.stopClusterRelation = new int[stops.size()];
 
 		for (int i = 0; i < stops.size(); i++) {
 			double minDistance = Double.MAX_VALUE;
@@ -82,17 +83,17 @@ public class PTDJMetalProblem extends AbstractDoubleProblem {
 		double coef = tc.getRadius() * 0.0000089;
 		DefaultDoubleSolution sol = new DefaultDoubleSolution(this);
 
-		int numberOfClusters = this.clusters.getNumberOfClusters();
-
 		try {
 			List<BusStopRelation> l = tc.getItinerary().getStops();
 			int stopsCount = 0;
+			Random rand = new Random();
 			for (int i = 0; i < getNumberOfVariables(); i++) {
-				
+				int randomN = rand.nextInt(clusters.getClusterSize(stopClusterRelation[stopsCount]));
+				double[] point = clusters.getPointFromCluster(stopClusterRelation[stopsCount], randomN);
 
-				sol.setVariableValue(i ,l.get(stopsCount).getBusStop().getLatitude() + random1);
+				sol.setVariableValue(i ,point[0]);
 				++i;
-				sol.setVariableValue(i ,l.get(stopsCount).getBusStop().getLongitude() + random2);
+				sol.setVariableValue(i ,point[1]);
 				stopsCount++;
 			}
 		} catch (Exception e) {
