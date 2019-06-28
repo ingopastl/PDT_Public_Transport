@@ -1,5 +1,6 @@
 package jmetal;
 
+import Kmeans.Clusters;
 import beans.BusStopRelation;
 import beans.Itinerary;
 
@@ -16,9 +17,11 @@ import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class PTDJMetalProblem extends AbstractDoubleProblem {
+	private int stopClusterRelation[];
+	private Clusters clusters;
 	private TripSimulator tc;
 
-	public PTDJMetalProblem(Itinerary itinerary, int numberOfTrips, int radius) throws IOException {
+	public PTDJMetalProblem(Itinerary itinerary, int numberOfTrips, int radius, Clusters clusters) throws IOException {
 		if (numberOfTrips <= 0) {
 			throw new JMetalException("Number of trips can't be less than or equal to zero");
 		}
@@ -29,7 +32,30 @@ public class PTDJMetalProblem extends AbstractDoubleProblem {
 			throw new JMetalException("Null itinerary object");
 		}
 
+		findStopClusterRelations(clusters, itinerary.getStops());
+
+		this.clusters = clusters;
 		this.tc = new OsrmTripSimulator(itinerary, numberOfTrips, radius);
+	}
+
+	private void findStopClusterRelations(Clusters clusters, List<BusStopRelation> stops) {
+		this.stopClusterRelation = new int[clusters.getNumberOfClusters()];
+
+		for (int i = 0; i < stops.size(); i++) {
+			double minDistance = Double.MAX_VALUE;
+			int closerClusterIndex = 0;
+			for (int j = 0; j < clusters.getNumberOfClusters(); j++) {
+				double[] mean = clusters.getMean(j);
+				double distance = Math.sqrt( Math.pow((stops.get(i).getBusStop().getLatitude() - mean[0]), 2)
+						+ Math.pow((stops.get(i).getBusStop().getLongitude() - mean[1]), 2)
+						+ Math.pow((stops.get(i).getSequenceValue() - mean[2]), 2));
+				if(distance < minDistance) {
+					minDistance = distance;
+					closerClusterIndex = j;
+				}
+			}
+			this.stopClusterRelation[i] = closerClusterIndex;
+		}
 	}
 
 	@Override
@@ -55,12 +81,15 @@ public class PTDJMetalProblem extends AbstractDoubleProblem {
 	public DoubleSolution createSolution() {
 		double coef = tc.getRadius() * 0.0000089;
 		DefaultDoubleSolution sol = new DefaultDoubleSolution(this);
+
+		int numberOfClusters = this.clusters.getNumberOfClusters();
+
 		try {
 			List<BusStopRelation> l = tc.getItinerary().getStops();
 			int stopsCount = 0;
 			for (int i = 0; i < getNumberOfVariables(); i++) {
-				double random1 = ThreadLocalRandom.current().nextDouble(-coef, coef);
-				double random2 = ThreadLocalRandom.current().nextDouble(-coef, coef);
+				
+
 				sol.setVariableValue(i ,l.get(stopsCount).getBusStop().getLatitude() + random1);
 				++i;
 				sol.setVariableValue(i ,l.get(stopsCount).getBusStop().getLongitude() + random2);

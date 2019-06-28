@@ -1,3 +1,4 @@
+import Kmeans.Clustering;
 import beans.Itinerary;
 
 import jmetal.*;
@@ -58,7 +59,7 @@ public class Main {
             SelectionOperator<List<DoubleSolution>, DoubleSolution> selection;
 
             Itinerary iti = busLineRepository.getByID("423032").getItineraries().get(0);
-            problem = new PTDJMetalProblem(iti, 30, 800);
+            problem = new PTDJMetalProblem(iti, 30, 800, new Clustering().kMeans(10, 100));
 
             double crossoverProbability = 1.0;
             crossover = new PublicTransportNetworkCrossover(crossoverProbability);
