@@ -1,4 +1,5 @@
 import Kmeans.Clustering;
+import Kmeans.Clusters;
 import beans.Itinerary;
 
 import jmetal.*;
@@ -11,7 +12,6 @@ import org.uma.jmetal.operator.CrossoverOperator;
 import org.uma.jmetal.operator.MutationOperator;
 import org.uma.jmetal.operator.SelectionOperator;
 import org.uma.jmetal.operator.impl.selection.BinaryTournamentSelection;
-import org.uma.jmetal.problem.Problem;
 import org.uma.jmetal.solution.DoubleSolution;
 import org.uma.jmetal.solution.Solution;
 import org.uma.jmetal.util.AlgorithmRunner;
@@ -52,30 +52,34 @@ public class Main {
                     + "resources" + File.separatorChar + "busData" + File.separatorChar + "itineraries"
                     + File.separatorChar + "itineraries.txt");
 
-            Problem<DoubleSolution> problem;
+            PTDJMetalProblem problem;
             Algorithm<List<DoubleSolution>> algorithm;
             CrossoverOperator<DoubleSolution> crossover;
             MutationOperator<DoubleSolution> mutation;
             SelectionOperator<List<DoubleSolution>, DoubleSolution> selection;
 
             Itinerary iti = busLineRepository.getByID("423032").getItineraries().get(0);
-            problem = new PTDJMetalProblem(iti, 30, 800, new Clustering().kMeans(10, 100));
+            Clusters clusters = new Clustering().kMeans(10, 100);
 
+            int walkingRadius = 800;
+            int localSearchRadius = 2000;
+
+            problem = new PTDJMetalProblem(iti, 4, walkingRadius, localSearchRadius, clusters);
             double crossoverProbability = 1.0;
             crossover = new PublicTransportNetworkCrossover(crossoverProbability);
             double mutationProbability = 1.0 / problem.getNumberOfVariables();
-            mutation = new PublicTransportNetworkMutation(mutationProbability);
+            mutation = new PublicTransportNetworkMutation(mutationProbability, localSearchRadius, clusters, problem.getStopClusterRelation());
             selection = new BinaryTournamentSelection<>();
 
             List<DoubleSolution> initialPopulation;
 
             long computingTime = 0;
 
-            int i = 0, previousI = 9;
+            int i = 0, previousI = 0;
             while (true) {
                 try {
-                    for (i = previousI; i < 40; i++) {
-                        initialPopulation = loadInitialPopulation((PTDJMetalProblem) problem);
+                    for (i = previousI; i < 10; i++) {
+                        initialPopulation = loadInitialPopulation(problem);
 
                         algorithm = new NSGAIIIBuilder<>(problem).setPopulationSize(92).setMaxIterations(10).setCrossoverOperator(crossover).setMutationOperator(mutation)
                                 .setSelectionOperator(selection).setInitialPopulation(initialPopulation).build();

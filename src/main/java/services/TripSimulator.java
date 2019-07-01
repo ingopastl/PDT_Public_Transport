@@ -17,13 +17,13 @@ public abstract class TripSimulator {
     private List<Double> upperLimit;
     private int numberOfVariables;
     private int numberOfTrips;
-    private int radius;
+    private int walkingRadius;
 
-    public TripSimulator(Itinerary itinerary, int numberOfTrips, int radius) throws IOException {
+    public TripSimulator(Itinerary itinerary, int numberOfTrips, int walkingRadius) throws IOException {
         this.itinerary = itinerary;
         this.numberOfVariables = itinerary.getStops().size() * 2;
         this.numberOfTrips = numberOfTrips;
-        this.radius = radius;
+        this.walkingRadius = walkingRadius;
 
         double[] boundaries = itinerary.getBounds();
         System.out.println(boundaries[0]);
@@ -75,12 +75,12 @@ public abstract class TripSimulator {
         this.numberOfTrips = numberOfTrips;
     }
 
-    public int getRadius() {
-        return radius;
+    public int getWalkingRadius() {
+        return walkingRadius;
     }
 
-    public void setRadius(int radius) {
-        this.radius = radius;
+    public void setWalkingRadius(int walkingRadius) {
+        this.walkingRadius = walkingRadius;
     }
 
     protected double[] randomLocationInsideBounds(Itinerary itinerary) throws Exception {
@@ -90,7 +90,7 @@ public abstract class TripSimulator {
         // between 110.567km at the equator and 111.699km at the poles)
         // 1km in degree = 1 / 111.32km = 0.0089
         // 1m in degree = 0.0089 / 1000 = 0.0000089
-        double coef = this.radius * 0.0000089;
+        double coef = this.walkingRadius * 0.0000089;
 
         double highestLat = bounds[0] + coef;
         double lowestLat = bounds[1] - coef;

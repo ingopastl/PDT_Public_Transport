@@ -2,9 +2,9 @@
 <!DOCTYPE log SYSTEM "logger.dtd">
 <log>
 <record>
-  <date>2019-06-28T18:12:37.145581Z</date>
-  <millis>1561745557145</millis>
-  <nanos>581000</nanos>
+  <date>2019-07-01T19:56:03.985689600Z</date>
+  <millis>1562010963985</millis>
+  <nanos>689600</nanos>
   <sequence>0</sequence>
   <logger>org.uma.jmetal.util.JMetalLogger</logger>
   <level>INFO</level>
@@ -14,9 +14,9 @@
   <message>Loggers configured with null</message>
 </record>
 <record>
-  <date>2019-06-28T18:12:37.400289Z</date>
-  <millis>1561745557400</millis>
-  <nanos>289000</nanos>
+  <date>2019-07-01T19:56:04.014673800Z</date>
+  <millis>1562010964014</millis>
+  <nanos>673800</nanos>
   <sequence>1</sequence>
   <logger>org.uma.jmetal.util.JMetalLogger</logger>
   <level>INFO</level>
@@ -25,4 +25,561 @@
   <thread>1</thread>
   <message>rpssize: 91</message>
 </record>
-</log>
+<record>
+  <date>2019-07-01T20:00:11.367211900Z</date>
+  <millis>1562011211367</millis>
+  <nanos>211900</nanos>
+  <sequence>2</sequence>
+  <logger>org.uma.jmetal.util.JMetalLogger</logger>
+  <level>INFO</level>
+  <class>Main</class>
+  <method>printFinalSolutionSet</method>
+  <thread>1</thread>
+  <message>Random seed: 1562010963958</message>
+</record>
+<record>
+  <date>2019-07-01T20:00:11.368211100Z</date>
+  <millis>1562011211368</millis>
+  <nanos>211100</nanos>
+  <sequence>3</sequence>
+  <logger>org.uma.jmetal.util.JMetalLogger</logger>
+  <level>INFO</level>
+  <class>Main</class>
+  <method>printFinalSolutionSet</method>
+  <thread>1</thread>
+  <message>Objectives values have been written to file FUN.tsv</message>
+</record>
+<record>
+  <date>2019-07-01T20:00:11.370209900Z</date>
+  <millis>1562011211370</millis>
+  <nanos>209900</nanos>
+  <sequence>4</sequence>
+  <logger>org.uma.jmetal.util.JMetalLogger</logger>
+  <level>INFO</level>
+  <class>Main</class>
+  <method>printFinalSolutionSet</method>
+  <thread>1</thread>
+  <message>Variables values have been written to file VAR.tsv</message>
+</record>
+<record>
+  <date>2019-07-01T20:00:11.401192600Z</date>
+  <millis>1562011211401</millis>
+  <nanos>192600</nanos>
+  <sequence>5</sequence>
+  <logger>org.uma.jmetal.util.JMetalLogger</logger>
+  <level>INFO</level>
+  <class>Main</class>
+  <method>printQualityIndicators</method>
+  <thread>1</thread>
+  <message>
+10
+</message>
+</record>
+<record>
+  <date>2019-07-01T20:00:11.420181200Z</date>
+  <millis>1562011211420</millis>
+  <nanos>181200</nanos>
+  <sequence>6</sequence>
+  <logger>org.uma.jmetal.util.JMetalLogger</logger>
+  <level>INFO</level>
+  <class>jmetal.NSGAIII</class>
+  <method>&lt;init&gt;</method>
+  <thread>1</thread>
+  <message>rpssize: 91</message>
+</record>
+<record>
+  <date>2019-07-01T20:03:20.210505500Z</date>
+  <millis>1562011400210</millis>
+  <nanos>505500</nanos>
+  <sequence>7</sequence>
+  <logger>org.uma.jmetal.util.JMetalLogger</logger>
+  <level>INFO</level>
+  <class>Main</class>
+  <method>printFinalSolutionSet</method>
+  <thread>1</thread>
+  <message>Random seed: 1562010963958</message>
+</record>
+<record>
+  <date>2019-07-01T20:03:20.210505500Z</date>
+  <millis>1562011400210</millis>
+  <nanos>505500</nanos>
+  <sequence>8</sequence>
+  <logger>org.uma.jmetal.util.JMetalLogger</logger>
+  <level>INFO</level>
+  <class>Main</class>
+  <method>printFinalSolutionSet</method>
+  <thread>1</thread>
+  <message>Objectives values have been written to file FUN.tsv</message>
+</record>
+<record>
+  <date>2019-07-01T20:03:20.210505500Z</date>
+  <millis>1562011400210</millis>
+  <nanos>505500</nanos>
+  <sequence>9</sequence>
+  <logger>org.uma.jmetal.util.JMetalLogger</logger>
+  <level>INFO</level>
+  <class>Main</class>
+  <method>printFinalSolutionSet</method>
+  <thread>1</thread>
+  <message>Variables values have been written to file VAR.tsv</message>
+</record>
+<record>
+  <date>2019-07-01T20:03:20.218496500Z</date>
+  <millis>1562011400218</millis>
+  <nanos>496500</nanos>
+  <sequence>10</sequence>
+  <logger>org.uma.jmetal.util.JMetalLogger</logger>
+  <level>INFO</level>
+  <class>Main</class>
+  <method>printQualityIndicators</method>
+  <thread>1</thread>
+  <message>
+20
+</message>
+</record>
+<record>
+  <date>2019-07-01T20:03:20.225479Z</date>
+  <millis>1562011400225</millis>
+  <nanos>479000</nanos>
+  <sequence>11</sequence>
+  <logger>org.uma.jmetal.util.JMetalLogger</logger>
+  <level>INFO</level>
+  <class>jmetal.NSGAIII</class>
+  <method>&lt;init&gt;</method>
+  <thread>1</thread>
+  <message>rpssize: 91</message>
+</record>
+<record>
+  <date>2019-07-01T20:05:57.284654600Z</date>
+  <millis>1562011557284</millis>
+  <nanos>654600</nanos>
+  <sequence>12</sequence>
+  <logger>org.uma.jmetal.util.JMetalLogger</logger>
+  <level>INFO</level>
+  <class>Main</class>
+  <method>printFinalSolutionSet</method>
+  <thread>1</thread>
+  <message>Random seed: 1562010963958</message>
+</record>
+<record>
+  <date>2019-07-01T20:05:57.284654600Z</date>
+  <millis>1562011557284</millis>
+  <nanos>654600</nanos>
+  <sequence>13</sequence>
+  <logger>org.uma.jmetal.util.JMetalLogger</logger>
+  <level>INFO</level>
+  <class>Main</class>
+  <method>printFinalSolutionSet</method>
+  <thread>1</thread>
+  <message>Objectives values have been written to file FUN.tsv</message>
+</record>
+<record>
+  <date>2019-07-01T20:05:57.284654600Z</date>
+  <millis>1562011557284</millis>
+  <nanos>654600</nanos>
+  <sequence>14</sequence>
+  <logger>org.uma.jmetal.util.JMetalLogger</logger>
+  <level>INFO</level>
+  <class>Main</class>
+  <method>printFinalSolutionSet</method>
+  <thread>1</thread>
+  <message>Variables values have been written to file VAR.tsv</message>
+</record>
+<record>
+  <date>2019-07-01T20:05:57.291654700Z</date>
+  <millis>1562011557291</millis>
+  <nanos>654700</nanos>
+  <sequence>15</sequence>
+  <logger>org.uma.jmetal.util.JMetalLogger</logger>
+  <level>INFO</level>
+  <class>Main</class>
+  <method>printQualityIndicators</method>
+  <thread>1</thread>
+  <message>
+30
+</message>
+</record>
+<record>
+  <date>2019-07-01T20:05:57.298651200Z</date>
+  <millis>1562011557298</millis>
+  <nanos>651200</nanos>
+  <sequence>16</sequence>
+  <logger>org.uma.jmetal.util.JMetalLogger</logger>
+  <level>INFO</level>
+  <class>jmetal.NSGAIII</class>
+  <method>&lt;init&gt;</method>
+  <thread>1</thread>
+  <message>rpssize: 91</message>
+</record>
+<record>
+  <date>2019-07-01T20:08:30.113243800Z</date>
+  <millis>1562011710113</millis>
+  <nanos>243800</nanos>
+  <sequence>17</sequence>
+  <logger>org.uma.jmetal.util.JMetalLogger</logger>
+  <level>INFO</level>
+  <class>Main</class>
+  <method>printFinalSolutionSet</method>
+  <thread>1</thread>
+  <message>Random seed: 1562010963958</message>
+</record>
+<record>
+  <date>2019-07-01T20:08:30.114229300Z</date>
+  <millis>1562011710114</millis>
+  <nanos>229300</nanos>
+  <sequence>18</sequence>
+  <logger>org.uma.jmetal.util.JMetalLogger</logger>
+  <level>INFO</level>
+  <class>Main</class>
+  <method>printFinalSolutionSet</method>
+  <thread>1</thread>
+  <message>Objectives values have been written to file FUN.tsv</message>
+</record>
+<record>
+  <date>2019-07-01T20:08:30.114229300Z</date>
+  <millis>1562011710114</millis>
+  <nanos>229300</nanos>
+  <sequence>19</sequence>
+  <logger>org.uma.jmetal.util.JMetalLogger</logger>
+  <level>INFO</level>
+  <class>Main</class>
+  <method>printFinalSolutionSet</method>
+  <thread>1</thread>
+  <message>Variables values have been written to file VAR.tsv</message>
+</record>
+<record>
+  <date>2019-07-01T20:08:30.122225600Z</date>
+  <millis>1562011710122</millis>
+  <nanos>225600</nanos>
+  <sequence>20</sequence>
+  <logger>org.uma.jmetal.util.JMetalLogger</logger>
+  <level>INFO</level>
+  <class>Main</class>
+  <method>printQualityIndicators</method>
+  <thread>1</thread>
+  <message>
+40
+</message>
+</record>
+<record>
+  <date>2019-07-01T20:08:30.128233500Z</date>
+  <millis>1562011710128</millis>
+  <nanos>233500</nanos>
+  <sequence>21</sequence>
+  <logger>org.uma.jmetal.util.JMetalLogger</logger>
+  <level>INFO</level>
+  <class>jmetal.NSGAIII</class>
+  <method>&lt;init&gt;</method>
+  <thread>1</thread>
+  <message>rpssize: 91</message>
+</record>
+<record>
+  <date>2019-07-01T20:11:24.205434900Z</date>
+  <millis>1562011884205</millis>
+  <nanos>434900</nanos>
+  <sequence>22</sequence>
+  <logger>org.uma.jmetal.util.JMetalLogger</logger>
+  <level>INFO</level>
+  <class>Main</class>
+  <method>printFinalSolutionSet</method>
+  <thread>1</thread>
+  <message>Random seed: 1562010963958</message>
+</record>
+<record>
+  <date>2019-07-01T20:11:24.206451700Z</date>
+  <millis>1562011884206</millis>
+  <nanos>451700</nanos>
+  <sequence>23</sequence>
+  <logger>org.uma.jmetal.util.JMetalLogger</logger>
+  <level>INFO</level>
+  <class>Main</class>
+  <method>printFinalSolutionSet</method>
+  <thread>1</thread>
+  <message>Objectives values have been written to file FUN.tsv</message>
+</record>
+<record>
+  <date>2019-07-01T20:11:24.206451700Z</date>
+  <millis>1562011884206</millis>
+  <nanos>451700</nanos>
+  <sequence>24</sequence>
+  <logger>org.uma.jmetal.util.JMetalLogger</logger>
+  <level>INFO</level>
+  <class>Main</class>
+  <method>printFinalSolutionSet</method>
+  <thread>1</thread>
+  <message>Variables values have been written to file VAR.tsv</message>
+</record>
+<record>
+  <date>2019-07-01T20:11:24.213442500Z</date>
+  <millis>1562011884213</millis>
+  <nanos>442500</nanos>
+  <sequence>25</sequence>
+  <logger>org.uma.jmetal.util.JMetalLogger</logger>
+  <level>INFO</level>
+  <class>Main</class>
+  <method>printQualityIndicators</method>
+  <thread>1</thread>
+  <message>
+50
+</message>
+</record>
+<record>
+  <date>2019-07-01T20:11:24.219439400Z</date>
+  <millis>1562011884219</millis>
+  <nanos>439400</nanos>
+  <sequence>26</sequence>
+  <logger>org.uma.jmetal.util.JMetalLogger</logger>
+  <level>INFO</level>
+  <class>jmetal.NSGAIII</class>
+  <method>&lt;init&gt;</method>
+  <thread>1</thread>
+  <message>rpssize: 91</message>
+</record>
+<record>
+  <date>2019-07-01T20:14:02.181332Z</date>
+  <millis>1562012042181</millis>
+  <nanos>332000</nanos>
+  <sequence>27</sequence>
+  <logger>org.uma.jmetal.util.JMetalLogger</logger>
+  <level>INFO</level>
+  <class>Main</class>
+  <method>printFinalSolutionSet</method>
+  <thread>1</thread>
+  <message>Random seed: 1562010963958</message>
+</record>
+<record>
+  <date>2019-07-01T20:14:02.181332Z</date>
+  <millis>1562012042181</millis>
+  <nanos>332000</nanos>
+  <sequence>28</sequence>
+  <logger>org.uma.jmetal.util.JMetalLogger</logger>
+  <level>INFO</level>
+  <class>Main</class>
+  <method>printFinalSolutionSet</method>
+  <thread>1</thread>
+  <message>Objectives values have been written to file FUN.tsv</message>
+</record>
+<record>
+  <date>2019-07-01T20:14:02.181332Z</date>
+  <millis>1562012042181</millis>
+  <nanos>332000</nanos>
+  <sequence>29</sequence>
+  <logger>org.uma.jmetal.util.JMetalLogger</logger>
+  <level>INFO</level>
+  <class>Main</class>
+  <method>printFinalSolutionSet</method>
+  <thread>1</thread>
+  <message>Variables values have been written to file VAR.tsv</message>
+</record>
+<record>
+  <date>2019-07-01T20:14:02.189328600Z</date>
+  <millis>1562012042189</millis>
+  <nanos>328600</nanos>
+  <sequence>30</sequence>
+  <logger>org.uma.jmetal.util.JMetalLogger</logger>
+  <level>INFO</level>
+  <class>Main</class>
+  <method>printQualityIndicators</method>
+  <thread>1</thread>
+  <message>
+60
+</message>
+</record>
+<record>
+  <date>2019-07-01T20:14:02.195324400Z</date>
+  <millis>1562012042195</millis>
+  <nanos>324400</nanos>
+  <sequence>31</sequence>
+  <logger>org.uma.jmetal.util.JMetalLogger</logger>
+  <level>INFO</level>
+  <class>jmetal.NSGAIII</class>
+  <method>&lt;init&gt;</method>
+  <thread>1</thread>
+  <message>rpssize: 91</message>
+</record>
+<record>
+  <date>2019-07-01T20:17:23.655961100Z</date>
+  <millis>1562012243655</millis>
+  <nanos>961100</nanos>
+  <sequence>32</sequence>
+  <logger>org.uma.jmetal.util.JMetalLogger</logger>
+  <level>INFO</level>
+  <class>Main</class>
+  <method>printFinalSolutionSet</method>
+  <thread>1</thread>
+  <message>Random seed: 1562010963958</message>
+</record>
+<record>
+  <date>2019-07-01T20:17:23.655961100Z</date>
+  <millis>1562012243655</millis>
+  <nanos>961100</nanos>
+  <sequence>33</sequence>
+  <logger>org.uma.jmetal.util.JMetalLogger</logger>
+  <level>INFO</level>
+  <class>Main</class>
+  <method>printFinalSolutionSet</method>
+  <thread>1</thread>
+  <message>Objectives values have been written to file FUN.tsv</message>
+</record>
+<record>
+  <date>2019-07-01T20:17:23.656960700Z</date>
+  <millis>1562012243656</millis>
+  <nanos>960700</nanos>
+  <sequence>34</sequence>
+  <logger>org.uma.jmetal.util.JMetalLogger</logger>
+  <level>INFO</level>
+  <class>Main</class>
+  <method>printFinalSolutionSet</method>
+  <thread>1</thread>
+  <message>Variables values have been written to file VAR.tsv</message>
+</record>
+<record>
+  <date>2019-07-01T20:17:23.667953800Z</date>
+  <millis>1562012243667</millis>
+  <nanos>953800</nanos>
+  <sequence>35</sequence>
+  <logger>org.uma.jmetal.util.JMetalLogger</logger>
+  <level>INFO</level>
+  <class>Main</class>
+  <method>printQualityIndicators</method>
+  <thread>1</thread>
+  <message>
+70
+</message>
+</record>
+<record>
+  <date>2019-07-01T20:17:23.674951300Z</date>
+  <millis>1562012243674</millis>
+  <nanos>951300</nanos>
+  <sequence>36</sequence>
+  <logger>org.uma.jmetal.util.JMetalLogger</logger>
+  <level>INFO</level>
+  <class>jmetal.NSGAIII</class>
+  <method>&lt;init&gt;</method>
+  <thread>1</thread>
+  <message>rpssize: 91</message>
+</record>
+<record>
+  <date>2019-07-01T20:19:50.605373300Z</date>
+  <millis>1562012390605</millis>
+  <nanos>373300</nanos>
+  <sequence>37</sequence>
+  <logger>org.uma.jmetal.util.JMetalLogger</logger>
+  <level>INFO</level>
+  <class>Main</class>
+  <method>printFinalSolutionSet</method>
+  <thread>1</thread>
+  <message>Random seed: 1562010963958</message>
+</record>
+<record>
+  <date>2019-07-01T20:19:50.606360500Z</date>
+  <millis>1562012390606</millis>
+  <nanos>360500</nanos>
+  <sequence>38</sequence>
+  <logger>org.uma.jmetal.util.JMetalLogger</logger>
+  <level>INFO</level>
+  <class>Main</class>
+  <method>printFinalSolutionSet</method>
+  <thread>1</thread>
+  <message>Objectives values have been written to file FUN.tsv</message>
+</record>
+<record>
+  <date>2019-07-01T20:19:50.606360500Z</date>
+  <millis>1562012390606</millis>
+  <nanos>360500</nanos>
+  <sequence>39</sequence>
+  <logger>org.uma.jmetal.util.JMetalLogger</logger>
+  <level>INFO</level>
+  <class>Main</class>
+  <method>printFinalSolutionSet</method>
+  <thread>1</thread>
+  <message>Variables values have been written to file VAR.tsv</message>
+</record>
+<record>
+  <date>2019-07-01T20:19:50.613356100Z</date>
+  <millis>1562012390613</millis>
+  <nanos>356100</nanos>
+  <sequence>40</sequence>
+  <logger>org.uma.jmetal.util.JMetalLogger</logger>
+  <level>INFO</level>
+  <class>Main</class>
+  <method>printQualityIndicators</method>
+  <thread>1</thread>
+  <message>
+80
+</message>
+</record>
+<record>
+  <date>2019-07-01T20:19:50.620364500Z</date>
+  <millis>1562012390620</millis>
+  <nanos>364500</nanos>
+  <sequence>41</sequence>
+  <logger>org.uma.jmetal.util.JMetalLogger</logger>
+  <level>INFO</level>
+  <class>jmetal.NSGAIII</class>
+  <method>&lt;init&gt;</method>
+  <thread>1</thread>
+  <message>rpssize: 91</message>
+</record>
+<record>
+  <date>2019-07-01T20:22:08.937680400Z</date>
+  <millis>1562012528937</millis>
+  <nanos>680400</nanos>
+  <sequence>42</sequence>
+  <logger>org.uma.jmetal.util.JMetalLogger</logger>
+  <level>INFO</level>
+  <class>Main</class>
+  <method>printFinalSolutionSet</method>
+  <thread>1</thread>
+  <message>Random seed: 1562010963958</message>
+</record>
+<record>
+  <date>2019-07-01T20:22:08.937680400Z</date>
+  <millis>1562012528937</millis>
+  <nanos>680400</nanos>
+  <sequence>43</sequence>
+  <logger>org.uma.jmetal.util.JMetalLogger</logger>
+  <level>INFO</level>
+  <class>Main</class>
+  <method>printFinalSolutionSet</method>
+  <thread>1</thread>
+  <message>Objectives values have been written to file FUN.tsv</message>
+</record>
+<record>
+  <date>2019-07-01T20:22:08.938680Z</date>
+  <millis>1562012528938</millis>
+  <nanos>680000</nanos>
+  <sequence>44</sequence>
+  <logger>org.uma.jmetal.util.JMetalLogger</logger>
+  <level>INFO</level>
+  <class>Main</class>
+  <method>printFinalSolutionSet</method>
+  <thread>1</thread>
+  <message>Variables values have been written to file VAR.tsv</message>
+</record>
+<record>
+  <date>2019-07-01T20:22:09.006641Z</date>
+  <millis>1562012529006</millis>
+  <nanos>641000</nanos>
+  <sequence>45</sequence>
+  <logger>org.uma.jmetal.util.JMetalLogger</logger>
+  <level>INFO</level>
+  <class>Main</class>
+  <method>printQualityIndicators</method>
+  <thread>1</thread>
+  <message>
+90
+</message>
+</record>
+<record>
+  <date>2019-07-01T20:22:09.012637600Z</date>
+  <millis>1562012529012</millis>
+  <nanos>637600</nanos>
+  <sequence>46</sequence>
+  <logger>org.uma.jmetal.util.JMetalLogger</logger>
+  <level>INFO</level>
+  <class>jmetal.NSGAIII</class>
+  <method>&lt;init&gt;</method>
+  <thread>1</thread>
+  <message>rpssize: 91</message>
+</record>

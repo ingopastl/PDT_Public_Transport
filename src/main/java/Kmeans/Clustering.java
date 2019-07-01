@@ -16,7 +16,8 @@ public class Clustering {
         File f = new File("clusteredNodes" + k + "K" + maxIterations + "I" + ".txt");
         if (f.exists()) {
             FileReader clusterFilereader = new FileReader(f);
-            CSVReader clusterCsvReader = new CSVReaderBuilder(clusterFilereader).withSkipLines(1).build();
+            BufferedReader clusterBufferedReader = new BufferedReader(clusterFilereader);
+            CSVReader clusterCsvReader = new CSVReaderBuilder(clusterBufferedReader).withSkipLines(1).build();
             List<String[]> clusterData = clusterCsvReader.readAll();
 
             double[][] points = new double[clusterData.size()][3];
@@ -35,6 +36,7 @@ public class Clustering {
                 points[i][2] = Double.parseDouble(clusterData.get(i)[2]);
 
                 clusters[clusterIndex].add(i);
+                //System.out.println(i);
             }
             updateMeans(clusters, means, points);
 
@@ -51,7 +53,7 @@ public class Clustering {
             points[i][1] = Double.parseDouble(csvData.get(i)[1]);
             points[i][2] = Double.parseDouble(csvData.get(i)[2]);
 
-            System.out.println(i);
+            //System.out.println(i);
         }
 
         // Calculate initial means

@@ -66,6 +66,8 @@ public class NSGAIII<S extends Solution<?>> extends AbstractGeneticAlgorithm<S, 
 
     @Override
     protected List<S> createInitialPopulation() {
+        System.out.println("Creating initial population");
+
         List<S> population = new ArrayList<>(getMaxPopulationSize());
         PTDJMetalProblem ptdjMetalProblem = (PTDJMetalProblem) getProblem();
         S itinerarySolution = (S) ptdjMetalProblem.getOriginalItinerarySolution();
@@ -198,6 +200,7 @@ public class NSGAIII<S extends Solution<?>> extends AbstractGeneticAlgorithm<S, 
 
     @Override
     public void run() {
+        System.out.println("Started NSGAIII");
         List<S> offspringPopulation;
         List<S> matingPopulation;
 

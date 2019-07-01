@@ -10,8 +10,8 @@ import java.io.IOException;
 
 public class OsrmTripSimulator extends TripSimulator {
 
-    public OsrmTripSimulator(Itinerary itinerary, int numberOfTrips, int radius) throws IOException {
-        super(itinerary, numberOfTrips, radius);
+    public OsrmTripSimulator(Itinerary itinerary, int numberOfTrips, int walkingRadius) throws IOException {
+        super(itinerary, numberOfTrips, walkingRadius);
     }
 
     public Double[] evaluate(Double[] vars) throws Exception {
