@@ -234,7 +234,7 @@ public class NSGAIII<S extends Solution<?>> extends AbstractGeneticAlgorithm<S, 
 
     private void saveProgress() {
         try {
-            File f = new File("src" + File.separatorChar + "main" + File.separatorChar + "resources" + File.separatorChar + "lastPopulation.txt");
+            File f = new File("results" + File.separatorChar + "lastPopulation.txt");
             FileWriter fw = new FileWriter(f);
             BufferedWriter bw = new BufferedWriter(fw);
 

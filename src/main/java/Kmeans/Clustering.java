@@ -40,6 +40,7 @@ public class Clustering {
             }
             updateMeans(clusters, means, points);
 
+            plotClusters(clusters, points);
             return new Clusters(points, means, clusters);
         }
 
@@ -93,9 +94,10 @@ public class Clustering {
         }
 
         System.out.println("\nIterations taken = " + iterations);
+        System.exit(0);
         createCSV(oldClusters, points, k, maxIterations);
-        //plotClusters(oldClusters, points);
 
+        plotClusters(oldClusters, points);
         return new Clusters(points, means, oldClusters);
     }
 
@@ -184,7 +186,7 @@ public class Clustering {
         return true;
     }
 
-    private void plotClusters(List<Integer>[] oldClusters, double[][] points) throws Exception {
+    private void plotClusters(List<Integer>[] oldClusters, double[][] points) throws IOException {
         File f = new File("json.txt");
         FileWriter fw = new FileWriter(f);
         BufferedWriter bw = new BufferedWriter(fw);

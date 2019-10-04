@@ -31,6 +31,7 @@ import repositories.BusStopRepository;
 import repositories.ItineraryRepository;
 
 import java.io.*;
+import java.net.ConnectException;
 import java.net.SocketTimeoutException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -59,12 +60,12 @@ public class Main {
             SelectionOperator<List<DoubleSolution>, DoubleSolution> selection;
 
             Itinerary iti = busLineRepository.getByID("423032").getItineraries().get(0);
-            Clusters clusters = new Clustering().kMeans(10, 100);
+            Clusters clusters = new Clustering().kMeans(10, 200);
 
             int walkingRadius = 800;
             int localSearchRadius = 2000;
 
-            problem = new PTDJMetalProblem(iti, 4, walkingRadius, localSearchRadius, clusters);
+            problem = new PTDJMetalProblem(iti, 30, walkingRadius, localSearchRadius, clusters);
             double crossoverProbability = 1.0;
             crossover = new PublicTransportNetworkCrossover(crossoverProbability);
             double mutationProbability = 1.0 / problem.getNumberOfVariables();
@@ -75,10 +76,10 @@ public class Main {
 
             long computingTime = 0;
 
-            int i = 0, previousI = 0;
+            int i = 0, previousI = 8;
             while (true) {
                 try {
-                    for (i = previousI; i < 10; i++) {
+                    for (i = previousI; i < 40; i++) {
                         initialPopulation = loadInitialPopulation(problem);
 
                         algorithm = new NSGAIIIBuilder<>(problem).setPopulationSize(92).setMaxIterations(10).setCrossoverOperator(crossover).setMutationOperator(mutation)
@@ -92,7 +93,7 @@ public class Main {
                         printQualityIndicators(population, (i + 1) * 10);
                     }
                     break;
-                } catch (SocketTimeoutException | HttpHostConnectException e) {
+                } catch (SocketTimeoutException | ConnectException e) {
                     previousI = i;
                     System.out.println(e.toString());
                 }
@@ -105,11 +106,11 @@ public class Main {
     }
 
     private static void printFinalSolutionSet(List<? extends Solution<?>> population, int totalProgress) {
-        new File("results" + File.separatorChar + totalProgress).mkdirs();
+        new File("results" + File.separatorChar + "paretoFronts" + File.separatorChar + totalProgress).mkdirs();
 
         new SolutionListOutput(population).setSeparator("\t")
-                .setVarFileOutputContext(new DefaultFileOutputContext("results" + File.separatorChar + totalProgress + File.separatorChar + "VAR.tsv"))
-                .setFunFileOutputContext(new DefaultFileOutputContext("results" + File.separatorChar + totalProgress + File.separatorChar + "FUN.tsv")).print();
+                .setVarFileOutputContext(new DefaultFileOutputContext("results" + File.separatorChar + "paretoFronts" + File.separatorChar + totalProgress + File.separatorChar + "VAR.tsv"))
+                .setFunFileOutputContext(new DefaultFileOutputContext("results" + File.separatorChar + "paretoFronts" + File.separatorChar + totalProgress + File.separatorChar + "FUN.tsv")).print();
 
         JMetalLogger.logger.info("Random seed: " + JMetalRandom.getInstance().getSeed());
         JMetalLogger.logger.info("Objectives values have been written to file FUN.tsv");
@@ -136,25 +137,25 @@ public class Main {
         progress += hypervolume.evaluate(normalizedPopulation);
         //qualityIndicator += "Error ratio     : " + new ErrorRatio<>(frontRef).evaluate(population) + "\n";
 
-        File f = new File("QualityIndicators.txt");
+        File f = new File("results" + File.separatorChar + "QualityIndicators.txt");
         if (!f.exists()) {
             f.createNewFile();
         }
 
-        File f2 = new File("Progress.txt");
+        File f2 = new File("results" + File.separatorChar + "Progress.txt");
         if (!f2.exists()) {
             f2.createNewFile();
         }
 
-        Files.write(Paths.get("QualityIndicators.txt"), qualityIndicator.getBytes(), StandardOpenOption.APPEND);
-        Files.write(Paths.get("Progress.txt"), progress.getBytes(), StandardOpenOption.APPEND);
+        Files.write(Paths.get("results" + File.separatorChar + "QualityIndicators.txt"), qualityIndicator.getBytes(), StandardOpenOption.APPEND);
+        Files.write(Paths.get("results" + File.separatorChar + "Progress.txt"), progress.getBytes(), StandardOpenOption.APPEND);
 
         JMetalLogger.logger.info(qualityIndicator);
     }
 
     private static List<DoubleSolution> loadInitialPopulation(PTDJMetalProblem problem) throws IOException {
         List<DoubleSolution> initialPopulation = new ArrayList<>();
-        File f = new File("src" + File.separatorChar + "main" + File.separatorChar + "resources" + File.separatorChar + "lastPopulation.txt");
+        File f = new File("results" + File.separatorChar + "lastPopulation.txt");
 
         if (f.exists()) {
             FileReader fr = new FileReader(f);
