@@ -25,7 +25,7 @@ public class BusStopRepository {
         return instance;
     }
 
-    public void readStopsCSV(String filePath) throws IOException {
+    public void readCSV(String filePath) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(filePath), StandardCharsets.ISO_8859_1));
 
         String currentLine = br.readLine(); //Pega o cabeçalho.

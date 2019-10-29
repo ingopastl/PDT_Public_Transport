@@ -40,11 +40,23 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
+
+        /*
+        * Cria instâncias dos repositórios para armazenar os dados da aplicação.
+        */
+
         BusStopRepository busStopRepository = BusStopRepository.getInstance();
         BusLineRepository busLineRepository = BusLineRepository.getInstance();
         ItineraryRepository itineraryRepository = ItineraryRepository.getInstance();
         try{
-            busStopRepository.readStopsCSV("src" + File.separatorChar + "main" + File.separatorChar
+
+            /*
+            * Leitura dos dados na base de dados.
+            * File.separatorChar equivale a um // ou \\, ele é usado para que a aplicação rode tanto em windows quanto
+            * em linux sem a necessidade de alterações no código.
+             */
+
+            busStopRepository.readCSV("src" + File.separatorChar + "main" + File.separatorChar
                     + "resources" + File.separatorChar + "SPTrans_Data" + File.separatorChar + "stops.txt");
             busLineRepository.readCSV("src" + File.separatorChar + "main" + File.separatorChar
                     + "resources" + File.separatorChar + "SPTrans_Data" + File.separatorChar + "routes.txt");
@@ -58,9 +70,20 @@ public class Main {
             MutationOperator<DoubleSolution> mutation;
             SelectionOperator<List<DoubleSolution>, DoubleSolution> selection;
 
+            /*
+            * Busca um itinerário de uma linha de ônibus utilizando o repositório.
+             */
+
             Itinerary iti = busLineRepository.getByID("423032").getItineraries().get(0);
+
             Clusters clusters = new Clustering().kMeans(10, 200);
 
+            /*
+            * walkingRadius == Raio em metros para a geração de pontos de origem e pontos de destino
+            * para passageiros simulados.
+            * localSearchRadius == Raio em metros para a realização de uma busca local na fase de mutação.
+             */
+            
             int walkingRadius = 800;
             int localSearchRadius = 2000;
 
