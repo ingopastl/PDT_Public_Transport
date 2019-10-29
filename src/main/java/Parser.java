@@ -26,11 +26,11 @@ public class Parser {
         ItineraryRepository itineraryRepository = ItineraryRepository.getInstance();
 
         busStopRepository.readStopsCSV("src" + File.separatorChar + "main" + File.separatorChar
-                + "resources" + File.separatorChar + "busData" + File.separatorChar + "stops.txt");
+                + "resources" + File.separatorChar + "SPTrans_Data" + File.separatorChar + "stops.txt");
         busLineRepository.readCSV("src" + File.separatorChar + "main" + File.separatorChar
-                + "resources" + File.separatorChar + "busData" + File.separatorChar + "routes.txt");
+                + "resources" + File.separatorChar + "SPTrans_Data" + File.separatorChar + "routes.txt");
         itineraryRepository.readCSV("src" + File.separatorChar + "main" + File.separatorChar
-                + "resources" + File.separatorChar + "busData" + File.separatorChar + "itineraries"
+                + "resources" + File.separatorChar + "SPTrans_Data" + File.separatorChar + "itineraries"
                 + File.separatorChar + "itineraries.txt");
 
         //File file = new File("planet_-46.641152988710514,-23.792320539855742_-46.53850843470361,-23.567520185337502.osm");

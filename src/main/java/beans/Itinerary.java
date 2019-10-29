@@ -225,7 +225,7 @@ public class Itinerary {
 
         JSONArray jsonArray;
         File f = new File("src" + File.separatorChar + "main" + File.separatorChar + "resources"
-                + File.separatorChar + "busData" + File.separatorChar + "itineraries" + File.separatorChar
+                + File.separatorChar + "SPTrans_Data" + File.separatorChar + "itineraries" + File.separatorChar
                 + "itinerariesJSON" + File.separatorChar + this.itineraryId + ".json");
         if (!f.exists()) {
             OsrmAPIRequester apiRequester = new OsrmAPIRequester();
@@ -321,7 +321,7 @@ public class Itinerary {
     private void readStops() throws IOException {
         BusStopRelationRepository busStopRelationRepository = BusStopRelationRepository.getInstance();
         busStopRelationRepository.readStopSequence("src" + File.separatorChar + "main" + File.separatorChar
-                + "resources" + File.separatorChar + "busData" + File.separatorChar + "itineraries"
+                + "resources" + File.separatorChar + "SPTrans_Data" + File.separatorChar + "itineraries"
                 + File.separatorChar + "stopSequence" + File.separatorChar + this.itineraryId + ".txt");
     }
 

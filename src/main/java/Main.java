@@ -4,7 +4,6 @@ import beans.Itinerary;
 
 import jmetal.*;
 
-import org.apache.http.conn.HttpHostConnectException;
 import org.uma.jmetal.solution.impl.DefaultDoubleSolution;
 import org.uma.jmetal.util.fileoutput.SolutionListOutput;
 import org.uma.jmetal.algorithm.Algorithm;
@@ -46,11 +45,11 @@ public class Main {
         ItineraryRepository itineraryRepository = ItineraryRepository.getInstance();
         try{
             busStopRepository.readStopsCSV("src" + File.separatorChar + "main" + File.separatorChar
-                    + "resources" + File.separatorChar + "busData" + File.separatorChar + "stops.txt");
+                    + "resources" + File.separatorChar + "SPTrans_Data" + File.separatorChar + "stops.txt");
             busLineRepository.readCSV("src" + File.separatorChar + "main" + File.separatorChar
-                    + "resources" + File.separatorChar + "busData" + File.separatorChar + "routes.txt");
+                    + "resources" + File.separatorChar + "SPTrans_Data" + File.separatorChar + "routes.txt");
             itineraryRepository.readCSV("src" + File.separatorChar + "main" + File.separatorChar
-                    + "resources" + File.separatorChar + "busData" + File.separatorChar + "itineraries"
+                    + "resources" + File.separatorChar + "SPTrans_Data" + File.separatorChar + "itineraries"
                     + File.separatorChar + "itineraries.txt");
 
             PTDJMetalProblem problem;
